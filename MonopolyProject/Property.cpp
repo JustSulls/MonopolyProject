@@ -19,3 +19,8 @@ Property::Property(int pr[], int rc[], colors c, std::string n, int l)
 	name = n;
 	position = l;
 }
+void Property::set_level(int setter)
+{
+	//todo: limit this
+	current_level = static_cast<level>(setter);
+}

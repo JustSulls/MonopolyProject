@@ -13,6 +13,16 @@ public:
 		green,
 		dark_blue
 	};
+	enum class level {
+		alone,
+		monopoly,
+		with_1_house,
+		with_2_houses,
+		with_3_houses,
+		with_4_houses,
+		with_hotel,
+		with_skyscraper
+	};
 	Property();
 	Property(int prices[],
 		int rent_costs[],
@@ -27,4 +37,7 @@ public:
 	int rent_costs[number_rent_costs] = { 0,0,0,0,0,0,0,0 };
 	int position;
 	int rent_cost = 0;
+	//todo:change this to enum
+	level current_level = level::alone;
+	void set_level(int setter);
 };

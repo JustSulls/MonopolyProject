@@ -492,7 +492,7 @@ void Monopoly::play_game(int num_players)
     //  --pay_rent(player, property)
     //  --send_to_jail(player)
     //  --passes go (captured in move())
-    //  --pay for upgrade to property
+    //  --upgrade_property(property)
     //end loop
 
 }
@@ -516,6 +516,12 @@ void Monopoly::upgrade_property(Property property)
 {
     //todo:
     //get player owner
+    //TODO: get player owner of property from property somehow
+    Player owner = property_player_map[property];
     //owner pays upgrade price
+    owner.pay(property.prices[0]);
     //upgrade property
+    //todo:fix this, overload operator??
+    property.current_level++;
 }
+
