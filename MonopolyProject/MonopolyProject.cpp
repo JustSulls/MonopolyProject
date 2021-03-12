@@ -8,6 +8,7 @@
 int main()
 {
     Monopoly monop;
+    
     system("pause");
     return 0;
 }

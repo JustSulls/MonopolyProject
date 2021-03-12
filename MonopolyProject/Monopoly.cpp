@@ -481,7 +481,12 @@ void Monopoly::do_general_repairs(Player player)
 void Monopoly::play_game(int num_players)
 {
     //create num players
-    //put pieces on board
+    for (short i = 0; i < num_players; i++)
+    {
+        auto s = std::to_string(i);
+        Player* p = new Player(s);
+        players.push_back(p);
+    }
     //wait for player roll
     //loop
     //playern rolls 
@@ -503,13 +508,8 @@ void Monopoly::pay_rent(Player player, Property property)
     int payment = property.rent_costs[0];
     player.pay(payment);
     //TODO: get player owner of property from property somehow
-    Player owner = property_player_map[property];
+    Player owner = property_player_map[property.name];
     owner.collect(payment);
-}
-
-void Monopoly::send_to_jail(Player player)
-{
-    player.in_jail = true;
 }
 
 void Monopoly::upgrade_property(Property property)
@@ -517,11 +517,17 @@ void Monopoly::upgrade_property(Property property)
     //todo:
     //get player owner
     //TODO: get player owner of property from property somehow
-    Player owner = property_player_map[property];
+    Player owner = property_player_map[property.name];
+    int price = property.prices[0];
     //owner pays upgrade price
-    owner.pay(property.prices[0]);
+    owner.pay(price);
     //upgrade property
     //todo:fix this, overload operator??
-    property.current_level++;
+    int current_l = static_cast<int>(property.current_level);
+    int next_l = 0;
+    if (current_l < 7)
+    {
+        next_l += current_l + 1;
+    }
+    property.set_level(next_l);
 }
-

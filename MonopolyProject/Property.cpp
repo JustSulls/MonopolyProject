@@ -22,5 +22,7 @@ Property::Property(int pr[], int rc[], colors c, std::string n, int l)
 void Property::set_level(int setter)
 {
 	//todo: limit this
-	current_level = static_cast<level>(setter);
+	if (8 > setter && setter > 0) {
+		level l = static_cast<level>(setter);
+	}
 }

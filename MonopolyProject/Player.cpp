@@ -27,7 +27,8 @@ int Player::throw_die()
 }
 bool Player::operator==(const Player& other)
 {
-	if (this->name == other.name) return true;
+	std::string n = other.name;
+	if (n == other.name) return true;
 	else return false;
 }
 int Player::decide_buy_or_pass(Property property)

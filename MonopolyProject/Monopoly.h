@@ -29,7 +29,7 @@ public:
 	int utility_positions[2] = { 12, 28};
 	
 	Monopoly();
-	
+	//init
 	void init_properties();
 	void init_railroads();
 	void init_utilities();
@@ -37,18 +37,20 @@ public:
 	void init_pieces(int num, std::vector<std::string> names);
 	void init_players(int num, std::vector<std::string> names);
 	
+	//void actions
 	void do_general_repairs(Player player);
 	void play_game(int num_players);
 	void pay_rent(Player player, Property property);
 	void send_to_jail(Player player);
 	void upgrade_property(Property property);
+	void do_card_action(Card c, Player p);
 	
 	Board board;
 	//maps for properties and utilities
 	std::map<std::string, Property> property_map;
 	std::map<std::string, Utility> utility_map;
 	std::map<std::string, Railroad> railroad_map;
-	std::map<Property, Player> property_player_map;
+	std::map<std::string, Player> property_player_map;
 	//vectors
 	std::vector<Railroad> railroads;
 	std::vector<Utility> utilities;
@@ -63,7 +65,6 @@ public:
 	void move_piece(int n, Piece piece);
 	void move_piece(Player player, Property property);	
 	void move_piece(Player player, Railroad railroad);
-	void send_to_jail(Player player);
 	void move_piece(Player player, Utility utility);
 
 	//member functions which return
@@ -78,7 +79,6 @@ public:
 	// receive cards
 	Card draw_community();
 	Card draw_chance();
-	void do_card_action(Card c, Player p);
 	// collect and pay money
 	bool passes_go(Piece p, int n);
 	//void get_money_from(Player player, int amount);	//might be able to just use the player methods.
