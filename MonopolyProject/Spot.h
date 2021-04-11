@@ -14,5 +14,6 @@ class Spot
 	};
 	SpotType spot_type;
 	Spot(SpotType s);
+	
 };
 

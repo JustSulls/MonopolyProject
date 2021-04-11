@@ -176,10 +176,12 @@ void Monopoly::init_pieces(int num, std::vector<std::string> names)
     }
 }
 
-void Monopoly::move_piece(int n, Piece piece)
+void Monopoly::move_piece(Player player, int die_cast)
 {
-    piece.position += n;
-    //TODO: make sure passes go, here? or in piece? here in monopoly class
+    int board_location_new_spot = player.piece.position + die_cast;
+    //get position type (board/railroad etc.)
+    //use board position to return spot
+    //TODO: need a way to get board spot(type varies) from int position
 }
 
 void Monopoly::move_piece(Player player, Utility utility)
@@ -487,10 +489,16 @@ void Monopoly::play_game(int num_players)
         Player* p = new Player(s);
         players.push_back(p);
     }
-    //wait for player roll
-    //loop
-    //playern rolls 
-    //playern moves based on roll
+    //loop 
+    for (int i = 0; i < players.size(); i++)
+    {
+        //wait for player roll
+        Player activePlayer = *players.at(i);
+        //playern rolls 
+        int dieRoll = activePlayer.throw_die();
+        //playern moves based on roll
+        //TODO:call move piece (figure out which ones to get rid of) 
+    }
     //playern reacts to landing
     //  --choose buy or pass
     //  --draw_card()

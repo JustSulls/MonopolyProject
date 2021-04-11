@@ -62,10 +62,10 @@ public:
 
 	// What are commands the player should be able to enter?
 	//int roll_die(); //put this in the player methods
-	void move_piece(int n, Piece piece);
 	void move_piece(Player player, Property property);	
 	void move_piece(Player player, Railroad railroad);
 	void move_piece(Player player, Utility utility);
+	void move_piece(Player player, int die_cast);
 
 	//member functions which return
 	Utility advance_to_nearest_utility(Piece piece);
