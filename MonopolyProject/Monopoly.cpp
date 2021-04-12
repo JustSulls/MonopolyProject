@@ -87,9 +87,11 @@ void Monopoly::init_properties()
             break;
         }
         //create the property
-        Property the_property(prices, rent_costs, the_color, property_name, location);
+        Property the_property(prices, rent_costs, the_color, property_name, location, Spot::SpotType::property);
+        //place properties in maps
         properties.push_back(the_property);
         property_map[property_name] = the_property;
+
     }
 }
 
@@ -176,12 +178,19 @@ void Monopoly::init_pieces(int num, std::vector<std::string> names)
     }
 }
 
+void Monopoly::init_board()
+{
+    //TODO:put properties railroads utilities etc. in board as spots
+
+}
+
 void Monopoly::move_piece(Player player, int die_cast)
 {
     int board_location_new_spot = player.piece.position + die_cast;
     //get position type (board/railroad etc.)
     //use board position to return spot
     //TODO: need a way to get board spot(type varies) from int position
+    Spot = 
 }
 
 void Monopoly::move_piece(Player player, Utility utility)
@@ -389,6 +398,11 @@ Monopoly::Monopoly()
     init_railroads();
     init_utilities();
     init_cards();
+}
+
+Spot Monopoly::get_spot(int position)
+{
+    for (int i = 0; i < )
 }
 
 Utility Monopoly::advance_to_nearest_utility(Piece piece)

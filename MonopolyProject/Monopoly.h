@@ -35,6 +35,7 @@ public:
 	void init_utilities();
 	void init_cards();
 	void init_pieces(int num, std::vector<std::string> names);
+	void init_board();
 	void init_players(int num, std::vector<std::string> names);
 	
 	//void actions
@@ -68,6 +69,7 @@ public:
 	void move_piece(Player player, int die_cast);
 
 	//member functions which return
+	Spot get_spot(int position);
 	Utility advance_to_nearest_utility(Piece piece);
 	Railroad advance_to_nearest_railroad(Piece piece);
 	//Player get_player_owner_from_utility(Utility util);

@@ -4,8 +4,9 @@ Property::Property()
 	position = 0;
 	color = Property::colors::brown;
 	name = "";
+	this->spot_type = SpotType::property;
 }
-Property::Property(int pr[], int rc[], colors c, std::string n, int l)
+Property::Property(int pr[], int rc[], colors c, std::string n, int l, SpotType type=SpotType::property)
 {
 	for (int i = 0; i < number_prices; i++)
 	{
@@ -18,6 +19,7 @@ Property::Property(int pr[], int rc[], colors c, std::string n, int l)
 	color = c;
 	name = n;
 	position = l;
+	Spot::spot_type = type;
 }
 void Property::set_level(int setter)
 {

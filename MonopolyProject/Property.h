@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-class Property
+#include "Spot.h"
+class Property: public Spot
 {
 public:
 	enum class colors {
@@ -28,7 +29,8 @@ public:
 		int rent_costs[],
 		colors c,
 		std::string name,
-		int location);
+		int location,
+		SpotType type);
 	const static int number_prices = 3;
 	const static int number_rent_costs = 8;
 	std::string name;

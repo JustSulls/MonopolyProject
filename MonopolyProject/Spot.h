@@ -1,6 +1,7 @@
 #pragma once
 class Spot
 {
+public:
 	enum class SpotType {
 		property,
 		taxes_utilities,
@@ -14,6 +15,6 @@ class Spot
 	};
 	SpotType spot_type;
 	Spot(SpotType s);
-	
+	Spot();	
 };
 
