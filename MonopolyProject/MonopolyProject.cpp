@@ -7,7 +7,7 @@
 
 int main()
 {
-    Monopoly monop;
+    Property prop;
     
     system("pause");
     return 0;

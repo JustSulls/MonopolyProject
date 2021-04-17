@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
 #include <string>
-class Railroad
+#include "Spot.h"
+class Railroad: public Spot
 {
 
 public:

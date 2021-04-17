@@ -1,13 +1,21 @@
 #include "Property.h"
-Property::Property()
+Property::Property() : Spot()
 {
 	position = 0;
 	color = Property::colors::brown;
 	name = "";
 	this->spot_type = SpotType::property;
 }
-Property::Property(int pr[], int rc[], colors c, std::string n, int l, SpotType type=SpotType::property)
+Property::Property(int pr[], 
+	int rc[], 
+	colors c, 
+	std::string n, 
+	int l, 
+	SpotType type=SpotType::property) : Spot()
 {
+	Spot::name = n;
+	Spot::position = l;
+	Spot::spot_type = type;
 	for (int i = 0; i < number_prices; i++)
 	{
 		prices[i] = pr[i];
@@ -17,9 +25,6 @@ Property::Property(int pr[], int rc[], colors c, std::string n, int l, SpotType 
 		rent_costs[i] = rc[i];
 	}
 	color = c;
-	name = n;
-	position = l;
-	Spot::spot_type = type;
 }
 void Property::set_level(int setter)
 {

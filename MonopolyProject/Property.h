@@ -33,11 +33,9 @@ public:
 		SpotType type);
 	const static int number_prices = 3;
 	const static int number_rent_costs = 8;
-	std::string name;
 	colors color;
 	int prices[number_prices] = { 0,0,0 };
 	int rent_costs[number_rent_costs] = { 0,0,0,0,0,0,0,0 };
-	int position;
 	int rent_cost = 0;
 	//todo:change this to enum
 	level current_level = level::alone;

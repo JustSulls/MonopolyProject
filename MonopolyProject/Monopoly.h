@@ -15,6 +15,7 @@
 #include "Player.h"
 #include "Piece.h"
 #include "Board.h"
+#include "Spot.h"
 
 class Monopoly
 {
@@ -48,10 +49,11 @@ public:
 	
 	Board board;
 	//maps for properties and utilities
-	std::map<std::string, Property> property_map;
-	std::map<std::string, Utility> utility_map;
-	std::map<std::string, Railroad> railroad_map;
-	std::map<std::string, Player> property_player_map;
+	std::map<std::string, Property> map_property;
+	std::map<std::string, Utility> map_utility;
+	std::map<std::string, Railroad> map_railroad;
+	std::map<std::string, Player> map_property_player;
+	std::map<uint16_t, Spot> spot_map;
 	//vectors
 	std::vector<Railroad> railroads;
 	std::vector<Utility> utilities;
@@ -69,7 +71,7 @@ public:
 	void move_piece(Player player, int die_cast);
 
 	//member functions which return
-	Spot get_spot(int position);
+	//Spot get_spot(int position);
 	Utility advance_to_nearest_utility(Piece piece);
 	Railroad advance_to_nearest_railroad(Piece piece);
 	//Player get_player_owner_from_utility(Utility util);

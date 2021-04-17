@@ -3,7 +3,9 @@ Spot::Spot()
 {
 	this->spot_type = SpotType::property;
 }
-Spot::Spot(SpotType s)
+Spot::Spot(SpotType s,  short p, std::string n)
 {
-	this->spot_type = s;
+	spot_type = s;
+	position = p;
+	name = n;
 }

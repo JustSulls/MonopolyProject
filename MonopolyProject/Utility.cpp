@@ -4,6 +4,7 @@ Utility::Utility()
 	utility_type = utility_type::Electric_Company;
 	position = 0; //bad
 	is_owned = false;
+	this->spot_type = SpotType::taxes_utilities;
 }
 Utility::Utility(int pos, std::string un)
 {

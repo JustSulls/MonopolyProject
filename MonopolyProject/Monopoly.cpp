@@ -90,7 +90,7 @@ void Monopoly::init_properties()
         Property the_property(prices, rent_costs, the_color, property_name, location, Spot::SpotType::property);
         //place properties in maps
         properties.push_back(the_property);
-        property_map[property_name] = the_property;
+        map_property[property_name] = the_property;
 
     }
 }
@@ -102,7 +102,7 @@ void Monopoly::init_railroads()
         std::string rn = railroad_names.at(i);
         Railroad r(rn);
         railroads.push_back(r);
-        railroad_map[railroad_names[i]] = r;
+        map_railroad[railroad_names[i]] = r;
     }
 }
 
@@ -113,7 +113,7 @@ void Monopoly::init_utilities()
         int pos = utility_positions[i];
         Utility the_utility(pos, utility_names[i]);
         utilities.push_back(the_utility);
-        utility_map[utility_names[i]] = the_utility;
+        map_utility[utility_names[i]] = the_utility;
     }
 }
 
@@ -181,7 +181,60 @@ void Monopoly::init_pieces(int num, std::vector<std::string> names)
 void Monopoly::init_board()
 {
     //TODO:put properties railroads utilities etc. in board as spots
-
+    Spot spot_go(Spot::SpotType::go, 0, "go");
+    Spot spot_cChest1(Spot::SpotType::community_chest, 2, "community chest 1");
+    Spot spot_cChest2(Spot::SpotType::community_chest, 17, "community chest 2");
+    Spot spot_cChest3(Spot::SpotType::community_chest, 33, "community chest 3");
+    Spot spot_chance1(Spot::SpotType::chance, 7, "chance 1");
+    Spot spot_chance2(Spot::SpotType::chance, 22, "chance 2");
+    Spot spot_chance3(Spot::SpotType::chance, 36, "chance 3");
+    Spot spot_jail(Spot::SpotType::jail, 10, "jail or just visiting");
+    Spot spot_free_parking(Spot::SpotType::free_parking, 20, "free parking");
+    Spot spot_go_to_jail(Spot::SpotType::go_to_jail, 30, "go to jail");
+    Spot tax_income(Spot::SpotType::taxes_utilities, 4, "income tax");
+    Spot utility_electric(Spot::SpotType::taxes_utilities, 12, "electic company");
+    Spot utility_water(Spot::SpotType::taxes_utilities, 28, "water works");
+    Spot tax_luxury(Spot::SpotType::taxes_utilities, 38, "luxury tax");
+    spot_map[0] = spot_go;
+    spot_map[1] = map_property["mediterranean avenue"];
+    spot_map[2] = spot_cChest1;
+    spot_map[3] = map_property["baltic avenue"];
+    spot_map[4] = tax_income;
+    spot_map[5] = map_railroad["B_0_Railroad"];
+    spot_map[6] = map_property["oriental avenue"];
+    spot_map[7] = spot_chance1;
+    spot_map[8] = map_property["vermont avenue"];
+    spot_map[9] = map_property["connecticut avenue"];
+    spot_map[10] = spot_jail;
+    spot_map[11] = map_property["st. charles place"];
+    spot_map[12] = utility_electric;
+    spot_map[13] = map_property["states avenue"];
+    spot_map[14] = map_property["virginia avenue"];
+    spot_map[15] = map_railroad["Pennsylvania_Railroad"];
+    spot_map[16] = map_property["st. james place"];
+    spot_map[17] = spot_cChest2;
+    spot_map[18] = map_property["tennessee avenue"];
+    spot_map[19] = map_property["new york avenue"];
+    spot_map[20] = spot_free_parking;
+    spot_map[21] = map_property["kentucky avenue"];
+    spot_map[22] = spot_chance2;
+    spot_map[23] = map_property["indiana avenue"];
+    spot_map[24] = map_property["illinois avenue"];
+    spot_map[25] = map_railroad["Reading_Railroad"];
+    spot_map[26] = map_property["atlantic avenue"];
+    spot_map[27] = map_property["ventnor avenue"];
+    spot_map[28] = utility_water;
+    spot_map[29] = map_property["marvin gardens"];
+    spot_map[30] = spot_go_to_jail;
+    spot_map[31] = map_property["pacific avenue"];
+    spot_map[32] = map_property["north carolina avenue"];
+    spot_map[33] = spot_cChest2;
+    spot_map[34] = map_property["pennyslvania avenue"];
+    spot_map[35] = map_railroad["Short_Line"];
+    spot_map[36] = spot_chance3;
+    spot_map[37] = map_property["park place"];
+    spot_map[38] = tax_luxury;
+    spot_map[39] = map_property["boardwalk"];
 }
 
 void Monopoly::move_piece(Player player, int die_cast)
@@ -190,7 +243,7 @@ void Monopoly::move_piece(Player player, int die_cast)
     //get position type (board/railroad etc.)
     //use board position to return spot
     //TODO: need a way to get board spot(type varies) from int position
-    Spot = 
+    //Spot = 
 }
 
 void Monopoly::move_piece(Player player, Utility utility)
@@ -248,10 +301,10 @@ void Monopoly::do_card_action(Card c, Player player)
         break;
     case 2:
         //Advance to Illinois Avenue. If you pass GO  collect $200.
-        move_piece(player, property_map["Illinois Avenue"]);
+        move_piece(player, map_property["Illinois Avenue"]);
         break;
     case 3:
-        move_piece(player, property_map["St. Charles Place"]);
+        move_piece(player, map_property["St. Charles Place"]);
         break;
     case 4:
         //Advance token to nearest Utility. If unowned 
@@ -336,7 +389,7 @@ void Monopoly::do_card_action(Card c, Player player)
         break;
     case 12:
         //go to reading railroad, if pass go collect 200
-        move_piece(player, railroad_map["Reading Railroad"]);
+        move_piece(player, map_railroad["Reading Railroad"]);
         break;
     }
 }
@@ -400,10 +453,10 @@ Monopoly::Monopoly()
     init_cards();
 }
 
-Spot Monopoly::get_spot(int position)
-{
-    for (int i = 0; i < )
-}
+//Spot Monopoly::get_spot(int position)
+//{
+//    for (int i = 0; i < )
+//}
 
 Utility Monopoly::advance_to_nearest_utility(Piece piece)
 {
@@ -530,7 +583,7 @@ void Monopoly::pay_rent(Player player, Property property)
     int payment = property.rent_costs[0];
     player.pay(payment);
     //TODO: get player owner of property from property somehow
-    Player owner = property_player_map[property.name];
+    Player owner = map_property_player[property.name];
     owner.collect(payment);
 }
 
@@ -539,7 +592,7 @@ void Monopoly::upgrade_property(Property property)
     //todo:
     //get player owner
     //TODO: get player owner of property from property somehow
-    Player owner = property_player_map[property.name];
+    Player owner = map_property_player[property.name];
     int price = property.prices[0];
     //owner pays upgrade price
     owner.pay(price);

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 class Spot
 {
 public:
@@ -14,7 +15,8 @@ public:
 		go_to_jail
 	};
 	SpotType spot_type;
-	Spot(SpotType s);
-	Spot();	
+	Spot(SpotType s, short p, std::string n);
+	Spot();
+	std::string name;
+	short position;
 };
-

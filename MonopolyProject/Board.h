@@ -11,4 +11,3 @@ public:
 	Board();
 	std::vector<int> positions;
 };
-
