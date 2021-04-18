@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Spot.h"
+
 class Property: public Spot
 {
 public:

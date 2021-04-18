@@ -239,11 +239,24 @@ void Monopoly::init_board()
 
 void Monopoly::move_piece(Player player, int die_cast)
 {
-    int board_location_new_spot = player.piece.position + die_cast;
+    int old_position = player.piece.position;
+    int new_position = player.piece.position + die_cast;
+    if (new_position > 39)
+    {
+        new_position = new_position - 39;
+    }
     //get position type (board/railroad etc.)
     //use board position to return spot
-    //TODO: need a way to get board spot(type varies) from int position
-    //Spot = 
+    Spot the_spot = spot_map[new_position];
+    //set spot's piece to the piece
+    the_spot.piece = &player.piece;
+    //move piece to new spot
+    player.piece.position = new_position;
+    //check if pass go and pay.
+    if (passes_go(player.piece, new_position - old_position))
+    {
+        player.collect(200);
+    }
 }
 
 void Monopoly::move_piece(Player player, Utility utility)
@@ -252,12 +265,15 @@ void Monopoly::move_piece(Player player, Utility utility)
     int old_position = player.piece.position;
     // move piece to new property
     int new_position = utility.position;
+    //use board position to return spot
+    Spot the_spot = spot_map[new_position];
+    //set spot's piece to the piece
+    the_spot.piece = &player.piece;
     //check if pass go and pay.
     player.piece.position = new_position;
     if (passes_go(player.piece, new_position - old_position))
     {
-        //make monopoly function to get player from piece?
-
+        player.collect(200);
     }
 }
 
@@ -267,26 +283,42 @@ void Monopoly::move_piece(Player player, Property property)
     int old_position = player.piece.position;
     // move piece to new property
     int new_position = property.position;
+    //use board position to return spot
+    Spot the_spot = spot_map[new_position];
+    //set spot's piece to the piece
+    the_spot.piece = &player.piece;
     //check if pass go and pay.
     player.piece.position = new_position;
     if (passes_go(player.piece, new_position - old_position))
     {
         //make monopoly function to get player from piece?
-
+        player.collect(200);
     }
 }
 
 void Monopoly::move_piece(Player player, Railroad railroad)
 {
-
+    short old_position = player.piece.position;
+    short new_position = railroad.position;
+    //use board position to return spot
+    Spot the_spot = spot_map[new_position];
+    //set spot's piece to the piece
+    the_spot.piece = &player.piece;
+    player.piece.position = new_position;
+    if (passes_go(player.piece, new_position - old_position))
+    {
+        //make monopoly function to get player from piece?
+        player.collect(200);
+    }
 }
 
 bool Monopoly::passes_go(Piece piece, int n)
 {
     //TODO::confirm this 
-    // if moved past go, give player 200.
-    if ((piece.position + n) > board.LAST_BOARD_POSITION){
-    return true; }
+    if ((piece.position + n) > board.LAST_BOARD_POSITION)
+    {
+        return true; 
+    }
     else return false;
 }
 
@@ -453,10 +485,10 @@ Monopoly::Monopoly()
     init_cards();
 }
 
-//Spot Monopoly::get_spot(int position)
-//{
-//    for (int i = 0; i < )
-//}
+Spot Monopoly::get_spot(int position)
+{
+    return spot_map[position];
+}
 
 Utility Monopoly::advance_to_nearest_utility(Piece piece)
 {

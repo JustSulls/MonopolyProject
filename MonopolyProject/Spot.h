@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include "Piece.h"
+
 class Spot
 {
 public:
@@ -19,4 +21,5 @@ public:
 	Spot();
 	std::string name;
 	short position;
+	Piece* piece;
 };

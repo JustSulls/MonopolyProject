@@ -4,12 +4,13 @@
 #include "CSV.h"
 #include <iostream>
 #include "Monopoly.h"
-
+#include<iterator> // for iterators
+#include<vector> // for vectors
+using namespace std;
 int main()
 {
-    Property prop;
     
-    system("pause");
+
     return 0;
 }
 

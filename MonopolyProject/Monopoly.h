@@ -71,7 +71,7 @@ public:
 	void move_piece(Player player, int die_cast);
 
 	//member functions which return
-	//Spot get_spot(int position);
+	Spot get_spot(int position);
 	Utility advance_to_nearest_utility(Piece piece);
 	Railroad advance_to_nearest_railroad(Piece piece);
 	//Player get_player_owner_from_utility(Utility util);

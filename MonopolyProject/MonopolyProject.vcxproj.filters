@@ -53,9 +53,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Spot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Property.h">
       <Filter>Header Files</Filter>
     </ClInclude>
