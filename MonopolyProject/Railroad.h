@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 #include <string>
-class Railroad
+#include "Spot.h"
+
+class Railroad: public Spot
 {
 
 public:
@@ -17,7 +19,6 @@ public:
 	//member variables
 	const static short cost = 200;
 	railroad_types railroad_type;
-	int position;
 	bool is_owned;
 	//member functions
 	int get_landed_cost();

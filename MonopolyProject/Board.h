@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include "Property.h"
 
 class Board
 {
@@ -11,4 +10,3 @@ public:
 	Board();
 	std::vector<int> positions;
 };
-

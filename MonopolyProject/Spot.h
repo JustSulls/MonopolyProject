@@ -1,7 +1,11 @@
 #pragma once
+#include <string>
+
 class Spot
 {
-	enum class SpotType {
+public:
+	//const enum
+	const enum class SpotType {
 		property,
 		taxes_utilities,
 		railroad,
@@ -12,8 +16,13 @@ class Spot
 		go,
 		go_to_jail
 	};
-	SpotType spot_type;
-	Spot(SpotType s);
-	
-};
 
+	//member variables
+	SpotType spot_type;
+	std::string name;
+	int position;
+
+	//constructors
+	Spot(SpotType s, int p, std::string n);
+	Spot();
+};

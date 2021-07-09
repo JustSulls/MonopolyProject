@@ -1,7 +1,8 @@
 #pragma once
 #include<string>
+#include "Spot.h"
 
-class Utility
+class Utility : public Spot
 {
 public:
 	enum class utility_type {

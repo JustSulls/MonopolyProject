@@ -1,15 +1,18 @@
 #include "Utility.h"
-Utility::Utility()
+Utility::Utility() : Spot()
 {
 	utility_type = utility_type::Electric_Company;
 	position = 0; //bad
 	is_owned = false;
+	this->spot_type = Spot::SpotType::taxes_utilities;
 }
-Utility::Utility(int pos, std::string un)
+Utility::Utility(int pos, std::string un) : Spot()
 {
-	if (un == utility_names[0]){
+	if (un == utility_names[0])
+	{
 		utility_type = utility_type::Electric_Company;
-	} else {
+	} else 
+	{
 		utility_type = utility_type::Water_Works;
 	}
 	position = pos;

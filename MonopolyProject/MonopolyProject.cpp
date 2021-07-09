@@ -1,15 +1,16 @@
 // MonopolyProject.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "CSV.h"
 #include <iostream>
+#include<iterator> // for iterators
+#include<vector> // for vectors
 #include "Monopoly.h"
 
+using namespace std;
 int main()
 {
-    Monopoly monop;
-    
-    system("pause");
+    Monopoly monopoly;
+    monopoly.play_game();
     return 0;
 }
 

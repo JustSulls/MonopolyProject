@@ -1,20 +1,21 @@
 #include "Piece.h"
 
-Piece::Piece(std::string n)
-{
-	//put piece on board
-	name = n;
-	position = 0;
-}
 Piece::Piece()
 {
+	position = 0;
+	piece = static_cast<pieces>(0);
+}
+
+Piece::Piece(int type)
+{
 	//put piece on board
 	position = 0;
-	name = "default";
+
+	//TODO: range check
+	piece = static_cast<pieces>(type);
 }
-bool Piece::operator==(const Piece& other)
+
+Piece::Piece(std::string s)
 {
-	std::string n = this->name;
-	if (n == other.name) return true;
-	else return false;
+	name = s;
 }

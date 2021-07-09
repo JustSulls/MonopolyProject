@@ -18,16 +18,7 @@
     <ClCompile Include="MonopolyProject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Spot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Property.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Piece.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Board.cpp">
@@ -36,33 +27,33 @@
     <ClCompile Include="Die.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Railroad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Monopoly.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utility.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Card.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CSV.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Property.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Spot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Monopoly.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Railroad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Spot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Property.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Piece.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Board.h">
@@ -71,19 +62,28 @@
     <ClInclude Include="Die.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Railroad.h">
+    <ClInclude Include="Card.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSV.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Property.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Spot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Monopoly.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Railroad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Card.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CSV.h">
+    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
