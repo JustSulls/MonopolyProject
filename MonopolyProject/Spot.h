@@ -1,11 +1,11 @@
 #pragma once
 #include <string>
-#include "Piece.h"
 
 class Spot
 {
 public:
-	enum class SpotType {
+	//const enum
+	const enum class SpotType {
 		property,
 		taxes_utilities,
 		railroad,
@@ -16,10 +16,13 @@ public:
 		go,
 		go_to_jail
 	};
+
+	//member variables
 	SpotType spot_type;
-	Spot(SpotType s, short p, std::string n);
-	Spot();
 	std::string name;
-	short position;
-	Piece* piece;
+	int position;
+
+	//constructors
+	Spot(SpotType s, int p, std::string n);
+	Spot();
 };

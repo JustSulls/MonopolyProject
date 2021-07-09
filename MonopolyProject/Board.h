@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include "Property.h"
 
 class Board
 {

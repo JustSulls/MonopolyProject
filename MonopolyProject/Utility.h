@@ -1,6 +1,7 @@
 #pragma once
 #include<string>
 #include "Spot.h"
+
 class Utility : public Spot
 {
 public:

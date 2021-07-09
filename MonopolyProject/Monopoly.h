@@ -16,44 +16,50 @@
 #include "Piece.h"
 #include "Board.h"
 #include "Spot.h"
+#include "Piece.h"
+
+#include <algorithm>
+#include <random>
 
 class Monopoly
 {
+private:
+	//init
+	void init_properties();
+	void init_railroads();
+	void init_utilities();
+	void init_cards();
+	void init_board();
+	void init_pieces(int num, std::vector<std::string> names);
+	void init_players(int num);
 public:
+	Monopoly(int number_players = 2);
+	//game commands from player's perspective:
+	//todo: check what you need to return from these game moving command functions
+	//pick piece
+	int pick_piece(Player player);
+	//start game
+	//roll die
+	int die_roll(Player player);
+	//decide buy or pass
+	bool decide_buy_or_pass(Property prop, Player player);
+	bool decide_buy_or_pass(Utility util, Player player);
+	bool decide_buy_or_pass(Railroad rail, Player player);
+	//decide upgrade
+	bool decide_upgrade(Property prop, Player player);
+	//constants
 	const std::vector<std::string> railroad_names = {
 		"B_0_Railroad",
 		"Pennsylvania_Railroad",
 		"Reading_Railroad",
 		"Short_Line"
 	};
-	std::string utility_names[2] = { "Electric_Company", "Water_Works" };
-	int utility_positions[2] = { 12, 28};
-	
-	Monopoly();
-	//init
-	void init_properties();
-	void init_railroads();
-	void init_utilities();
-	void init_cards();
-	void init_pieces(int num, std::vector<std::string> names);
-	void init_board();
-	void init_players(int num, std::vector<std::string> names);
-	
-	//void actions
-	void do_general_repairs(Player player);
-	void play_game(int num_players);
-	void pay_rent(Player player, Property property);
-	void send_to_jail(Player player);
-	void upgrade_property(Property property);
-	void do_card_action(Card c, Player p);
-	
+	const std::string utility_names[2] = { "Electric_Company", 
+		"Water_Works" };
+	const int utility_positions[2] = { 12, 28};
+	const int position_jail = 20;
+	//the board
 	Board board;
-	//maps for properties and utilities
-	std::map<std::string, Property> map_property;
-	std::map<std::string, Utility> map_utility;
-	std::map<std::string, Railroad> map_railroad;
-	std::map<std::string, Player> map_property_player;
-	std::map<uint16_t, Spot> spot_map;
 	//vectors
 	std::vector<Railroad> railroads;
 	std::vector<Utility> utilities;
@@ -62,30 +68,46 @@ public:
 	std::vector<Card> community_cards;
 	std::vector<Player*> players;
 	std::vector<Property> properties;
-
-	// What are commands the player should be able to enter?
-	//int roll_die(); //put this in the player methods
-	void move_piece(Player player, Property property);	
-	void move_piece(Player player, Railroad railroad);
-	void move_piece(Player player, Utility utility);
-	void move_piece(Player player, int die_cast);
-
+	std::vector<Piece> pieces;
 	//member functions which return
 	Spot get_spot(int position);
 	Utility advance_to_nearest_utility(Piece piece);
 	Railroad advance_to_nearest_railroad(Piece piece);
-	//Player get_player_owner_from_utility(Utility util);
-	int get_railroad_rent(Railroad rail);
-	// decide to buy or pass property
-	bool decide_buy_or_pass(Property prop, Player player);
-	bool decide_buy_or_pass(Utility util, Player player);
-	bool decide_buy_or_pass(Railroad rail, Player player);
-	// receive cards
+	//receive cards
 	Card draw_community();
 	Card draw_chance();
-	// collect and pay money
+	int get_railroad_rent(Railroad rail);
+	//pass go
 	bool passes_go(Piece p, int n);
-	//void get_money_from(Player player, int amount);	//might be able to just use the player methods.
-	//void give_money_to(Player player, int amount);	
+	//game over
+	bool game_over = false;
+	//void actions
+	//do general repairs
+	void do_general_repairs(Player player);
+	//play game
+	void play_game();
+	//pay rent
+	void pay_rent(Player player, Property property);
+	void pay_rent(Player player, Railroad railroad);
+	void pay_utilities(Player player, Utility utility);
+	//send to jail
+	void send_to_jail(Player player);
+	//upgrade property
+	void upgrade_property(Property property);
+	//do card action
+	void do_card_action(Card c, Player p);
+	//do spot action
+	void do_spot_action(Spot the_spot, Player activePlayer);
+	void send_player_to_jail(Player p);
+	//move
+	void move_piece(Player player, int die_cast);
+	void move_piece(Player player, Spot pSpot);
+	Property get_property(int pos);
+	//maps for properties and utilities
+	std::map<std::string, Property> map_property;
+	std::map<std::string, Utility> map_utility;
+	std::map<std::string, Railroad> map_railroad;
+	std::map<std::string, Player> mapSpotNameGetOwner;
+	std::map<uint16_t, Spot> mapPositionGetSpot;
 };
 

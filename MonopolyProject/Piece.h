@@ -4,9 +4,14 @@ class Piece
 {
 public:
 	Piece();
-	Piece(std::string name);
-	std::string name;
+	Piece(int);
+	Piece(std::string);
+	enum class pieces{
+		Destroyer,
+		Mercedes
+	};
+	pieces piece;
 	unsigned short position;
-	bool operator==(const Piece& other);
+	std::string name;
 };
 

@@ -31,7 +31,7 @@ public:
 		colors c,
 		std::string name,
 		int location,
-		SpotType type);
+		Spot::SpotType type);
 	const static int number_prices = 3;
 	const static int number_rent_costs = 8;
 	colors color;
@@ -41,4 +41,5 @@ public:
 	//todo:change this to enum
 	level current_level = level::alone;
 	void set_level(int setter);
+	bool is_owned;	
 };

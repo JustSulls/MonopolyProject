@@ -1,11 +1,15 @@
 #include "Spot.h"
 Spot::Spot()
 {
-	this->spot_type = SpotType::property;
+	spot_type = SpotType::property;
+	name = "";
+	position = -1;
 }
-Spot::Spot(SpotType s,  short p, std::string n)
+Spot::Spot(SpotType s= SpotType::property, 
+	int p=-1, 
+	std::string n="")
 {
 	spot_type = s;
-	position = p;
 	name = n;
+	position = p;
 }

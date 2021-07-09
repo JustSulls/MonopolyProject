@@ -25,8 +25,27 @@ public:
 
 	void collect(int amount);
 	void pay(int amount);
+	bool buy_property(Property prop);
+	bool buy_railroad(Railroad rail);
+	bool buy_utility(Utility utility);
+	std::vector<Property>property_upgrades_available();
 	int throw_die();
 	//void assign_ownership(Property property);
 	int decide_buy_or_pass(Property property);
+	int decide_upgrade(Property prop);
+	int pick_piece();
 	bool operator==(const Player& other);
+
+private:
+	//temp
+	struct maxColorCounts {
+		int maxDarkBlue = 2;
+		int maxGreen = 3;
+		int maxYellow = 3;
+		int maxRed = 3;
+		int maxOrange = 3;
+		int maxPink = 3;
+		int maxLightBlue = 3;
+		int maxBrown = 2;
+	}ColorCount;
 };

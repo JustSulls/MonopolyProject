@@ -6,7 +6,7 @@ Railroad::Railroad() : Spot()
     is_owned = false;
     this->spot_type = SpotType::railroad;
 }
-Railroad::Railroad(std::string name)
+Railroad::Railroad(std::string name) : Spot()
 {
 
     if (name == "B_0_Railroad") {
