@@ -17,6 +17,10 @@ Utility::Utility(int pos, std::string un) : Spot()
 	}
 	position = pos;
 	is_owned = false;
+	//parent class members (Spot)
+	Spot::spot_type = SpotType::taxes_utilities;
+	Spot::name = un;
+	Spot::position = pos;
 }
 
 int Utility::get_landed_cost()

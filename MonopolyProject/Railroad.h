@@ -22,5 +22,6 @@ public:
 	bool is_owned;
 	//member functions
 	int get_landed_cost();
+	int railroad_positions[4] = { 5, 15, 25, 35 };
 };
 

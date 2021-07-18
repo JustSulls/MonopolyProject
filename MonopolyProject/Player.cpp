@@ -1,28 +1,70 @@
 #include "Player.h"
 Player::Player()
 {
-	name = "";
-	money = 0;
+	name = "default";
+	money = 1500;
 }
 Player::Player(std::string n)
 {
 	name = n;
-	money = 0;
+	money = 1500;
 }
 void Player::collect(int amount)
 {
 	money += amount;
+	std::cout << name << " collects " << amount << ".\n";
 }
 void Player::pay(int amount)
 {
 	money -= amount;
+	std::cout << name << " pays " << amount << ".\n";
 }
-bool Player::buy_property(Property prop)
+void Player::do_street_repairs()
+{
+	//Pay $40 per houseand $115 per hotel you own.
+	unsigned int num_houses = 0;
+	unsigned int num_hotels = 0;
+	for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+	{
+		int l = static_cast<int>(properties_owned[i]->current_level);
+		if (l > 1)
+		{
+			num_houses += l - 1;//check property level enum 1!=1
+			if (l == 6)//hotel 
+			{
+				num_hotels += 1;
+			}
+		}
+	}
+	unsigned int payment = ((40 * num_houses) + (115 * num_hotels));
+	pay(payment);
+}
+void Player::do_general_repairs()
+{
+	//make repairs, for each house pay 25 for each hotel pay 100
+	unsigned int num_houses = 0;
+	unsigned int num_hotels = 0;
+	for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+	{
+		int l = static_cast<int>(properties_owned[i]->current_level);
+		if (l > 1)
+		{
+			num_houses += l - 1;//check property level enum 1!=1
+			if (l == 6)//hotel 
+			{
+				num_hotels += 1;
+			}
+		}
+	}
+	int payment = (25 * num_houses) + (100 * num_hotels);
+}
+bool Player::buy_property(Property* prop)
 {
 	try {
-		this->pay(prop.prices[0]);//printed price is prices[0]
-		this->properties_owned.push_back(prop);
-		prop.is_owned = true;
+		pay(prop->prices[0]);//printed price is prices[0]
+		prop->is_owned = true;
+		properties_owned.push_back(prop);
+		std::cout << name << " now owns " << prop->name << ".\n";
 		return true;
 	}
 	catch (const std::invalid_argument& ia) {
@@ -30,11 +72,12 @@ bool Player::buy_property(Property prop)
 	}
 	return false;
 }
-bool Player::buy_railroad(Railroad rail)
+bool Player::buy_railroad(Railroad& rail)
 {
 	try {
-		this->pay(rail.cost);//printed price is prices[0]
-		this->railroads_owned.push_back(rail);
+		pay(rail.cost);//printed price is prices[0]
+		railroads_owned.push_back(&rail);
+		std::cout << name << " now owns " << rail.name << ".\n";
 		rail.is_owned = true;
 		return true;
 	}
@@ -43,11 +86,11 @@ bool Player::buy_railroad(Railroad rail)
 	}
 	return false;
 }
-bool Player::buy_utility(Utility utility)
+bool Player::buy_utility(Utility& utility)
 {
 	try {
-		this->pay(utility.cost);//printed price is prices[0]
-		this->utilities_owned.push_back(utility);
+		pay(utility.cost);//printed price is prices[0]
+		utilities_owned.push_back(&utility);
 		utility.is_owned = true;
 		return true;
 	}
@@ -56,17 +99,17 @@ bool Player::buy_utility(Utility utility)
 	}
 	return false;
 }
-std::vector<Property> Player::property_upgrades_available()
+std::vector<Property*> Player::property_upgrades_available()
 {
-	std::vector<Property>return_properties;
+	std::vector<Property*>return_properties;
 	if (!properties_owned.empty())
 	{
 		std::vector<Property::colors> vColorHolder;
 		for (int i = 0; i < properties_owned.size() - 1; i++)
 		{
-			if (properties_owned[i].current_level < Property::level::with_skyscraper)	//if not already maxxed
+			if (properties_owned[i]->current_level < Property::level::with_skyscraper)	//if not already maxxed
 			{
-				vColorHolder.push_back(properties_owned[i].color);
+				vColorHolder.push_back(properties_owned[i]->color);
 			}
 		}
 		if (!vColorHolder.empty())
@@ -94,7 +137,7 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (int i = 0; i < properties_owned.size() - 1; i++)
 				{
-					if (properties_owned[i].color == Property::colors::brown)	//if not already maxxed
+					if (properties_owned[i]->color == Property::colors::brown)	//if not already maxxed
 					{
 						return_properties.push_back(properties_owned[i]);
 					}
@@ -104,7 +147,7 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (int i = 0; i < properties_owned.size() - 1; i++)
 				{
-					if (properties_owned[i].color == Property::colors::light_blue)	//if not already maxxed
+					if (properties_owned[i]->color == Property::colors::light_blue)	//if not already maxxed
 					{
 						return_properties.push_back(properties_owned[i]);
 					}
@@ -114,7 +157,7 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (int i = 0; i < properties_owned.size() - 1; i++)
 				{
-					if (properties_owned[i].color == Property::colors::pink)	//if not already maxxed
+					if (properties_owned[i]->color == Property::colors::pink)	//if not already maxxed
 					{
 						return_properties.push_back(properties_owned[i]);
 					}
@@ -124,7 +167,7 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (int i = 0; i < properties_owned.size() - 1; i++)
 				{
-					if (properties_owned[i].color == Property::colors::orange)	//if not already maxxed
+					if (properties_owned[i]->color == Property::colors::orange)	//if not already maxxed
 					{
 						return_properties.push_back(properties_owned[i]);
 					}
@@ -134,7 +177,7 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (int i = 0; i < properties_owned.size() - 1; i++)
 				{
-					if (properties_owned[i].color == Property::colors::red)	//if not already maxxed
+					if (properties_owned[i]->color == Property::colors::red)	//if not already maxxed
 					{
 						return_properties.push_back(properties_owned[i]);
 					}
@@ -144,7 +187,7 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (int i = 0; i < properties_owned.size() - 1; i++)
 				{
-					if (properties_owned[i].color == Property::colors::yellow)	//if not already maxxed
+					if (properties_owned[i]->color == Property::colors::yellow)	//if not already maxxed
 					{
 						return_properties.push_back(properties_owned[i]);
 					}
@@ -154,7 +197,7 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (int i = 0; i < properties_owned.size() - 1; i++)
 				{
-					if (properties_owned[i].color == Property::colors::green)	//if not already maxxed
+					if (properties_owned[i]->color == Property::colors::green)	//if not already maxxed
 					{
 						return_properties.push_back(properties_owned[i]);
 					}
@@ -164,7 +207,7 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (int i = 0; i < properties_owned.size() - 1; i++)
 				{
-					if (properties_owned[i].color == Property::colors::dark_blue)	//if not already maxxed
+					if (properties_owned[i]->color == Property::colors::dark_blue)	//if not already maxxed
 					{
 						return_properties.push_back(properties_owned[i]);
 					}
@@ -174,15 +217,15 @@ std::vector<Property> Player::property_upgrades_available()
 	}
 	else
 	{
-	return return_properties;
- }
+		return return_properties;
+	}
 }
 int Player::throw_die()
 {
 	int ran;
 	srand(time(NULL));
 	ran = rand() % 6 + 1;
-	std::cout << "You rolled a " << ran << "." << std::endl;
+	std::cout << name << " rolled a " << ran << "." << std::endl;
 	return ran;
 }
 bool Player::operator==(const Player& other)
@@ -191,18 +234,46 @@ bool Player::operator==(const Player& other)
 	if (n == other.name) return true;
 	else return false;
 }
+bool Player::operator!=(const Player& other)
+{
+	std::string n = other.name;
+	if (n != other.name) return true;	//todo:elaborate
+	return false;
+}
 int Player::decide_buy_or_pass(Property property)
 {
 	//present options to player, bounds check answer, return it	
 	int i = -1;
 	while (i > 1 || i < 0)
 	{
-		std::cout << "Decide to buy or pass" << property.name << ": [0] no, [1] yes?\n";
+		std::cout << name << " decide to buy or pass " << property.name << " for " <<
+			property.prices[0] << " [0] no, [1] yes?\n";
 		std::cin >> i;
 	}
 	return i;
 }
-
+int Player::decide_buy_or_pass(Railroad railroad)
+{
+	int i = -1;
+	while (i > 1 || i < 0)
+	{
+		std::cout << name << " decide to buy or pass " << railroad.name << " for " <<
+			railroad.cost << " [0] no, [1] yes?\n";
+		std::cin >> i;
+	}
+	return i;
+}
+int Player::decide_buy_or_pass(Utility utility)
+{
+	int i = -1;
+	while (i > 1 || i < 0)
+	{
+		std::cout << name << " decide to buy or pass " << utility.name << " for " <<
+			utility.cost << " [0] no, [1] yes?\n";
+		std::cin >> i;
+	}
+	return i;
+}\
 int Player::decide_upgrade(Property prop)
 {
 	//present options to player, bounds check answer, return it
@@ -214,7 +285,6 @@ int Player::decide_upgrade(Property prop)
 	}
 	return i;
 }
-
 int Player::pick_piece()
 {
 	//present options to player, bounds check answer, return it

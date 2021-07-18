@@ -13,5 +13,6 @@ public:
 	short id;
 	card_type type;
 	Card(std::string txt, card_type ct, short i);
+	Card();
 };
 

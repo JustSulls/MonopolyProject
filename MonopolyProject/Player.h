@@ -16,25 +16,28 @@ public:
 	int money;
 	bool has_get_out_of_jail_card = false;
 	bool in_jail = false;
-	int number_of_houses = 0;
-	int number_of_hotels = 0;
 
-	std::vector<Property>properties_owned;
-	std::vector<Utility>utilities_owned;
-	std::vector<Railroad>railroads_owned;
+	std::vector<Property*>properties_owned;
+	std::vector<Utility*>utilities_owned;
+	std::vector<Railroad*>railroads_owned;
 
 	void collect(int amount);
 	void pay(int amount);
-	bool buy_property(Property prop);
-	bool buy_railroad(Railroad rail);
-	bool buy_utility(Utility utility);
-	std::vector<Property>property_upgrades_available();
+	void do_street_repairs(); 
+	void do_general_repairs();
+	bool buy_property(Property* prop);
+	bool buy_railroad(Railroad& rail);
+	bool buy_utility(Utility& utility);
+	std::vector<Property*>property_upgrades_available();
 	int throw_die();
 	//void assign_ownership(Property property);
 	int decide_buy_or_pass(Property property);
+	int decide_buy_or_pass(Railroad railroad);
+	int decide_buy_or_pass(Utility utility);
 	int decide_upgrade(Property prop);
 	int pick_piece();
 	bool operator==(const Player& other);
+	bool operator!=(const Player& other);
 
 private:
 	//temp
