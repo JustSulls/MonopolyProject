@@ -30,8 +30,3 @@ Railroad::Railroad(std::string name) : Spot()
     Spot::name = name;
     Spot::position = position;
 }
-int Railroad::get_landed_cost()
-{
-	//TODO: fix
-	return 1;
-}

@@ -4,7 +4,7 @@ Utility::Utility() : Spot()
 	utility_type = utility_type::Electric_Company;
 	position = 0; //bad
 	is_owned = false;
-	this->spot_type = Spot::SpotType::taxes_utilities;
+	this->spot_type = Spot::SpotType::utilities;
 }
 Utility::Utility(int pos, std::string un) : Spot()
 {
@@ -18,7 +18,7 @@ Utility::Utility(int pos, std::string un) : Spot()
 	position = pos;
 	is_owned = false;
 	//parent class members (Spot)
-	Spot::spot_type = SpotType::taxes_utilities;
+	Spot::spot_type = SpotType::utilities;
 	Spot::name = un;
 	Spot::position = pos;
 }

@@ -7,14 +7,15 @@ public:
 	//const enum
 	const enum class SpotType {
 		property,
-		taxes_utilities,
+		utilities,
 		railroad,
 		free_parking,
 		chance,
 		community_chest,
 		jail,
 		go,
-		go_to_jail
+		go_to_jail,
+		taxes
 	};
 
 	//member variables

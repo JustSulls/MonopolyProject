@@ -61,6 +61,11 @@ void Player::do_general_repairs()
 bool Player::buy_property(Property* prop)
 {
 	try {
+		if (prop->is_owned)
+		{
+			std::cout << prop->name << " already owned.\n";
+			return false;
+		}
 		pay(prop->prices[0]);//printed price is prices[0]
 		prop->is_owned = true;
 		properties_owned.push_back(prop);
