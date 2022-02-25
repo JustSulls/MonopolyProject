@@ -1,11 +1,25 @@
 #pragma once
 #include <string>
 #include <map>
+
+namespace npiece
+{
+	static const uint16_t NUMBER_PIECES = 6;
+	const std::string enum_str[NUMBER_PIECES] =
+	{
+		"Battleship",
+		"Boot",
+		"Cannon",
+		"Thimble",
+		"TopHat",
+		"Iron"
+	};
+}
 class Piece
 {
 public:
-	Piece(int which=0);
-	enum class pieces{
+	Piece(int which = 0);
+	enum class pieces {
 		Battleship,
 		Boot,
 		Cannon,
@@ -16,6 +30,7 @@ public:
 	int position();
 	void movePosition(int new_position);
 	std::string str();
+	static void presentPieceOptions();
 
 private:
 	std::map<pieces, std::string> piece_map{
@@ -26,6 +41,8 @@ private:
 		{pieces::TopHat, "TopHat"},
 		{pieces::Iron, "Iron"}
 	};
+
 	int _position;
 };
+
 

@@ -119,7 +119,6 @@ namespace testNamespace
 
 	TEST(PieceCase, BasicPiece)
 	{
-		Piece p;
-		std::cout << p.str();
+		
 	}
 }

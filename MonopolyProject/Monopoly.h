@@ -23,7 +23,7 @@
 
 class Monopoly
 {
-private:
+public://todo:make private
 	Board board;
 	//init
 	void init_properties();
@@ -31,13 +31,14 @@ private:
 	void init_utilities();
 	void init_cards();
 	void init_board();
-	void init_pieces(int num, std::vector<std::string> names);
+	//init all 6 piece tokens to be used by any number of players once game starts
+	void init_pieces();
 	void init_players(int num);
 	int die_roll;
 
 public:
 	Monopoly(int number_players = 2);
-	//int pick_piece(Player& player);
+	int pick_piece(Player& player);
 	int throw_die(Player player);	
 
 	//member functions which return

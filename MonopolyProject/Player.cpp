@@ -260,9 +260,10 @@ int Player::pick_piece()
 {
 	//present options to player, bounds check answer, return it
 	int i = -1;
-	while (i > 1 || i < 0)
+	while (i > npiece::NUMBER_PIECES - 1 || i < 0)
 	{
-		std::cout << "Pick piece: [0] Destroyer, [1] Mercedes?\n";
+		std::cout << "Pick piece: \n";
+		Piece::presentPieceOptions();
 		std::cin >> i;
 	}
 	return i;

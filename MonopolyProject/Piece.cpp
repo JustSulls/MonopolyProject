@@ -1,4 +1,5 @@
 #include "Piece.h"
+#include <iostream>
 
 Piece::Piece(int which)
 {
@@ -20,4 +21,19 @@ void Piece::movePosition(int new_position)
 std::string Piece::str()
 {
 	return piece_map[piece];
+}
+
+void Piece::presentPieceOptions()
+{
+	//for (auto const& x : symbolTable)
+	//{
+	//	std::cout << x.first  // string (key)
+	//		<< ':'
+	//		<< x.second // string's value 
+	//		<< std::endl;
+	//}
+	for (uint16_t i = 0; i < npiece::NUMBER_PIECES; i++)
+	{
+		std::cout << "[" << i << "] " << npiece::enum_str[i] << std::endl;
+	}
 }

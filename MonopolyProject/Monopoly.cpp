@@ -209,8 +209,13 @@ void Monopoly::init_board()
 	spots.push_back(tax_luxury);
 }
 
-void Monopoly::init_pieces(int num, std::vector<std::string> names)
+void Monopoly::init_pieces()
 {
+	for (uint16_t i = 0; i < npiece::NUMBER_PIECES; i++)
+	{
+		Piece p(i);
+		pieces.push_back(p);
+	}
 	/*Piece** array = new Piece * [num];
 	for (int i = 0; i < num; i++)
 	{
@@ -231,13 +236,13 @@ void Monopoly::init_players(int num)
 	}
 }
 
-//int Monopoly::pick_piece(Player& player)
-//{
-//	int answer = player.pick_piece();
-//	Piece p(answer);
-//	pieces.push_back(p);
-//	return answer;
-//}
+int Monopoly::pick_piece(Player& player)
+{
+	int answer = player.pick_piece();
+	Piece p(answer);
+	pieces.push_back(p);
+	return answer;
+}
 
 int Monopoly::throw_die(Player player)
 {

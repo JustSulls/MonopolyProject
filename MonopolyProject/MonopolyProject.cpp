@@ -1,6 +1,5 @@
 // MonopolyProject.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
 #include <iostream>
 #include<iterator> // for iterators
 #include<vector> // for vectors
@@ -9,8 +8,10 @@
 using namespace std;
 int main()
 {
-    Monopoly monopoly;
-    monopoly.play_game();
+    //Monopoly monopoly;
+    //monopoly.play_game();
+    Player p;
+    p.pick_piece();
     return 0;
 }
 
