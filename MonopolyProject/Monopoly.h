@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream> 
 #include <cstdlib>
+#include <cassert>
 #include <ctime>
 #include <exception>
 #include <map>
@@ -32,11 +33,12 @@ private:
 	void init_board();
 	void init_pieces(int num, std::vector<std::string> names);
 	void init_players(int num);
+	int die_roll;
 
 public:
 	Monopoly(int number_players = 2);
 	int pick_piece(Player& player);
-	int die_roll(Player player);	
+	int throw_die(Player player);	
 
 	//member functions which return
 	Spot* get_spot(int position);
@@ -58,7 +60,7 @@ public:
 	//decide buy or pass
 	bool decide_buy_or_pass(Property prop, Player player);
 	bool decide_buy_or_pass(Utility util, Player player);
-	bool decide_buy_or_pass(Railroad rail, Player player);
+	bool decide_buy_or_pass(Railroad rail, Player player, int answer=-1);
 	//decide upgrade
 	bool decide_upgrade(Property prop, Player player);
 	
@@ -77,6 +79,7 @@ public:
 	//do spot action
 	void do_spot_action(Spot* the_spot, Player* activePlayer);
 	void send_player_to_jail(Player& p);
+	void player_throw_die_pay_owner(Player* p, Utility* the_utility);
 	//move
 	void move_piece(Player* player, int die_cast);
 	void move_piece(Player* player, Spot pSpot);

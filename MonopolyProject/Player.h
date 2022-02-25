@@ -31,9 +31,6 @@ public:
 	std::vector<Property*>property_upgrades_available();
 	int throw_die();
 	//void assign_ownership(Property property);
-	int decide_buy_or_pass(Property property);
-	int decide_buy_or_pass(Railroad railroad);
-	int decide_buy_or_pass(Utility utility);
 	int decide_upgrade(Property prop);
 	int pick_piece();
 	bool operator==(const Player& other);

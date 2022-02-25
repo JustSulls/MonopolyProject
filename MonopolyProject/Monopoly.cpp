@@ -239,9 +239,10 @@ int Monopoly::pick_piece(Player& player)
 	return answer;
 }
 
-int Monopoly::die_roll(Player player)
+int Monopoly::throw_die(Player player)
 {
-	return player.throw_die();
+	die_roll = player.throw_die();
+	return die_roll;
 }
 
 Spot* Monopoly::get_spot(int position)
@@ -406,7 +407,7 @@ Card Monopoly::draw_community()
 		community_cards.pop_back();
 		return the_card;
 	}
-	catch (const std::exception& e) {
+	catch ([[maybe_unused]]const std::exception& e) {
 		//todo: get rid of blank card
 		Card c;
 		return c;
@@ -421,7 +422,7 @@ Card Monopoly::draw_chance()
 		chance_cards.pop_back();
 		return the_card;
 	}
-	catch (const std::exception& e) {
+	catch ([[maybe_unused]]const std::exception& e) {
 		//todo: get rid of blank card
 		Card c;
 		return c;
@@ -450,7 +451,14 @@ int Monopoly::get_railroad_rent(Player player)
 
 bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 {
-	int answer = player.decide_buy_or_pass(prop);
+	//present options to player, bounds check answer, return it	
+	int answer = -1;
+	while (answer > 1 || answer < 0)
+	{
+		std::cout << player.name << " decide to buy or pass " << prop.name << " for " <<
+			prop.prices[0] << " [0] no, [1] yes?\n";
+		std::cin >> answer;
+	}
 	if (answer == 0)
 	{
 		return false;
@@ -460,7 +468,14 @@ bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 
 bool Monopoly::decide_buy_or_pass(Utility util, Player player)
 {
-	int answer = player.decide_buy_or_pass(util);
+	int answer = -1;
+	std::cin >> answer;
+	while (answer > 1 || answer < 0)
+	{
+		std::cout << player.name << " decide to buy or pass " << util.name << " for " <<
+			util.cost << " [0] no, [1] yes?\n";
+		std::cin>> answer;
+	}
 	if (answer == 0)
 	{
 		return false;
@@ -468,9 +483,14 @@ bool Monopoly::decide_buy_or_pass(Utility util, Player player)
 	else return true;
 }
 
-bool Monopoly::decide_buy_or_pass(Railroad rail, Player player)
+bool Monopoly::decide_buy_or_pass(Railroad rail, Player player, int answer)
 {
-	int answer = player.decide_buy_or_pass(rail);
+	while (answer > 1 || answer < 0)
+	{
+		std::cout << player.name << " decide to buy or pass " << rail.name << " for " <<
+			rail.cost << " [0] no, [1] yes?\n";
+		std::cin >> answer;
+	}
 	if (answer == 0)
 	{
 		return false;
@@ -517,14 +537,16 @@ void Monopoly::play_game()
 				}
 			}
 			//playern rolls 
- 			int dieRoll = activePlayer->throw_die();
+			throw_die(*activePlayer);
 			//playern moves based on roll
-			move_piece(activePlayer, dieRoll);
+			move_piece(activePlayer, die_roll);
 			//TODO:call move piece (figure out which ones to get rid of) 
 			Spot* the_spot = get_spot(activePlayer->piece.position);
 			do_spot_action(the_spot, activePlayer);
 		}
 	}
+	//todo:game over now handle that
+
 }
 
 void Monopoly::pay_rent(Player& player, Property property)
@@ -616,19 +638,11 @@ void Monopoly::do_card_action(Card c, Player* player)
 		//you may buy it from the Bank. If owned throw 
 		//dice and pay owner a total 10 times the amount thrown.
 		util = advance_to_nearest_utility(player->piece);
-		//TODO:
 		//check if owned
 		if (util->is_owned)
 		{
 			//?yes player throw dice and pay owner total 10 times.
-			std::cout << player->name << " throws die and pays owner total 10 times.\n";
-			int die_cast = player->throw_die();
-			int cost = die_cast * 10;
-			player->pay(cost);
-			//get player that owns utility and pay 
-			//him dice roll *10
-			Player* owner = get_owner(util->name);
-			owner->collect(cost);
+			player_throw_die_pay_owner(player, util);
 		}
 		else
 		{
@@ -928,6 +942,18 @@ void Monopoly::send_player_to_jail(Player& p)
 	//go to jail
 	p.in_jail = true;
 	p.piece.position = position_jail;
+}
+
+void Monopoly::player_throw_die_pay_owner(Player* p, Utility* the_utility)
+{
+	std::cout << p->name << " throws die and pays owner total 10 times.\n";
+	throw_die(*p);
+	int cost = die_roll * 10;
+	p->pay(cost);
+	//get player that owns utility and pay 
+	//him dice roll *10
+	Player* owner = get_owner(the_utility->name);
+	owner->collect(cost);
 }
 
 void Monopoly::move_piece(Player* player, int die_cast)
