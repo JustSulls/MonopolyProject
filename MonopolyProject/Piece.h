@@ -1,17 +1,31 @@
 #pragma once
 #include <string>
+#include <map>
 class Piece
 {
 public:
-	Piece();
-	Piece(int);
-	Piece(std::string);
+	Piece(int which=0);
 	enum class pieces{
-		Destroyer,
-		Mercedes
+		Battleship,
+		Boot,
+		Cannon,
+		Thimble,
+		TopHat,
+		Iron
+	}piece;
+	int position();
+	void movePosition(int new_position);
+	std::string str();
+
+private:
+	std::map<pieces, std::string> piece_map{
+		{pieces::Battleship, "Battleship" },
+		{pieces::Boot, "Boot"},
+		{pieces::Cannon, "Cannon"},
+		{pieces::Thimble, "Thimble"},
+		{pieces::TopHat, "TopHat"},
+		{pieces::Iron, "Iron"}
 	};
-	pieces piece;
-	unsigned short position;
-	std::string name;
+	int _position;
 };
 

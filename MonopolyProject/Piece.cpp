@@ -1,21 +1,23 @@
 #include "Piece.h"
 
-Piece::Piece()
+Piece::Piece(int which)
 {
-	position = 0;
-	piece = static_cast<pieces>(0);
+	_position = 0;
+	piece = pieces(which);
 }
 
-Piece::Piece(int type)
+int Piece::position()
 {
-	//put piece on board
-	position = 0;
-
-	//TODO: range check
-	piece = static_cast<pieces>(type);
+	return _position;
 }
 
-Piece::Piece(std::string s)
+void Piece::movePosition(int new_position)
 {
-	name = s;
+	//todo: perform some check on position value validity
+	_position = new_position;
+}
+
+std::string Piece::str()
+{
+	return piece_map[piece];
 }

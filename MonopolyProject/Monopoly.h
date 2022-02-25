@@ -37,7 +37,7 @@ private:
 
 public:
 	Monopoly(int number_players = 2);
-	int pick_piece(Player& player);
+	//int pick_piece(Player& player);
 	int throw_die(Player player);	
 
 	//member functions which return
