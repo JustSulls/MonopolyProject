@@ -31,60 +31,65 @@ namespace testNamespace
 	{
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		m.move_piece(p, 1);
-		EXPECT_EQ(p->piece.position(), 1);
+		EXPECT_EQ(p->piece->position(), 1);
 		m.move_piece(p, 1);
-		EXPECT_EQ(p->piece.position(), 2);
+		EXPECT_EQ(p->piece->position(), 2);
 		m.move_piece(p, 37);
-		EXPECT_EQ(p->piece.position(), 39);
+		EXPECT_EQ(p->piece->position(), 39);
 		m.move_piece(p, 1);
-		EXPECT_EQ(p->piece.position(), 0);
+		EXPECT_EQ(p->piece->position(), 0);
 		p = m.players[1];
-		EXPECT_EQ(p->piece.position(), 0);
+		p->get_piece(&m.pieces[1]);
+		EXPECT_EQ(p->piece->position(), 0);
 	}
 
 	TEST(CardTestCase, GoToJail)
 	{
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		Card c = m.cards[9];
 
 		EXPECT_EQ(p->in_jail, false);
-		EXPECT_EQ(p->piece.position(), 0);
+		EXPECT_EQ(p->piece->position(), 0);
 
 		m.do_card_action(c, p);
 		EXPECT_EQ(p->in_jail, true);
-		EXPECT_EQ(p->piece.position(), 10);
+		EXPECT_EQ(p->piece->position(), 10);
 	}
 
 	TEST(CardTestCase, AdvanceToGo)
 	{
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		Card c = m.cards[1];	//Advance to GO. (Collect $200)
 
 		EXPECT_EQ(p->money, 1500);
-		EXPECT_EQ(p->piece.position(), 0);
+		EXPECT_EQ(p->piece->position(), 0);
 
 		m.do_card_action(c, p);
 
 		EXPECT_EQ(p->money, 1700);
-		EXPECT_EQ(p->piece.position(), 0);
+		EXPECT_EQ(p->piece->position(), 0);
 	}
 
 	TEST(CardTestCase, Inherit100)
 	{
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		Card c = m.cards[0];	//Inherit 100
 
 		EXPECT_EQ(p->money, 1500);
-		EXPECT_EQ(p->piece.position(), 0);
+		EXPECT_EQ(p->piece->position(), 0);
 
 		m.do_card_action(c, p);
 
 		EXPECT_EQ(p->money, 1600);
-		EXPECT_EQ(p->piece.position(), 0);
+		EXPECT_EQ(p->piece->position(), 0);
 	}
 
 	TEST(CardTestCase, AdvanceToUtility)
@@ -96,14 +101,15 @@ namespace testNamespace
 
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		Card c = m.cards[2];
 
 		EXPECT_EQ(p->money, 1500);
-		EXPECT_EQ(p->piece.position(), 0);
+		EXPECT_EQ(p->piece->position(), 0);
 
 		//t.do_card_action(c, p);
 
-		//EXPECT_EQ(p->piece.position(), 12);	//Electric Company
+		//EXPECT_EQ(p->piece->position(), 12);	//Electric Company
 
 	}
 
@@ -111,6 +117,7 @@ namespace testNamespace
 	{
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		Railroad r = m.railroads[0];
 
 		bool answer = m.decide_buy_or_pass(r, *p, 1);
@@ -119,6 +126,11 @@ namespace testNamespace
 
 	TEST(PieceCase, BasicPiece)
 	{
-		
+		Piece piece;
+		EXPECT_EQ(piece.position(), 0);
+		Player player;
+		piece.movePosition(1);
+		player.get_piece(&piece);
+		EXPECT_EQ(player.piece->position(), 1);
 	}
 }

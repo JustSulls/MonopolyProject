@@ -42,20 +42,20 @@ public:
 	int throw_die(Player player);	
 
 	//member functions which return
-	Spot* get_spot(int position);
-	Utility* get_utility(int position);
-	Utility* advance_to_nearest_utility(Piece& piece);
-	Railroad* advance_to_nearest_railroad(Piece& piece);
-	Player* get_owner(std::string spot_name);
-	Property* get_property(int pos);
-	Railroad* get_railroad(int pos);
-	int get_railroad_rent(Player player);
+	Utility*	advance_to_nearest_utility(Piece* piece);
+	Railroad*	advance_to_nearest_railroad(Piece* piece);
+	Spot*		get_spot(int position);
+	Utility*	get_utility(int position);
+	Player*		get_owner(std::string spot_name);
+	Property*	get_property(int pos);
+	Railroad*	get_railroad(int pos);
+	int			get_railroad_rent(Player player);
 	//receive cards
 	Card draw_community();
 	Card draw_chance();
 
 	//pass go
-	bool passes_go(Piece p, int n);
+	bool passes_go(Piece* p, int n);
 	//game over
 	bool game_over = false;
 	//decide buy or pass

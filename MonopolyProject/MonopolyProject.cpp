@@ -9,9 +9,7 @@ using namespace std;
 int main()
 {
     //Monopoly monopoly;
-    //monopoly.play_game();
-    Player p;
-    p.pick_piece();
+
     return 0;
 }
 

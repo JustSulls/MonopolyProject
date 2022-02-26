@@ -256,15 +256,7 @@ int Player::decide_upgrade(Property prop)
 	}
 	return i;
 }
-int Player::pick_piece()
+void Player::get_piece(Piece* p)
 {
-	//present options to player, bounds check answer, return it
-	int i = -1;
-	while (i > npiece::NUMBER_PIECES - 1 || i < 0)
-	{
-		std::cout << "Pick piece: \n";
-		Piece::presentPieceOptions();
-		std::cin >> i;
-	}
-	return i;
+	this->piece = p;
 }
