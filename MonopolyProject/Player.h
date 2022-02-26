@@ -26,8 +26,8 @@ public:
 	void do_street_repairs(); 
 	void do_general_repairs();
 	bool buy_property(Property* prop);
-	bool buy_railroad(Railroad& rail);
-	bool buy_utility(Utility& utility);
+	bool buy_railroad(Railroad* rail);
+	bool buy_utility(Utility* utility);
 	std::vector<Property*>property_upgrades_available();
 	int throw_die();
 	//void assign_ownership(Property property);

@@ -27,6 +27,23 @@ namespace testNamespace
 		EXPECT_FALSE(m.players[1]->buy_property(p));//already owned
 	}
 
+	TEST(PlayerTestCase, PlayerBuyRailroad) {
+		Monopoly m;
+		Railroad* r = &m.railroads[0];
+		m.players[0]->buy_railroad(r);
+		EXPECT_EQ("B_0_Railroad", m.players[0]->railroads_owned[0]->name);
+		EXPECT_FALSE(m.players[1]->buy_railroad(r));
+	}
+
+	TEST(PlayerTestCase, PlayerBuyUtility)
+	{
+		Monopoly m;
+		Utility* u = &m.utilities[0];
+		m.players[0]->buy_utility(u);
+		EXPECT_EQ("Electric_Company", m.players[0]->utilities_owned[0]->name);
+		EXPECT_FALSE(m.players[1]->buy_utility(u));
+	}
+
 	TEST(PlayerTestCase, PlayerMovement)
 	{
 		Monopoly m;
@@ -112,7 +129,7 @@ namespace testNamespace
 		//EXPECT_EQ(p->piece->position(), 12);	//Electric Company
 
 	}
-
+	//todo:pay rent test case
 	TEST(UserInput, DecideToBuy)
 	{
 		Monopoly m;
@@ -124,7 +141,7 @@ namespace testNamespace
 		EXPECT_EQ(answer, true);
 	}
 
-	TEST(PieceCase, BasicPiece)
+	TEST(PieceCase, PiecePosition)
 	{
 		Piece piece;
 		EXPECT_EQ(piece.position(), 0);

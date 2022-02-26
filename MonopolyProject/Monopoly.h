@@ -67,20 +67,26 @@ public:
 	
 	//play game
 	void play_game();
+
 	//pay rent
 	void pay_rent(Player& player, Property property);
 	void pay_rent(Player& player, Railroad railroad);
 	void pay_utilities(Player& player, Utility utility);
+
 	//send to jail
 	void send_to_jail(Player& player);
+
 	//upgrade property
 	void upgrade_property(Property& property);
+
 	//do card action
 	void do_card_action(Card c, Player* p);
+
 	//do spot action
 	void do_spot_action(Spot* the_spot, Player* activePlayer);
 	void send_player_to_jail(Player& p);
 	void player_throw_die_pay_owner(Player* p, Utility* the_utility);
+
 	//move
 	void move_piece(Player* player, int die_cast);
 	void move_piece(Player* player, Spot pSpot);

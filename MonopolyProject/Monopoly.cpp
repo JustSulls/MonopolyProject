@@ -907,7 +907,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 		{
 			if (decide_buy_or_pass(*railroad, *activePlayer))
 			{
-				activePlayer->buy_railroad(*railroad);
+				activePlayer->buy_railroad(railroad);
 				//TODO: check if this returns true or false
 			}
 			//else pass because railroad
@@ -927,7 +927,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 		{
 			if (decide_buy_or_pass(*utility, *activePlayer))
 			{
-				activePlayer->buy_utility(*utility);
+				activePlayer->buy_utility(utility);
 				//TODO: check if this returns true or false
 			}
 			//else pass because railroad

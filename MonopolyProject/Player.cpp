@@ -63,7 +63,7 @@ bool Player::buy_property(Property* prop)
 	try {
 		if (prop->is_owned)
 		{
-			std::cout << prop->name << " already owned.\n";
+			std::cout << prop->name << " already owned. Cannot purchase.\n";
 			return false;
 		}
 		pay(prop->prices[0]);//printed price is prices[0]
@@ -77,13 +77,18 @@ bool Player::buy_property(Property* prop)
 	}
 	return false;
 }
-bool Player::buy_railroad(Railroad& rail)
+bool Player::buy_railroad(Railroad* rail)
 {
 	try {
-		pay(rail.cost);//printed price is prices[0]
-		railroads_owned.push_back(&rail);
-		std::cout << name << " now owns " << rail.name << ".\n";
-		rail.is_owned = true;
+		if (rail->is_owned)
+		{
+			std::cout << rail->name << " already owned. Cannot purchase.\n";
+			return false;
+		}
+		pay(rail->cost);//printed price is prices[0]
+		railroads_owned.push_back(rail);
+		std::cout << name << " now owns " << rail->name << ".\n";
+		rail->is_owned = true;
 		return true;
 	}
 	catch (const std::invalid_argument& ia) {
@@ -91,12 +96,17 @@ bool Player::buy_railroad(Railroad& rail)
 	}
 	return false;
 }
-bool Player::buy_utility(Utility& utility)
+bool Player::buy_utility(Utility* utility)
 {
 	try {
-		pay(utility.cost);//printed price is prices[0]
-		utilities_owned.push_back(&utility);
-		utility.is_owned = true;
+		if (utility->is_owned)
+		{
+			std::cout << utility->name << " already owned. Cannot purchase.\n";
+			return false;
+		}
+		pay(utility->cost);//printed price is prices[0]
+		utilities_owned.push_back(utility);
+		utility->is_owned = true;
 		return true;
 	}
 	catch (const std::invalid_argument& ia) {
