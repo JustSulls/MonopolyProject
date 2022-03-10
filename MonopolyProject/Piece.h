@@ -13,5 +13,6 @@ public:
 	pieces piece;
 	unsigned short position;
 	std::string name;
+	bool operator ==(const Piece& p);
 };
 

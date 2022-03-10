@@ -97,14 +97,21 @@ namespace testNamespace
 		Monopoly m;
 		Player* p = m.players[0];
 		Card c = m.cards[2];
+		const int startingMoney = 1500;
 
-		EXPECT_EQ(p->money, 1500);
+		EXPECT_EQ(p->money, startingMoney);
 		EXPECT_EQ(p->piece.position, 0);
 
-		//t.do_card_action(c, p);
+		m.do_card_action(c, p, true);//pass true to have player 'choose' to buy when presented with option
 
-		//EXPECT_EQ(p->piece.position, 12);	//Electric Company
+		EXPECT_EQ(p->piece.position, 12);	//Electric Company
+		//took players money for buying electric company
+		int moneyAfterBuy = startingMoney - m.utilities.at(0).cost;
+		EXPECT_EQ(p->money, moneyAfterBuy);
 
+		//make sure next player has to pay first player when landing on now owned electric company
+		//p = m.players[1];
+		//m.move_piece(p, 12);//todo:moving piece to bought electric company does not trigger paying player owner
 	}
 
 	TEST(UserInput, DecideToBuy)
