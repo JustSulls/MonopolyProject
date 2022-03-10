@@ -19,3 +19,12 @@ Piece::Piece(std::string s)
 {
 	name = s;
 }
+
+bool Piece::operator==(const Piece& p)
+{
+	if (p.name == name)
+	{
+		return true;
+	}
+	else return false;
+}
