@@ -50,9 +50,10 @@ public:
 	Railroad* get_railroad(int pos);
 	int get_railroad_rent(Player player);
 	Player* get_player(Piece p);
+
 	
 	//advance to
-	Utility advance_to_nearest_utility(Piece& piece);
+	Utility* advance_to_nearest_utility(Piece& piece);
 	Railroad advance_to_nearest_railroad(Piece& piece);
 	
 	//receive cards
