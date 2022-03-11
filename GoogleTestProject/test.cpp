@@ -112,6 +112,8 @@ namespace testNamespace
 		//make sure next player has to pay first player when landing on now owned electric company
 		//p = m.players[1];
 		//m.move_piece(p, 12);//todo:moving piece to bought electric company does not trigger paying player owner
+		//Spot* the_spot = m.get_spot(12);
+		//m.do_spot_action(the_spot, p);
 	}
 
 	TEST(UserInput, DecideToBuy)

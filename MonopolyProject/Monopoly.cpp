@@ -285,7 +285,7 @@ Utility* Monopoly::get_utility(int position)
 	return nullptr;
 }
 
-Utility Monopoly::advance_to_nearest_utility(Piece& piece)
+Utility* Monopoly::advance_to_nearest_utility(Piece& piece)
 {
 	// get piece position
 	int piece_position = piece.position;
@@ -321,7 +321,7 @@ Utility Monopoly::advance_to_nearest_utility(Piece& piece)
 	std::cout << piece.name << " moved to " << utilities.at(which_pos_was_shortest).name << ".\n";
 	//will add rest of card here
 	try {
-		return utilities.at(which_pos_was_shortest);
+		return &utilities.at(which_pos_was_shortest);
 	}
 	catch (std::exception e)
 	{
@@ -632,7 +632,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 {
 	std::cout << player->name << " draws \"" << c.text << "\".\n";
 	Utility* util;
-	Utility tempUtil;//todo::removing pointer to util above, this partialy complete
+	//Utility tempUtil;//todo::removing pointer to util above, this partialy complete
 	Railroad* railroad;
 	Railroad tempRailroad;
 	Spot* s;
@@ -652,33 +652,32 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		//Advance token to nearest Utility. If unowned 
 		//you may buy it from the Bank. If owned throw 
 		//dice and pay owner a total 10 times the amount thrown.
-		tempUtil = advance_to_nearest_utility(player->piece);
+		util = advance_to_nearest_utility(player->piece);
 		//check if owned
-		if (tempUtil.is_owned)
+		if (util->is_owned)
 		{
 			//?yes player throw dice and pay owner total 10 times.
-			player_throw_die_pay_owner(player, tempUtil);
+			player_throw_die_pay_owner(player, *util);
 		}
 		else
 		{
 			if (testing)
 			{
-				decide_buy_or_pass(tempUtil, *player, true);
-				player->pay(tempUtil.cost);
+				decide_buy_or_pass(*util, *player, true);//returns true 
+				player->pay(util->cost);
 				//add utility to player's utilities
-				player->utilities_owned.push_back(&tempUtil);
-				tempUtil.is_owned = true;
-				//mapSpotNameGetOwner[util.name] = player;
+				player->utilities_owned.push_back(util);
+				util->is_owned = true;//todo:does not update util outside of this func
 			}
 			else
 			{
 				//?no offer player to buy that utility
-				if (decide_buy_or_pass(tempUtil, *player))
+				if (decide_buy_or_pass(*util, *player))
 				{
-					player->pay(tempUtil.cost);
+					player->pay(util->cost);
 					//add utility to player's utilities
-					player->utilities_owned.push_back(&tempUtil);
-					tempUtil.is_owned = true;
+					player->utilities_owned.push_back(util);
+					util->is_owned = true;
 					//mapSpotNameGetOwner[util.name] = player;
 				};
 			}
