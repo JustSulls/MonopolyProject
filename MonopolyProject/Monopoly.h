@@ -23,7 +23,7 @@
 
 class Monopoly
 {
-private:
+public://todo:make private
 	Board board;
 	//init
 	void init_properties();
@@ -31,7 +31,8 @@ private:
 	void init_utilities();
 	void init_cards();
 	void init_board();
-	void init_pieces(int num, std::vector<std::string> names);
+	//init all 6 piece tokens to be used by any number of players once game starts
+	void init_pieces();
 	void init_players(int num);
 	int die_roll;
 
@@ -41,6 +42,16 @@ public:
 	int throw_die(Player player);	
 
 	//member functions which return
+<<<<<<< HEAD
+	Utility*	advance_to_nearest_utility(Piece* piece);
+	Railroad*	advance_to_nearest_railroad(Piece* piece);
+	Spot*		get_spot(int position);
+	Utility*	get_utility(int position);
+	Player*		get_owner(std::string spot_name);
+	Property*	get_property(int pos);
+	Railroad*	get_railroad(int pos);
+	int			get_railroad_rent(Player player);
+=======
 	/*note - this may need to return pointer to spot so we can access every
 	type of spot returned (property, utility etc.)*/
 	Spot* get_spot(int position);
@@ -56,12 +67,13 @@ public:
 	Utility* advance_to_nearest_utility(Piece& piece);
 	Railroad advance_to_nearest_railroad(Piece& piece);
 	
+>>>>>>> e451bcd7094dd92f902527cbbb8c83b1cb3e4fe3
 	//receive cards
 	Card draw_community();
 	Card draw_chance();
 
 	//pass go
-	bool passes_go(Piece p, int n);
+	bool passes_go(Piece* p, int n);
 	//game over
 	bool game_over = false;
 	//decide buy or pass
@@ -73,20 +85,34 @@ public:
 	
 	//play game
 	void play_game();
+
 	//pay rent
 	void pay_rent(Player& player, Property property);
 	void pay_rent(Player& player, Railroad railroad);
 	void pay_utilities(Player& player, Utility utility);
+
 	//send to jail
 	void send_to_jail(Player& player);
+
 	//upgrade property
 	void upgrade_property(Property& property);
+
 	//do card action
+<<<<<<< HEAD
+	void do_card_action(Card c, Player* p);
+
+	//do spot action
+	void do_spot_action(Spot* the_spot, Player* activePlayer);
+	void send_player_to_jail(Player& p);
+	void player_throw_die_pay_owner(Player* p, Utility* the_utility);
+
+=======
 	void do_card_action(Card c, Player* p, bool testing=false);
 	//do spot action
 	void do_spot_action(Spot* the_spot, Player* activePlayer);
 	void send_player_to_jail(Player& p);
 	void player_throw_die_pay_owner(Player* p, Utility& the_utility);
+>>>>>>> e451bcd7094dd92f902527cbbb8c83b1cb3e4fe3
 	//move
 	void move_piece(Player* player, int die_cast);
 	void move_piece(Player* player, Spot pSpot);

@@ -1,18 +1,51 @@
 #pragma once
 #include <string>
+#include <map>
+
+namespace npiece
+{
+	static const uint16_t NUMBER_PIECES = 6;
+	const std::string enum_str[NUMBER_PIECES] =
+	{
+		"Battleship",
+		"Boot",
+		"Cannon",
+		"Thimble",
+		"TopHat",
+		"Iron"
+	};
+}
 class Piece
 {
 public:
-	Piece();
-	Piece(int);
-	Piece(std::string);
-	enum class pieces{
-		Destroyer,
-		Mercedes
+	Piece(int which = 0);
+	enum class pieces {
+		Battleship,
+		Boot,
+		Cannon,
+		Thimble,
+		TopHat,
+		Iron
+	}piece;
+	int position();
+	void movePosition(int new_position);
+	std::string str();
+	static void presentPieceOptions();
+
+private:
+	std::map<pieces, std::string> piece_map{
+		{pieces::Battleship, "Battleship" },
+		{pieces::Boot, "Boot"},
+		{pieces::Cannon, "Cannon"},
+		{pieces::Thimble, "Thimble"},
+		{pieces::TopHat, "TopHat"},
+		{pieces::Iron, "Iron"}
 	};
 	pieces piece;
 	unsigned short position;
 	std::string name;
 	bool operator ==(const Piece& p);
+
+	int _position;
 };
 
