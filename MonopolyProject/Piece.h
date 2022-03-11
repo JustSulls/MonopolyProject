@@ -41,8 +41,11 @@ private:
 		{pieces::TopHat, "TopHat"},
 		{pieces::Iron, "Iron"}
 	};
+	pieces piece;
+	unsigned short position;
+	std::string name;
+	bool operator ==(const Piece& p);
 
 	int _position;
 };
-
 

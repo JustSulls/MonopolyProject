@@ -42,6 +42,7 @@ public:
 	int throw_die(Player player);	
 
 	//member functions which return
+<<<<<<< HEAD
 	Utility*	advance_to_nearest_utility(Piece* piece);
 	Railroad*	advance_to_nearest_railroad(Piece* piece);
 	Spot*		get_spot(int position);
@@ -50,6 +51,23 @@ public:
 	Property*	get_property(int pos);
 	Railroad*	get_railroad(int pos);
 	int			get_railroad_rent(Player player);
+=======
+	/*note - this may need to return pointer to spot so we can access every
+	type of spot returned (property, utility etc.)*/
+	Spot* get_spot(int position);
+	Utility* get_utility(int position);
+	Player* get_owner(std::string spot_name);
+	Property* get_property(int pos);
+	Railroad* get_railroad(int pos);
+	int get_railroad_rent(Player player);
+	Player* get_player(Piece p);
+
+	
+	//advance to
+	Utility* advance_to_nearest_utility(Piece& piece);
+	Railroad advance_to_nearest_railroad(Piece& piece);
+	
+>>>>>>> e451bcd7094dd92f902527cbbb8c83b1cb3e4fe3
 	//receive cards
 	Card draw_community();
 	Card draw_chance();
@@ -60,7 +78,7 @@ public:
 	bool game_over = false;
 	//decide buy or pass
 	bool decide_buy_or_pass(Property prop, Player player);
-	bool decide_buy_or_pass(Utility util, Player player);
+	bool decide_buy_or_pass(Utility util, Player player, bool testing=false);
 	bool decide_buy_or_pass(Railroad rail, Player player, int answer=-1);
 	//decide upgrade
 	bool decide_upgrade(Property prop, Player player);
@@ -80,6 +98,7 @@ public:
 	void upgrade_property(Property& property);
 
 	//do card action
+<<<<<<< HEAD
 	void do_card_action(Card c, Player* p);
 
 	//do spot action
@@ -87,6 +106,13 @@ public:
 	void send_player_to_jail(Player& p);
 	void player_throw_die_pay_owner(Player* p, Utility* the_utility);
 
+=======
+	void do_card_action(Card c, Player* p, bool testing=false);
+	//do spot action
+	void do_spot_action(Spot* the_spot, Player* activePlayer);
+	void send_player_to_jail(Player& p);
+	void player_throw_die_pay_owner(Player* p, Utility& the_utility);
+>>>>>>> e451bcd7094dd92f902527cbbb8c83b1cb3e4fe3
 	//move
 	void move_piece(Player* player, int die_cast);
 	void move_piece(Player* player, Spot pSpot);

@@ -30,3 +30,12 @@ void Piece::presentPieceOptions()
 		std::cout << "[" << i << "] " << npiece::enum_str[i] << std::endl;
 	}
 }
+
+bool Piece::operator==(const Piece& p)
+{
+	if (p.name == name)
+	{
+		return true;
+	}
+	else return false;
+}

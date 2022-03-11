@@ -120,14 +120,32 @@ namespace testNamespace
 		Player* p = m.players[0];
 		p->get_piece(&m.pieces[0]);
 		Card c = m.cards[2];
+		const int startingMoney = 1500;
 
+<<<<<<< HEAD
 		EXPECT_EQ(p->money, 1500);
 		EXPECT_EQ(p->piece->position(), 0);
+=======
+		EXPECT_EQ(p->money, startingMoney);
+		EXPECT_EQ(p->piece.position, 0);
+>>>>>>> e451bcd7094dd92f902527cbbb8c83b1cb3e4fe3
 
-		//t.do_card_action(c, p);
+		m.do_card_action(c, p, true);//pass true to have player 'choose' to buy when presented with option
 
+<<<<<<< HEAD
 		//EXPECT_EQ(p->piece->position(), 12);	//Electric Company
+=======
+		EXPECT_EQ(p->piece.position, 12);	//Electric Company
+		//took players money for buying electric company
+		int moneyAfterBuy = startingMoney - m.utilities.at(0).cost;
+		EXPECT_EQ(p->money, moneyAfterBuy);
+>>>>>>> e451bcd7094dd92f902527cbbb8c83b1cb3e4fe3
 
+		//make sure next player has to pay first player when landing on now owned electric company
+		//p = m.players[1];
+		//m.move_piece(p, 12);//todo:moving piece to bought electric company does not trigger paying player owner
+		//Spot* the_spot = m.get_spot(12);
+		//m.do_spot_action(the_spot, p);
 	}
 	//todo:pay rent test case
 	TEST(UserInput, DecideToBuy)
