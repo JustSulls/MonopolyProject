@@ -32,15 +32,15 @@ namespace testNamespace
 		Monopoly m;
 		Player* p = m.players[0];
 		m.move_piece(p, 1);
-		EXPECT_EQ(p->piece.position, 1);
+		EXPECT_EQ(p->piece.getPosition(), 1);
 		m.move_piece(p, 1);
-		EXPECT_EQ(p->piece.position, 2);
+		EXPECT_EQ(p->piece.getPosition(), 2);
 		m.move_piece(p, 37);
-		EXPECT_EQ(p->piece.position, 39);
+		EXPECT_EQ(p->piece.getPosition(), 39);
 		m.move_piece(p, 1);
-		EXPECT_EQ(p->piece.position, 0);
+		EXPECT_EQ(p->piece.getPosition(), 0);
 		p = m.players[1];
-		EXPECT_EQ(p->piece.position, 0);
+		EXPECT_EQ(p->piece.getPosition(), 0);
 	}
 
 	TEST(CardTestCase, GoToJail)
@@ -50,11 +50,11 @@ namespace testNamespace
 		Card c = m.cards[9];
 
 		EXPECT_EQ(p->in_jail, false);
-		EXPECT_EQ(p->piece.position, 0);
+		EXPECT_EQ(p->piece.getPosition(), 0);
 
 		m.do_card_action(c, p);
 		EXPECT_EQ(p->in_jail, true);
-		EXPECT_EQ(p->piece.position, 10);
+		EXPECT_EQ(p->piece.getPosition(), 10);
 	}
 
 	TEST(CardTestCase, AdvanceToGo)
@@ -64,12 +64,12 @@ namespace testNamespace
 		Card c = m.cards[1];	//Advance to GO. (Collect $200)
 
 		EXPECT_EQ(p->money, 1500);
-		EXPECT_EQ(p->piece.position, 0);
+		EXPECT_EQ(p->piece.getPosition(), 0);
 
 		m.do_card_action(c, p);
 
 		EXPECT_EQ(p->money, 1700);
-		EXPECT_EQ(p->piece.position, 0);
+		EXPECT_EQ(p->piece.getPosition(), 0);
 	}
 
 	TEST(CardTestCase, Inherit100)
@@ -79,12 +79,12 @@ namespace testNamespace
 		Card c = m.cards[0];	//Inherit 100
 
 		EXPECT_EQ(p->money, 1500);
-		EXPECT_EQ(p->piece.position, 0);
+		EXPECT_EQ(p->piece.getPosition(), 0);
 
 		m.do_card_action(c, p);
 
 		EXPECT_EQ(p->money, 1600);
-		EXPECT_EQ(p->piece.position, 0);
+		EXPECT_EQ(p->piece.getPosition(), 0);
 	}
 
 	TEST(CardTestCase, AdvanceToUtility)
@@ -100,11 +100,11 @@ namespace testNamespace
 		const int startingMoney = 1500;
 
 		EXPECT_EQ(p->money, startingMoney);
-		EXPECT_EQ(p->piece.position, 0);
+		EXPECT_EQ(p->piece.getPosition(), 0);
 
 		m.do_card_action(c, p, true);//pass true to have player 'choose' to buy when presented with option
 
-		EXPECT_EQ(p->piece.position, 12);	//Electric Company
+		EXPECT_EQ(p->piece.getPosition(), 12);	//Electric Company
 		//took players money for buying electric company
 		int moneyAfterBuy = startingMoney - m.utilities.at(0).cost;
 		EXPECT_EQ(p->money, moneyAfterBuy);
