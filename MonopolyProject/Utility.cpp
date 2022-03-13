@@ -25,5 +25,6 @@ Utility::Utility(int pos, std::string un) : Spot()
 
 int Utility::get_landed_cost()
 {
+	//todo:implement
 	return -1;
 }

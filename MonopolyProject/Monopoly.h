@@ -23,7 +23,7 @@
 
 class Monopoly
 {
-private:
+public://todo:make private
 	Board board;
 	//init
 	void init_properties();
@@ -41,26 +41,20 @@ public:
 	int throw_die(Player player);	
 
 	//member functions which return
-	/*note - this may need to return pointer to spot so we can access every
-	type of spot returned (property, utility etc.)*/
-	Spot* get_spot(int position);
-	Utility* get_utility(int position);
-	Player* get_owner(std::string spot_name);
-	Property* get_property(int pos);
-	Railroad* get_railroad(int pos);
-	int get_railroad_rent(Player player);
-	Player* get_player(Piece p);
-	
-	//advance to
-	Utility advance_to_nearest_utility(Piece& piece);
-	Railroad advance_to_nearest_railroad(Piece& piece);
-	
+	Utility*	advance_to_nearest_utility(Piece* piece);
+	Railroad*	advance_to_nearest_railroad(Piece* piece);
+	Spot*		get_spot(int position);
+	Utility*	get_utility(int position);
+	Player*		get_owner(std::string spot_name);
+	Property*	get_property(int pos);
+	Railroad*	get_railroad(int pos);
+	int			get_railroad_rent(Player player);
 	//receive cards
 	Card draw_community();
 	Card draw_chance();
 
 	//pass go
-	bool passes_go(Piece p, int n);
+	bool passes_go(Piece* p, int n);
 	//game over
 	bool game_over = false;
 	//decide buy or pass
@@ -72,14 +66,18 @@ public:
 	
 	//play game
 	void play_game();
+
 	//pay rent
 	void pay_rent(Player& player, Property property);
 	void pay_rent(Player& player, Railroad railroad);
 	void pay_utilities(Player& player, Utility utility);
+
 	//send to jail
 	void send_to_jail(Player& player);
+
 	//upgrade property
 	void upgrade_property(Property& property);
+
 	//do card action
 	void do_card_action(Card c, Player* p, bool testing=false);
 	//do spot action

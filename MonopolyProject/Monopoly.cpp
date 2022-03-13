@@ -229,9 +229,15 @@ void Monopoly::init_players(int num)
 
 int Monopoly::pick_piece(Player& player)
 {
-	int answer = player.pick_piece();
-	Piece p(answer);
-	pieces.push_back(p);
+	//present options to player, bounds check answer, return it
+	int answer = -1;
+	while (answer > npiece::NUMBER_PIECES - 1 || answer < 0)
+	{
+		std::cout << "Pick piece: \n";
+		Piece::presentPieceOptions();
+		std::cin >> answer;
+	}
+	player.get_piece(&pieces.at(answer));
 	return answer;
 }
 
@@ -285,10 +291,11 @@ Utility* Monopoly::get_utility(int position)
 	return nullptr;
 }
 
-Utility Monopoly::advance_to_nearest_utility(Piece& piece)
+Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
 {
 	// get piece position
 	int piece_position = piece.getPosition();
+	int piece_position = piece->position();
 	static const int num_utilities = 2;
 	int differences[num_utilities] = { 0, 0 };
 	int shortest_difference = 0;
@@ -314,14 +321,13 @@ Utility Monopoly::advance_to_nearest_utility(Piece& piece)
 	}
 
 	//advance token to that utility (no mention of passing go $$)
-	//todo: change this piece move to monopoly move function to make sure if pass go pays $200
-	Player* player = get_player(piece);
-	move_piece(player, utilities.at(which_pos_was_shortest).position);
+	piece->movePosition(utilities.at(which_pos_was_shortest).position);
+	std::cout << piece->str() << " moved to " << utilities.at(which_pos_was_shortest).name << ".\n";
 	//piece.getPosition() = utilities.at(which_pos_was_shortest).position;
-	std::cout << piece.str() << " moved to " << utilities.at(which_pos_was_shortest).name << ".\n";
+
 	//will add rest of card here
 	try {
-		return utilities.at(which_pos_was_shortest);
+		return &utilities.at(which_pos_was_shortest);
 	}
 	catch (std::exception e)
 	{
@@ -358,7 +364,6 @@ Railroad Monopoly::advance_to_nearest_railroad(Piece& piece)
 	}
 
 	//advance token to that utility (no mention of passing go $$)
-
 	piece.movePosition(railroads.at(which_pos_was_shortest).position);
 
 	//will add rest of card here
@@ -521,7 +526,7 @@ bool Monopoly::decide_upgrade(Property prop, Player player)
 	return false;
 }
 
-bool Monopoly::passes_go(Piece piece, int n)
+bool Monopoly::passes_go(Piece* piece, int n)
 {
 	//TODO::confirm this 
 	if ((piece.getPosition() + n) > board.LAST_BOARD_POSITION)
@@ -633,7 +638,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 {
 	std::cout << player->name << " draws \"" << c.text << "\".\n";
 	Utility* util;
-	Utility tempUtil;//todo::removing pointer to util above, this partialy complete
+	//Utility tempUtil;//todo::removing pointer to util above, this partialy complete
 	Railroad* railroad;
 	Railroad tempRailroad;
 	Spot* s;
@@ -653,33 +658,32 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		//Advance token to nearest Utility. If unowned 
 		//you may buy it from the Bank. If owned throw 
 		//dice and pay owner a total 10 times the amount thrown.
-		tempUtil = advance_to_nearest_utility(player->piece);
+		util = advance_to_nearest_utility(player->piece);
 		//check if owned
-		if (tempUtil.is_owned)
+		if (util->is_owned)
 		{
 			//?yes player throw dice and pay owner total 10 times.
-			player_throw_die_pay_owner(player, tempUtil);
+			player_throw_die_pay_owner(player, *util);
 		}
 		else
 		{
 			if (testing)
 			{
-				decide_buy_or_pass(tempUtil, *player, true);
-				player->pay(tempUtil.cost);
+				decide_buy_or_pass(*util, *player, true);//returns true 
+				player->pay(util->cost);
 				//add utility to player's utilities
-				player->utilities_owned.push_back(&tempUtil);
-				tempUtil.is_owned = true;
-				//mapSpotNameGetOwner[util.name] = player;
+				player->utilities_owned.push_back(util);
+				util->is_owned = true;//todo:does not update util outside of this func
 			}
 			else
 			{
 				//?no offer player to buy that utility
-				if (decide_buy_or_pass(tempUtil, *player))
+				if (decide_buy_or_pass(*util, *player))
 				{
-					player->pay(tempUtil.cost);
+					player->pay(util->cost);
 					//add utility to player's utilities
-					player->utilities_owned.push_back(&tempUtil);
-					tempUtil.is_owned = true;
+					player->utilities_owned.push_back(util);
+					util->is_owned = true;
 					//mapSpotNameGetOwner[util.name] = player;
 				};
 			}
@@ -925,7 +929,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 		{
 			if (decide_buy_or_pass(*railroad, *activePlayer))
 			{
-				activePlayer->buy_railroad(*railroad);
+				activePlayer->buy_railroad(railroad);
 				//TODO: check if this returns true or false
 			}
 			//else pass because railroad
@@ -945,7 +949,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 		{
 			if (decide_buy_or_pass(*utility, *activePlayer))
 			{
-				activePlayer->buy_utility(*utility);
+				activePlayer->buy_utility(utility);
 				//TODO: check if this returns true or false
 			}
 			//else pass because railroad
@@ -1077,4 +1081,5 @@ Monopoly::Monopoly(int number_players)
 	init_cards();
 	init_board();
 	init_players(number_players);
+	init_pieces();
 }

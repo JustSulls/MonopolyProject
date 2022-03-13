@@ -27,10 +27,28 @@ namespace testNamespace
 		EXPECT_FALSE(m.players[1]->buy_property(p));//already owned
 	}
 
+	TEST(PlayerTestCase, PlayerBuyRailroad) {
+		Monopoly m;
+		Railroad* r = &m.railroads[0];
+		m.players[0]->buy_railroad(r);
+		EXPECT_EQ("B_0_Railroad", m.players[0]->railroads_owned[0]->name);
+		EXPECT_FALSE(m.players[1]->buy_railroad(r));
+	}
+
+	TEST(PlayerTestCase, PlayerBuyUtility)
+	{
+		Monopoly m;
+		Utility* u = &m.utilities[0];
+		m.players[0]->buy_utility(u);
+		EXPECT_EQ("Electric_Company", m.players[0]->utilities_owned[0]->name);
+		EXPECT_FALSE(m.players[1]->buy_utility(u));
+	}
+
 	TEST(PlayerTestCase, PlayerMovement)
 	{
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		m.move_piece(p, 1);
 		EXPECT_EQ(p->piece.getPosition(), 1);
 		m.move_piece(p, 1);
@@ -47,6 +65,7 @@ namespace testNamespace
 	{
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		Card c = m.cards[9];
 
 		EXPECT_EQ(p->in_jail, false);
@@ -61,6 +80,7 @@ namespace testNamespace
 	{
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		Card c = m.cards[1];	//Advance to GO. (Collect $200)
 
 		EXPECT_EQ(p->money, 1500);
@@ -76,6 +96,7 @@ namespace testNamespace
 	{
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		Card c = m.cards[0];	//Inherit 100
 
 		EXPECT_EQ(p->money, 1500);
@@ -96,6 +117,7 @@ namespace testNamespace
 
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		Card c = m.cards[2];
 		const int startingMoney = 1500;
 
@@ -105,6 +127,10 @@ namespace testNamespace
 		m.do_card_action(c, p, true);//pass true to have player 'choose' to buy when presented with option
 
 		EXPECT_EQ(p->piece.getPosition(), 12);	//Electric Company
+
+		m.do_card_action(c, p, true);//pass true to have player 'choose' to buy when presented with option
+
+		//EXPECT_EQ(p->piece->position(), 12);	//Electric Company
 		//took players money for buying electric company
 		int moneyAfterBuy = startingMoney - m.utilities.at(0).cost;
 		EXPECT_EQ(p->money, moneyAfterBuy);
@@ -112,15 +138,28 @@ namespace testNamespace
 		//make sure next player has to pay first player when landing on now owned electric company
 		//p = m.players[1];
 		//m.move_piece(p, 12);//todo:moving piece to bought electric company does not trigger paying player owner
+		//Spot* the_spot = m.get_spot(12);
+		//m.do_spot_action(the_spot, p);
 	}
-
+	//todo:pay rent test case
 	TEST(UserInput, DecideToBuy)
 	{
 		Monopoly m;
 		Player* p = m.players[0];
+		p->get_piece(&m.pieces[0]);
 		Railroad r = m.railroads[0];
 
 		bool answer = m.decide_buy_or_pass(r, *p, 1);
 		EXPECT_EQ(answer, true);
+	}
+
+	TEST(PieceCase, PiecePosition)
+	{
+		Piece piece;
+		EXPECT_EQ(piece.position(), 0);
+		Player player;
+		piece.movePosition(1);
+		player.get_piece(&piece);
+		EXPECT_EQ(player.piece->position(), 1);
 	}
 }

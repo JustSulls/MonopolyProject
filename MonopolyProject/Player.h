@@ -11,7 +11,7 @@ class Player
 public:
 	Player();
 	Player(std::string n);
-	Piece piece;
+	Piece* piece;
 	std::string name;
 	int money;
 	bool has_get_out_of_jail_card = false;
@@ -26,13 +26,13 @@ public:
 	void do_street_repairs(); 
 	void do_general_repairs();
 	bool buy_property(Property* prop);
-	bool buy_railroad(Railroad& rail);
-	bool buy_utility(Utility& utility);
+	bool buy_railroad(Railroad* rail);
+	bool buy_utility(Utility* utility);
 	std::vector<Property*>property_upgrades_available();
 	int throw_die();
 	//void assign_ownership(Property property);
 	int decide_upgrade(Property prop);
-	int pick_piece();
+	void get_piece(Piece* p);
 	bool operator==(const Player& other);
 	bool operator!=(const Player& other);
 
