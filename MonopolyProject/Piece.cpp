@@ -7,15 +7,19 @@ Piece::Piece(int which)
 	piece = pieces(which);
 }
 
-int Piece::position()
+int Piece::getPosition()
 {
-	return _position;
+	return this->_position;
+}
+
+void Piece::advancePosition(int numSpaces)
+{//must be able to advance backwards too
 }
 
 void Piece::movePosition(int new_position)
 {
-	//todo: perform some check on position value validity
-	_position = new_position;
+	//todo: range check
+	this->_position = new_position;
 }
 
 std::string Piece::str()

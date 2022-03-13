@@ -208,19 +208,14 @@ void Monopoly::init_board()
 	spots.push_back(tax_luxury);
 }
 
-void Monopoly::init_pieces()
-{
-	for (uint16_t i = 0; i < npiece::NUMBER_PIECES; i++)
-	{
-		Piece p(i);
-		pieces.push_back(p);
-	}
-	/*Piece** array = new Piece * [num];
-	for (int i = 0; i < num; i++)
-	{
-		array[i] = new Piece(names[i]);
-	}*/
-}
+//void Monopoly::init_pieces(int num, std::vector<std::string> names)
+//{
+//	Piece** array = new Piece * [num];
+//	for (int i = 0; i < num; i++)
+//	{
+//		array[i] = new Piece(names[i]);
+//	}
+//}
 
 void Monopoly::init_players(int num)
 {
@@ -299,6 +294,7 @@ Utility* Monopoly::get_utility(int position)
 Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
 {
 	// get piece position
+	int piece_position = piece.getPosition();
 	int piece_position = piece->position();
 	static const int num_utilities = 2;
 	int differences[num_utilities] = { 0, 0 };
@@ -325,16 +321,10 @@ Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
 	}
 
 	//advance token to that utility (no mention of passing go $$)
-<<<<<<< HEAD
 	piece->movePosition(utilities.at(which_pos_was_shortest).position);
 	std::cout << piece->str() << " moved to " << utilities.at(which_pos_was_shortest).name << ".\n";
-=======
-	//todo: change this piece move to monopoly move function to make sure if pass go pays $200
-	Player* player = get_player(piece);
-	move_piece(player, utilities.at(which_pos_was_shortest).position);
-	//piece.position = utilities.at(which_pos_was_shortest).position;
-	std::cout << piece.name << " moved to " << utilities.at(which_pos_was_shortest).name << ".\n";
->>>>>>> e451bcd7094dd92f902527cbbb8c83b1cb3e4fe3
+	//piece.getPosition() = utilities.at(which_pos_was_shortest).position;
+
 	//will add rest of card here
 	try {
 		return &utilities.at(which_pos_was_shortest);
@@ -345,14 +335,10 @@ Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
 	}
 }
 
-<<<<<<< HEAD
-Railroad* Monopoly::advance_to_nearest_railroad(Piece* piece)
-=======
 Railroad Monopoly::advance_to_nearest_railroad(Piece& piece)
->>>>>>> e451bcd7094dd92f902527cbbb8c83b1cb3e4fe3
 {
 	// get piece position
-	int piece_position = piece->position();
+	int piece_position = piece.getPosition();
 	static const int num_railroads = 4;
 	int differences[num_railroads] = { 0, 0, 0, 0 };
 	int shortest_difference = 0;
@@ -378,7 +364,7 @@ Railroad Monopoly::advance_to_nearest_railroad(Piece& piece)
 	}
 
 	//advance token to that utility (no mention of passing go $$)
-	piece->movePosition(railroads.at(which_pos_was_shortest).position);
+	piece.movePosition(railroads.at(which_pos_was_shortest).position);
 
 	//will add rest of card here
 	//TODO:test this
@@ -543,7 +529,7 @@ bool Monopoly::decide_upgrade(Property prop, Player player)
 bool Monopoly::passes_go(Piece* piece, int n)
 {
 	//TODO::confirm this 
-	if ((piece->position() + n) > board.LAST_BOARD_POSITION)
+	if ((piece.getPosition() + n) > board.LAST_BOARD_POSITION)
 	{
 		return true;
 	}
@@ -574,7 +560,7 @@ void Monopoly::play_game()
 			//playern moves based on roll
 			move_piece(activePlayer, die_roll);
 			//TODO:call move piece (figure out which ones to get rid of) 
-			Spot* the_spot = get_spot(activePlayer->piece->position());
+			Spot* the_spot = get_spot(activePlayer->piece.getPosition());
 			do_spot_action(the_spot, activePlayer);
 		}
 	}
@@ -625,7 +611,7 @@ void Monopoly::pay_utilities(Player& player, Utility utility)
 
 void Monopoly::send_to_jail(Player& player)
 {
-	player.piece->movePosition(10); //jail location //todo: make constant
+	player.piece.movePosition(10); //jail location 10 //todo: constant
 	player.in_jail = true;
 	std::cout << player.name << " is now in jail.\n";
 }
@@ -736,7 +722,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 8:
 		//go back 3 spaces
-		player->piece->movePosition(player->piece->position() - 3);
+		player->piece.advancePosition(-3);
 		//todo:
 		//do an action at this new position
 		//check own then offer_player_buy_prop or pay rent
@@ -988,7 +974,7 @@ void Monopoly::send_player_to_jail(Player& p)
 {
 	//go to jail
 	p.in_jail = true;
-	p.piece->movePosition(position_jail);
+	p.piece.movePosition(position_jail);
 }
 
 void Monopoly::player_throw_die_pay_owner(Player* p, Utility& the_utility)
@@ -1005,8 +991,8 @@ void Monopoly::player_throw_die_pay_owner(Player* p, Utility& the_utility)
 
 void Monopoly::move_piece(Player* player, int die_cast)
 {
-	int old_position = player->piece->position();
-	int new_position = player->piece->position() + die_cast;
+	int old_position = player->piece.getPosition();
+	int new_position = player->piece.getPosition() + die_cast;
 	if (new_position > 39)
 	{
 		new_position = new_position - 40;		//wrap around to 0 then continue
@@ -1016,7 +1002,7 @@ void Monopoly::move_piece(Player* player, int die_cast)
 	Spot* the_spot = get_spot(new_position);	//returns correct spot
 	//set spot's piece to the piece
 	//move piece to new spot
-	player->piece->movePosition(new_position);
+	player->piece.movePosition(new_position);
 	std::cout << player->name << "'s piece landed on " << the_spot->name << ".\n";
 	//check if pass go and pay.
 	if (passes_go(player->piece, new_position - old_position))
@@ -1028,13 +1014,13 @@ void Monopoly::move_piece(Player* player, int die_cast)
 void Monopoly::move_piece(Player* player, Spot pSpot)
 {
 	// capture current position of piece
-	int old_position = player->piece->position();
+	int old_position = player->piece.getPosition();
 	// move piece to new property
 	int new_position = pSpot.position;
 	Spot* the_spot = get_spot(new_position);	//returns correct spot
 	std::cout << player->name << "'s piece landed on " << the_spot->name << ".\n";
 	//check if pass go and pay.
-	player->piece->movePosition(new_position);
+	player->piece.movePosition(new_position);
 	if (passes_go(player->piece, new_position - old_position))
 	{
 		player->collect(200);

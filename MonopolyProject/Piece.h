@@ -27,10 +27,12 @@ public:
 		TopHat,
 		Iron
 	}piece;
-	int position();
+	int getPosition();
+	void advancePosition(int numSpaces);
 	void movePosition(int new_position);
 	std::string str();
 	static void presentPieceOptions();
+	bool operator ==(const Piece& p);
 
 private:
 	std::map<pieces, std::string> piece_map{
@@ -41,10 +43,8 @@ private:
 		{pieces::TopHat, "TopHat"},
 		{pieces::Iron, "Iron"}
 	};
-	pieces piece;
-	unsigned short position;
+	int position;
 	std::string name;
-	bool operator ==(const Piece& p);
 
 	int _position;
 };
