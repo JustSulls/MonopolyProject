@@ -33,6 +33,7 @@ public://todo:make private
 	void init_board();
 	void init_pieces();
 	void init_players(int num);
+	void give_active_players_pieces();
 	int die_roll;
 
 public:
@@ -46,10 +47,11 @@ public:
 	Spot*		get_spot(int position);
 	Player*		get_player(Piece p);
 	Utility*	get_utility(int position);
+	int			get_utility_cost_multiplier(Player& owner);
 	Player*		get_owner(std::string spot_name);
 	Property*	get_property(int pos);
 	Railroad*	get_railroad(int pos);
-	Railroad* get_nearest_railroad(Player& player);
+	Railroad*	get_nearest_railroad(Player& player);
 	int			get_railroad_rent(Player player);
 	//receive cards
 	Card draw_community();
@@ -72,7 +74,7 @@ public:
 	//pay rent
 	void pay_rent(Player& player, Property property);
 	void pay_rent(Player& player, Railroad railroad);
-	void pay_utilities(Player& player, Utility utility);
+	void pay_utilities(Player& player, Utility& utility);
 
 	//send to jail
 	void send_to_jail(Player& player);
@@ -85,7 +87,7 @@ public:
 	//do spot action
 	void do_spot_action(Spot* the_spot, Player* activePlayer);
 	void send_player_to_jail(Player& p);
-	void player_throw_die_pay_owner(Player* p, Utility& the_utility);
+	void player_throw_die_pay_owner(Player& p, Utility& the_utility);
 	//move
 	void move_piece(Player* player, int die_cast);
 	void move_piece(Player* player, Spot pSpot);

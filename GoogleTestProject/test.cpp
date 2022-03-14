@@ -129,16 +129,20 @@ namespace testNamespace
 
 		EXPECT_EQ(p->piece->getPosition(), 12);	//Electric Company
 
-		//EXPECT_EQ(p->piece->position(), 12);	//Electric Company
 		//took players money for buying electric company
 		int moneyAfterBuy = startingMoney - m.utilities.at(0).cost;
 		EXPECT_EQ(p->money, moneyAfterBuy);
 
 		//make sure next player has to pay first player when landing on now owned electric company
-		//p = m.players[1];
-		//m.move_piece(p, 12);//todo:moving piece to bought electric company does not trigger paying player owner
-		//Spot* the_spot = m.get_spot(12);
-		//m.do_spot_action(the_spot, p);
+		p = m.players[1];
+		m.move_piece(p, 12);//todo:moving piece to bought electric company does not trigger paying player owner
+		Spot* the_spot = m.get_spot(12);
+		m.do_spot_action(the_spot, p);
+		//should be able to see that the second player payed the first
+		int cost_multiplier = m.get_utility_cost_multiplier(*m.players[0]);
+		int current_utility_cost = m.die_roll * cost_multiplier;
+		EXPECT_EQ(p->money, startingMoney - current_utility_cost);
+		EXPECT_EQ(m.players[0]->money, startingMoney - m.utilities.at(0).cost + current_utility_cost);
 	}
 	//todo:pay rent test case
 	TEST(UserInput, DecideToBuy)

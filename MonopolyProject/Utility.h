@@ -23,6 +23,5 @@ public:
 	std::string owner_name;
 	//
 	//member functions
-	int get_landed_cost();
 };
 

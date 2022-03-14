@@ -226,6 +226,14 @@ void Monopoly::init_players(int num)
 	}
 }
 
+void Monopoly::give_active_players_pieces()
+{
+	for (int i = 0; i < players.size(); i++)
+	{
+		players.at(i)->get_piece(&pieces.at(i));
+	}
+}
+
 int Monopoly::pick_piece(Player& player)
 {
 	//present options to player, bounds check answer, return it
@@ -598,13 +606,10 @@ void Monopoly::pay_rent(Player& player, Railroad railroad)
 	}
 }
 
-void Monopoly::pay_utilities(Player& player, Utility utility)
+void Monopoly::pay_utilities(Player& player, Utility& utility)
 {
 	try {
-		int payment = utility.get_landed_cost();
-		player.pay(payment);
-		Player* owner = get_owner(utility.name);
-		owner->collect(payment);
+		player_throw_die_pay_owner(player, utility);
 	}
 	catch (const std::invalid_argument& ia) {
 		std::cerr << "Invalid argument error: " << ia.what() << '\n';
@@ -665,7 +670,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		if (util->is_owned)//todo: this should trigger but isn't
 		{
 			//?yes player throw dice and pay owner total 10 times.
-			player_throw_die_pay_owner(player, *util);
+			player_throw_die_pay_owner(*player, *util);
 		}
 		else
 		{
@@ -979,16 +984,41 @@ void Monopoly::send_player_to_jail(Player& p)
 	p.piece->movePosition(position_jail);
 }
 
-void Monopoly::player_throw_die_pay_owner(Player* p, Utility& the_utility)
+void Monopoly::player_throw_die_pay_owner(Player& p, Utility& the_utility)
 {
-	std::cout << p->name << " throws die and pays owner total 10 times.\n";
-	throw_die(*p);
-	int cost = die_roll * 10;
-	p->pay(cost);
-	//get player that owns utility and pay 
-	//him dice roll *10
-	Player* owner = get_owner(the_utility.name);
-	owner->collect(cost);
+	int cost_multiplier = 0;
+	//get utility owner
+	Player* the_owner = get_owner(the_utility.name);
+	//The cost is dice roll(n) times 4 for one utility, 10 for both
+	//e.g. roll is 5 owner owns one utility cost is (5)*4 = 20
+	if (the_owner->utilities_owned.size() > 1)//owns 2
+	{
+		cost_multiplier = 10;
+	}
+	else if (the_owner->utilities_owned.size() == 1)
+	{
+		cost_multiplier = 4;
+	}
+	std::cout << p.name << " throws die and pays owner ("<<the_owner->name 
+		<<") a total of (" << cost_multiplier << ")  times.\n";
+	throw_die(p);
+	int cost = die_roll * cost_multiplier;
+	p.pay(cost);
+	the_owner->collect(cost);
+}
+
+int Monopoly::get_utility_cost_multiplier(Player& owner)
+{
+	int cost_multiplier = 0;
+	if (owner.utilities_owned.size() > 1)//owns 2
+	{
+		cost_multiplier = 10;
+	}
+	else if (owner.utilities_owned.size() == 1)
+	{
+		cost_multiplier = 4;
+	}
+	return cost_multiplier;
 }
 
 void Monopoly::move_piece(Player* player, int die_cast)
@@ -1083,6 +1113,7 @@ Monopoly::Monopoly(int number_players)
 	init_utilities();
 	init_cards();
 	init_board();
-	init_players(number_players);
 	init_pieces();
+	init_players(number_players);
+	give_active_players_pieces();//remove when giving players choice of piece
 }
