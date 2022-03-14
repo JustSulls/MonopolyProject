@@ -31,7 +31,7 @@ public://todo:make private
 	void init_utilities();
 	void init_cards();
 	void init_board();
-	//void init_pieces(int num, std::vector<std::string> names);
+	void init_pieces();
 	void init_players(int num);
 	int die_roll;
 

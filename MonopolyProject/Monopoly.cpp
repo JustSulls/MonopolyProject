@@ -208,14 +208,13 @@ void Monopoly::init_board()
 	spots.push_back(tax_luxury);
 }
 
-//void Monopoly::init_pieces(int num, std::vector<std::string> names)
-//{
-//	Piece** array = new Piece * [num];
-//	for (int i = 0; i < num; i++)
-//	{
-//		array[i] = new Piece(names[i]);
-//	}
-//}
+void Monopoly::init_pieces()
+{
+	for (int i = 0; i < npiece::NUMBER_PIECES; i++)
+	{
+		pieces.push_back(Piece(i));
+	}
+}
 
 void Monopoly::init_players(int num)
 {
@@ -1085,5 +1084,5 @@ Monopoly::Monopoly(int number_players)
 	init_cards();
 	init_board();
 	init_players(number_players);
-	//init_pieces();
+	init_pieces();
 }

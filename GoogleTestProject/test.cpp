@@ -58,6 +58,7 @@ namespace testNamespace
 		m.move_piece(p, 1);
 		EXPECT_EQ(p->piece->getPosition(), 0);
 		p = m.players[1];
+		p->get_piece(&m.pieces[0]);
 		EXPECT_EQ(p->piece->getPosition(), 0);
 	}
 

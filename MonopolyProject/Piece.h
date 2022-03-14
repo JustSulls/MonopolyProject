@@ -43,7 +43,6 @@ private:
 		{pieces::TopHat, "TopHat"},
 		{pieces::Iron, "Iron"}
 	};
-	int position;
 	std::string name;
 	int _position;
 };
