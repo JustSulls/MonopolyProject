@@ -45,7 +45,6 @@ private:
 	};
 	int position;
 	std::string name;
-
 	int _position;
 };
 

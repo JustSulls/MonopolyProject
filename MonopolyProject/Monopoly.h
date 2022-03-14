@@ -44,10 +44,12 @@ public:
 	Utility*	advance_to_nearest_utility(Piece* piece);
 	Railroad*	advance_to_nearest_railroad(Piece* piece);
 	Spot*		get_spot(int position);
+	Player*		get_player(Piece p);
 	Utility*	get_utility(int position);
 	Player*		get_owner(std::string spot_name);
 	Property*	get_property(int pos);
 	Railroad*	get_railroad(int pos);
+	Railroad* get_nearest_railroad(Player& player);
 	int			get_railroad_rent(Player player);
 	//receive cards
 	Card draw_community();
