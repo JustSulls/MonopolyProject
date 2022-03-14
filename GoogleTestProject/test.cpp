@@ -129,8 +129,6 @@ namespace testNamespace
 
 		EXPECT_EQ(p->piece->getPosition(), 12);	//Electric Company
 
-		m.do_card_action(c, p, true);//pass true to have player 'choose' to buy when presented with option
-
 		//EXPECT_EQ(p->piece->position(), 12);	//Electric Company
 		//took players money for buying electric company
 		int moneyAfterBuy = startingMoney - m.utilities.at(0).cost;

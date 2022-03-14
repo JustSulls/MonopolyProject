@@ -662,7 +662,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		//dice and pay owner a total 10 times the amount thrown.
 		util = advance_to_nearest_utility(player->piece);
 		//check if owned
-		if (util->is_owned)
+		if (util->is_owned)//todo: this should trigger but isn't
 		{
 			//?yes player throw dice and pay owner total 10 times.
 			player_throw_die_pay_owner(player, *util);
