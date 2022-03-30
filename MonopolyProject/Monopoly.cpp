@@ -345,6 +345,7 @@ Railroad* Monopoly::advance_to_nearest_railroad(Piece* piece)
 {
 	Player* player_ptr = get_player(*piece);
 	Railroad* rail_ptr = get_nearest_railroad(*player_ptr);
+	move_piece(player_ptr, *rail_ptr);
 	return rail_ptr;
 	//todo:test this
 }
@@ -596,9 +597,9 @@ void Monopoly::pay_rent(Player& player, Property property)
 void Monopoly::pay_rent(Player& player, Railroad railroad)
 {
 	try {
-		int rent = get_railroad_rent(player);
-		player.pay(rent);
 		Player* owner = get_owner(railroad.name);
+		int rent = get_railroad_rent(*owner);
+		player.pay(rent);
 		owner->collect(rent);
 	}
 	catch (const std::invalid_argument& ia) {
@@ -616,11 +617,12 @@ void Monopoly::pay_utilities(Player& player, Utility& utility)
 	}
 }
 
-void Monopoly::send_to_jail(Player& player)
+void Monopoly::send_player_to_jail(Player& p)
 {
-	player.piece->movePosition(10); //jail location 10 //todo: constant
-	player.in_jail = true;
-	std::cout << player.name << " is now in jail.\n";
+	//go to jail
+	p.in_jail = true;
+	p.piece->movePosition(position_jail);//jail location 10 
+	std::cout << p.name << " is now in jail.\n";
 }
 
 void Monopoly::upgrade_property(Property& property)
@@ -709,13 +711,11 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		}
 		else
 		{
-			if (decide_buy_or_pass(tempRailroad, *player))//offer player buy from bank
+			if (decide_buy_or_pass(*railroad, *player, 1))//offer player buy from bank//testing so always enter yes to buy
 			{
-				player->pay(tempRailroad.cost);
-				player->railroads_owned.push_back(&tempRailroad);
-				tempRailroad.is_owned = true;
-				//set mapSpotNameGetOwner to new owner
-				//mapSpotNameGetOwner[railroad.name] = player;
+				player->pay(railroad->cost);
+				railroad->is_owned = true;
+				player->railroads_owned.push_back(railroad);
 			}
 		}
 		break;
@@ -736,7 +736,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 9:
 		//go to jail, directly, do not collect 200 if pass go
-		send_to_jail(*player);
+		send_player_to_jail(*player);
 		break;
 	case 10:
 		//make repairs, for each house pay 25 for each hotel pay 100
@@ -975,13 +975,6 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 			activePlayer->pay(150);
 		}
 	}
-}
-
-void Monopoly::send_player_to_jail(Player& p)
-{
-	//go to jail
-	p.in_jail = true;
-	p.piece->movePosition(position_jail);
 }
 
 void Monopoly::player_throw_die_pay_owner(Player& p, Utility& the_utility)
