@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TEST(CardTestCase, GoToJail)
+TEST(CardCase, GoToJail)
 {
 	Monopoly m;
 	Player* p = m.players[0];
@@ -15,7 +15,7 @@ TEST(CardTestCase, GoToJail)
 	EXPECT_EQ(p->piece->getPosition(), 10);
 }
 
-TEST(CardTestCase, AdvanceToGo)
+TEST(CardCase, AdvanceToGo)
 {
 	Monopoly m;
 	Player* p = m.players[0];
@@ -31,7 +31,7 @@ TEST(CardTestCase, AdvanceToGo)
 	EXPECT_EQ(p->piece->getPosition(), 0);
 }
 
-TEST(CardTestCase, Inherit100)
+TEST(CardCase, Inherit100)
 {
 	Monopoly m;
 	Player* p = m.players[0];
@@ -47,7 +47,7 @@ TEST(CardTestCase, Inherit100)
 	EXPECT_EQ(p->piece->getPosition(), 0);
 }
 
-TEST(CardTestCase, AdvanceToUtility)
+TEST(CardCase, AdvanceToUtility)
 {
 	/*Advance token to nearest Utility.
 	If unowned  you may buy it from the Bank.
@@ -82,7 +82,7 @@ TEST(CardTestCase, AdvanceToUtility)
 	EXPECT_EQ(m.players[0]->money, startingMoney - m.utilities.at(0).cost + current_utility_cost);
 }
 
-TEST(CardTestCase, AdvanceToRailroad)
+TEST(CardCase, AdvanceToRailroad)
 {
 	Monopoly m;
 	Player* p = m.players[0];
@@ -108,4 +108,20 @@ TEST(CardTestCase, AdvanceToRailroad)
 	//should be able to see that the second player payed the first
 	int landed_cost = m.get_railroad_rent(*m.players[0]);
 	EXPECT_EQ(p->money, startingMoney - landed_cost);
+}
+
+TEST(CardCase, BankPays50)
+{
+	Monopoly m;
+	Player* p = m.players[0];
+	p->get_piece(&m.pieces[0]);
+	Card c = m.cards[27];	//Bank pays you dividend of $50
+
+	EXPECT_EQ(p->money, 1500);
+	EXPECT_EQ(p->piece->getPosition(), 0);
+
+	m.do_card_action(c, p);
+
+	EXPECT_EQ(p->money, 1550);
+	EXPECT_EQ(p->piece->getPosition(), 0);
 }
