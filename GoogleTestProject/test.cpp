@@ -31,7 +31,7 @@ namespace testNamespace
 		Monopoly m;
 		nrails::Railroad* r = &m.railroads[0];
 		m.players[0]->buy_railroad(r);
-		EXPECT_EQ("B_0_Railroad", m.players[0]->railroads_owned[0]->name);
+		EXPECT_EQ("Reading_Railroad", m.players[0]->railroads_owned[0]->name);
 		EXPECT_FALSE(m.players[1]->buy_railroad(r));
 	}
 
