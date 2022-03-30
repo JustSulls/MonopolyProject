@@ -1,5 +1,25 @@
 #include "pch.h"
 
+TEST(CardCase, GoBackSpaces)
+{
+	Monopoly m;
+	Player* p = m.players[0];
+	p->get_piece(&m.pieces[0]);
+	Card c = m.cards[26];
+	//start
+	EXPECT_EQ(p->piece->getPosition(), 0);
+	//move up 3 from [0]
+	p->piece->advancePosition(3);
+	EXPECT_EQ(p->piece->getPosition(), 3);
+
+	//move back 3 from [3]
+	p->piece->advancePosition(-3);
+	EXPECT_EQ(p->piece->getPosition(), 0);
+
+	m.do_card_action(c, p);
+
+	EXPECT_EQ(p->piece->getPosition(), 37); //last board position is 39.. 0, 39, 38, 37
+}
 TEST(CardCase, GoToJail)
 {
 	Monopoly m;

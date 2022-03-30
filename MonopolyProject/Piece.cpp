@@ -1,4 +1,5 @@
 #include "Piece.h"
+#include <stdlib.h>
 #include <iostream>
 
 Piece::Piece(int which)
@@ -14,6 +15,18 @@ int Piece::getPosition()
 
 void Piece::advancePosition(int numSpaces)
 {//must be able to advance backwards too
+	int newPosition = this->_position += numSpaces;
+	int oldPosition = this->_position;
+	if (newPosition < 0)
+	{
+		newPosition += 40;
+	}
+	else if( newPosition > 39)
+	{
+		newPosition -= 40;
+	}
+	//move piece
+	movePosition(newPosition);
 }
 
 void Piece::movePosition(int new_position)
