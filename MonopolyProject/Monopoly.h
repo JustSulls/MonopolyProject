@@ -53,31 +53,36 @@ public:
 	Railroad*	get_railroad(int pos);
 	Railroad*	get_nearest_railroad(Player& player);
 	int			get_railroad_rent(Player player);
+	
 	//receive cards
 	Card draw_community();
 	Card draw_chance();
 
 	//pass go
 	bool passes_go(Piece* p, int n);
+	
 	//game over
 	bool game_over = false;
+	
 	//decide buy or pass
 	bool decide_buy_or_pass(Property prop, Player player);
 	bool decide_buy_or_pass(Utility util, Player player, bool testing=false);
 	bool decide_buy_or_pass(Railroad rail, Player player, int answer=-1);
+	
 	//decide upgrade
 	bool decide_upgrade(Property prop, Player player);
 	
-	//play game
+	//play gamee
 	void play_game();
+
+	//move
+	void move_piece(Player* player, int die_cast);
+	void move_piece(Player* player, Spot pSpot);
 
 	//pay rent
 	void pay_rent(Player& player, Property property);
 	void pay_rent(Player& player, Railroad railroad);
 	void pay_utilities(Player& player, Utility& utility);
-
-	//send to jail
-	void send_to_jail(Player& player);
 
 	//upgrade property
 	void upgrade_property(Property& property);
@@ -89,10 +94,6 @@ public:
 	void do_spot_action(Spot* the_spot, Player* activePlayer);
 	void send_player_to_jail(Player& p);
 	void player_throw_die_pay_owner(Player& p, Utility& the_utility);
-	
-	//move
-	void move_piece(Player* player, int die_cast);
-	void move_piece(Player* player, Spot pSpot);
 
 	//vectors
 	std::vector<Railroad> railroads;
@@ -119,5 +120,5 @@ public:
 	const std::string utility_names[2] = { "Electric_Company",
 		"Water_Works" };
 	const int utility_positions[2] = { 12, 28 };
-	const int position_jail = 20;
+	const int position_jail = 10;
 };
