@@ -77,7 +77,7 @@ bool Player::buy_property(Property* prop)
 	}
 	return false;
 }
-bool Player::buy_railroad(Railroad* rail)
+bool Player::buy_railroad(nrails::Railroad* rail)
 {
 	try {
 		if (rail->is_owned)

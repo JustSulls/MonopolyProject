@@ -1,12 +1,12 @@
 #include "Railroad.h"
-Railroad::Railroad() : Spot()
+nrails::Railroad::Railroad() : Spot()
 {
 	railroad_type = railroad_types::B_0_Railroad;
 	position = 0;
     is_owned = false;
     Spot::spot_type = SpotType::railroad;
 }
-Railroad::Railroad(std::string name) : Spot()
+nrails::Railroad::Railroad(std::string name) : Spot()
 {
 
     if (name == "B_0_Railroad") {
@@ -17,7 +17,7 @@ Railroad::Railroad(std::string name) : Spot()
         position = position = railroad_positions[1];
         railroad_type = railroad_types::Pennsylvania_Railroad;
     }
-    else if ("Reading_Railroad") {
+    else if (name == "Reading_Railroad") {
         position = railroad_positions[0];
         railroad_type = railroad_types::Reading_Railroad;
     }

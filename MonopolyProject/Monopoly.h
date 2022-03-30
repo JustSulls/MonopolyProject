@@ -43,15 +43,15 @@ public:
 
 	//member functions which return
 	Utility*	advance_to_nearest_utility(Piece* piece);
-	Railroad*	advance_to_nearest_railroad(Piece* piece);
+	nrails::Railroad*	advance_to_nearest_railroad(Piece* piece);
 	Spot*		get_spot(int position);
 	Player*		get_player(Piece p);
 	Utility*	get_utility(int position);
 	int			get_utility_cost_multiplier(Player& owner);
 	Player*		get_owner(std::string spot_name);
 	Property*	get_property(int pos);
-	Railroad*	get_railroad(int pos);
-	Railroad*	get_nearest_railroad(Player& player);
+	nrails::Railroad*	get_railroad(int pos);
+	nrails::Railroad*	get_nearest_railroad(Player& player);
 	int			get_railroad_rent(Player player);
 	
 	//receive cards
@@ -67,7 +67,7 @@ public:
 	//decide buy or pass
 	bool decide_buy_or_pass(Property prop, Player player);
 	bool decide_buy_or_pass(Utility util, Player player, bool testing=false);
-	bool decide_buy_or_pass(Railroad rail, Player player, int answer=-1);
+	bool decide_buy_or_pass(nrails::Railroad rail, Player player, int answer=-1);
 	
 	//decide upgrade
 	bool decide_upgrade(Property prop, Player player);
@@ -81,7 +81,7 @@ public:
 
 	//pay rent
 	void pay_rent(Player& player, Property property);
-	void pay_rent(Player& player, Railroad railroad);
+	void pay_rent(Player& player, nrails::Railroad railroad);
 	void pay_utilities(Player& player, Utility& utility);
 
 	//upgrade property
@@ -96,7 +96,7 @@ public:
 	void player_throw_die_pay_owner(Player& p, Utility& the_utility);
 
 	//vectors
-	std::vector<Railroad> railroads;
+	std::vector<nrails::Railroad> railroads;
 	std::vector<Utility> utilities;
 	std::vector<Card> cards;
 	std::vector<Card> chance_cards;
@@ -112,9 +112,9 @@ public:
 	
 	//constants
 	const std::vector<std::string> railroad_names = {
-		"B_0_Railroad",
-		"Pennsylvania_Railroad",
 		"Reading_Railroad",
+		"Pennsylvania_Railroad",
+		"B_0_Railroad",
 		"Short_Line"
 	};
 	const std::string utility_names[2] = { "Electric_Company",
