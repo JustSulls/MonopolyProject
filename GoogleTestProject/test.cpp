@@ -29,7 +29,7 @@ namespace testNamespace
 
 	TEST(PlayerTestCase, PlayerBuyRailroad) {
 		Monopoly m;
-		Railroad* r = &m.railroads[0];
+		nrails::Railroad* r = &m.railroads[0];
 		m.players[0]->buy_railroad(r);
 		EXPECT_EQ("B_0_Railroad", m.players[0]->railroads_owned[0]->name);
 		EXPECT_FALSE(m.players[1]->buy_railroad(r));
@@ -68,7 +68,7 @@ namespace testNamespace
 		Monopoly m;
 		Player* p = m.players[0];
 		p->get_piece(&m.pieces[0]);
-		Railroad r = m.railroads[0];
+		nrails::Railroad r = m.railroads[0];
 
 		bool answer = m.decide_buy_or_pass(r, *p, 1);
 		EXPECT_EQ(answer, true);

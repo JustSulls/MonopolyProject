@@ -105,7 +105,7 @@ void Monopoly::init_railroads()
 	for (unsigned int i = 0; i < railroad_names.size(); i++)
 	{
 		std::string rn = railroad_names.at(i);
-		Railroad r(rn);
+		nrails::Railroad r(rn);
 		railroads.push_back(r);
 	}
 }
@@ -341,16 +341,16 @@ Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
 	}
 }
 
-Railroad* Monopoly::advance_to_nearest_railroad(Piece* piece)
+nrails::Railroad* Monopoly::advance_to_nearest_railroad(Piece* piece)
 {
 	Player* player_ptr = get_player(*piece);
-	Railroad* rail_ptr = get_nearest_railroad(*player_ptr);
+	nrails::Railroad* rail_ptr = get_nearest_railroad(*player_ptr);
 	move_piece(player_ptr, *rail_ptr);
 	return rail_ptr;
 	//todo:test this
 }
 
-Railroad* Monopoly::get_nearest_railroad(Player& player)
+nrails::Railroad* Monopoly::get_nearest_railroad(Player& player)
 {
 	// get piece position
 	int piece_position = player.piece->getPosition();
@@ -377,7 +377,7 @@ Railroad* Monopoly::get_nearest_railroad(Player& player)
 			which_pos_was_shortest = i;
 		}
 	}
-	Railroad* rail_ptr = new Railroad();
+	nrails::Railroad* rail_ptr = new nrails::Railroad();
 	rail_ptr = &railroads.at(which_pos_was_shortest);
 	return rail_ptr;
 }
@@ -513,7 +513,7 @@ bool Monopoly::decide_buy_or_pass(Utility util, Player player, bool testing)
 	}
 }
 
-bool Monopoly::decide_buy_or_pass(Railroad rail, Player player, int answer)
+bool Monopoly::decide_buy_or_pass(nrails::Railroad rail, Player player, int answer)
 {
 	while (answer > 1 || answer < 0)
 	{
@@ -594,7 +594,7 @@ void Monopoly::pay_rent(Player& player, Property property)
 	}
 }
 
-void Monopoly::pay_rent(Player& player, Railroad railroad)
+void Monopoly::pay_rent(Player& player, nrails::Railroad railroad)
 {
 	try {
 		Player* owner = get_owner(railroad.name);
@@ -648,8 +648,8 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 	std::cout << player->name << " draws \"" << c.text << "\".\n";
 	Utility* util;
 	//Utility tempUtil;//todo::removing pointer to util above, this partialy complete
-	Railroad* railroad;
-	Railroad tempRailroad;
+	nrails::Railroad* railroad;
+	nrails::Railroad tempRailroad;
 	Spot* s;
 	switch (c.id) {
 	case 1:
@@ -926,7 +926,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 		//railroad handle
 		//if owned, pay owner
 		//if unowned present option to buy property
-		Railroad* railroad = get_railroad(theSpot->position);
+		nrails::Railroad* railroad = get_railroad(theSpot->position);
 		if (railroad->is_owned)
 		{
 			//pay rent
@@ -1069,10 +1069,10 @@ Property* Monopoly::get_property(int pos)
 	return nullptr;
 }
 
-Railroad* Monopoly::get_railroad(int pos)
+nrails::Railroad* Monopoly::get_railroad(int pos)
 {
 	//todo: fix if still need this func
-	Railroad* r;
+	nrails::Railroad* r;
 	for (unsigned int i = 0; i < 4; i++)
 	{
 		if (railroads[i].position == pos)
