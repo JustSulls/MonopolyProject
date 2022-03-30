@@ -8,7 +8,7 @@
 using namespace std;
 int main()
 {
-    //Monopoly monopoly;
+    Monopoly monopoly;
 
     return 0;
 }

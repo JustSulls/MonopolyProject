@@ -84,10 +84,12 @@ public:
 
 	//do card action
 	void do_card_action(Card c, Player* p, bool testing=false);
+	
 	//do spot action
 	void do_spot_action(Spot* the_spot, Player* activePlayer);
 	void send_player_to_jail(Player& p);
 	void player_throw_die_pay_owner(Player& p, Utility& the_utility);
+	
 	//move
 	void move_piece(Player* player, int die_cast);
 	void move_piece(Player* player, Spot pSpot);
@@ -104,8 +106,8 @@ public:
 	std::vector<Spot> spots;
 
 	//maps for properties and utilities
-	std::map<std::string, Property> map_property;
-	std::map<std::string, Utility> map_utility;
+	std::map<std::string, Property> map_property;	//do need, used
+	std::map<std::string, Utility> map_utility;		//may not need, no references to date
 	
 	//constants
 	const std::vector<std::string> railroad_names = {
