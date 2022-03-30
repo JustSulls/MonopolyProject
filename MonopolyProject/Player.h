@@ -14,7 +14,7 @@ public:
 	Piece* piece;
 	std::string name;
 	int money;
-	bool has_get_out_of_jail_card = false;
+	std::vector<bool>get_out_of_jail_cards;
 	bool in_jail = false;
 
 	std::vector<Property*>properties_owned;
@@ -25,9 +25,11 @@ public:
 	void pay(int amount);
 	void do_street_repairs(); 
 	void do_general_repairs();
+	void use_get_out_of_jail_card();
 	bool buy_property(Property* prop);
 	bool buy_railroad(nrails::Railroad* rail);
 	bool buy_utility(Utility* utility);
+	bool has_get_out_of_jail_card();
 	std::vector<Property*>property_upgrades_available();
 	int throw_die();
 	//void assign_ownership(Property property);
@@ -39,13 +41,13 @@ public:
 private:
 	//temp
 	struct maxColorCounts {
-		int maxDarkBlue = 2;
-		int maxGreen = 3;
-		int maxYellow = 3;
-		int maxRed = 3;
-		int maxOrange = 3;
-		int maxPink = 3;
-		int maxLightBlue = 3;
-		int maxBrown = 2;
+		int maxDarkBlue	=	2;
+		int maxGreen	=	3;
+		int maxYellow	=	3;
+		int maxRed		=	3;
+		int maxOrange	=	3;
+		int maxPink		=	3;
+		int maxLightBlue=	3;
+		int maxBrown	=	2;
 	}ColorCount;
 };

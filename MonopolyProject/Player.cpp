@@ -9,6 +9,18 @@ Player::Player(std::string n)
 	name = n;
 	money = 1500;
 }
+bool Player::has_get_out_of_jail_card()
+{
+	bool has = false;
+	for (int i = 0; i < get_out_of_jail_cards.size(); i++)
+	{
+		if (get_out_of_jail_cards[i] == true)
+		{
+			has = true;
+		}
+	}
+	return has;
+}
 void Player::collect(int amount)
 {
 	money += amount;
@@ -57,6 +69,14 @@ void Player::do_general_repairs()
 		}
 	}
 	int payment = (25 * num_houses) + (100 * num_hotels);
+}
+void Player::use_get_out_of_jail_card()
+{
+	if (!get_out_of_jail_cards.empty())
+	{
+		get_out_of_jail_cards.pop_back();
+	}
+	else throw std::range_error("Get out of jail cards vector empty.");
 }
 bool Player::buy_property(Property* prop)
 {

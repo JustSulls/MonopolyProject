@@ -125,3 +125,34 @@ TEST(CardCase, BankPays50)
 	EXPECT_EQ(p->money, 1550);
 	EXPECT_EQ(p->piece->getPosition(), 0);
 }
+
+TEST(CardCase, GetOutOfJailCard)
+{
+	Monopoly m;
+	Player* p = m.players[0];
+	p->get_piece(&m.pieces[0]);
+	Card c = m.cards[19];	//Get out of jail free
+	Card c2 = m.cards[30];
+
+	EXPECT_EQ(p->money, 1500);
+	EXPECT_EQ(p->piece->getPosition(), 0);
+
+	m.do_card_action(c, p);
+
+	EXPECT_EQ(p->money, 1500);
+	EXPECT_EQ(p->piece->getPosition(), 0);
+	EXPECT_EQ(p->has_get_out_of_jail_card(), true);
+
+	m.do_card_action(c2, p);
+	EXPECT_EQ(p->money, 1500);
+	EXPECT_EQ(p->piece->getPosition(), 0);
+	EXPECT_EQ(p->has_get_out_of_jail_card(), true);
+
+	p->use_get_out_of_jail_card();
+	//still has one card
+	EXPECT_EQ(p->has_get_out_of_jail_card(), true);
+
+	p->use_get_out_of_jail_card();
+	//has no cards left
+	EXPECT_EQ(p->has_get_out_of_jail_card(), false);
+}

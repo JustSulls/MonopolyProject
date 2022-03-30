@@ -725,7 +725,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 7:
 		//get out of jail card
-		player->has_get_out_of_jail_card = true;
+		player->get_out_of_jail_cards.push_back(true);
 		break;
 	case 8:
 		//go back 3 spaces
@@ -792,7 +792,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 21:
 		//Get Out of Jail Free. This card may be kept until needed or sold/traded.
-		player->has_get_out_of_jail_card = true;
+		player->get_out_of_jail_cards.push_back(true);
 		break;
 	case 22:
 		//Go to Jail. Go directly to jail. Do not pass GO. Do not collect $200.
