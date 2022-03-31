@@ -17,6 +17,7 @@ TEST(CardCase, GoBackSpaces)
 	EXPECT_EQ(p->piece->getPosition(), 0);
 
 	m.do_card_action(c, p);
+	//after card action moves back 3 spaces then does spot action wherever land this could cause anomalies here?
 
 	EXPECT_EQ(p->piece->getPosition(), 37); //last board position is 39.. 0, 39, 38, 37
 }
@@ -175,4 +176,23 @@ TEST(CardCase, GetOutOfJailCard)
 	p->use_get_out_of_jail_card();
 	//has no cards left
 	EXPECT_EQ(p->has_get_out_of_jail_card(), false);
+}
+
+TEST(CardCase, DoGeneralRepairs)
+{
+	Monopoly m;
+	Player* p = m.players[0];
+	p->get_piece(&m.pieces[0]);
+	Card c = m.cards[31];//make general repairs
+
+	EXPECT_EQ(p->money, 1500);
+	EXPECT_EQ(p->piece->getPosition(), 0);
+
+	m.do_card_action(c, p);
+	
+	//because has no properties, no pay
+	EXPECT_EQ(p->money, 1500);
+
+	//todo:give properties
+	
 }

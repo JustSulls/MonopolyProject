@@ -732,7 +732,8 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		player->piece->advancePosition(-3);
 		//todo:
 		//do an action at this new position
-		//check own then offer_player_buy_prop or pay rent
+		s = get_spot(player->piece->getPosition());
+		do_spot_action(s, player);
 		break;
 	case 9:
 		//go to jail, directly, do not collect 200 if pass go

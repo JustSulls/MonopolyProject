@@ -35,6 +35,9 @@ public:
 	//void assign_ownership(Property property);
 	int decide_upgrade(Property prop);
 	void get_piece(Piece* p);
+	int get_num_houses();
+	int get_num_hotels();
+	int get_general_repair_cost();
 	bool operator==(const Player& other);
 	bool operator!=(const Player& other);
 

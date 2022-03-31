@@ -51,24 +51,48 @@ void Player::do_street_repairs()
 	unsigned int payment = ((40 * num_houses) + (115 * num_hotels));
 	pay(payment);
 }
+int Player::get_general_repair_cost()
+{
+	int payment = (25 * get_num_houses()) + (100 * get_num_hotels());
+	return payment;
+}
 void Player::do_general_repairs()
 {
 	//make repairs, for each house pay 25 for each hotel pay 100
+	int payment = get_general_repair_cost();
+	this->pay(payment);
+}
+int Player::get_num_houses()
+{
 	unsigned int num_houses = 0;
-	unsigned int num_hotels = 0;
-	for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+	if (!properties_owned.empty())
 	{
-		int l = static_cast<int>(properties_owned[i]->current_level);
-		if (l > 1)
+		for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
 		{
-			num_houses += l - 1;//check property level enum 1!=1
+			int l = static_cast<int>(properties_owned[i]->current_level);
+			if (l > 1)
+			{
+				num_houses += l - 1;//check property level enum 1!=1
+			}
+		}
+	}
+	return num_houses;
+}
+int Player::get_num_hotels()
+{
+	unsigned int num_hotels = 0;
+	if (!properties_owned.empty())
+	{
+		for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+		{
+			int l = static_cast<int>(properties_owned[i]->current_level);
 			if (l == 6)//hotel 
 			{
 				num_hotels += 1;
 			}
 		}
 	}
-	int payment = (25 * num_houses) + (100 * num_hotels);
+	return num_hotels;
 }
 void Player::use_get_out_of_jail_card()
 {

@@ -23,9 +23,7 @@
 
 class Monopoly
 {
-public://todo:make private
-	Board board;
-	//init
+private:
 	void init_properties();
 	void init_railroads();
 	void init_utilities();
@@ -33,6 +31,9 @@ public://todo:make private
 	void init_board();
 	void init_pieces();
 	void init_players(int num);
+public://todo:make private
+	Board board;
+	//init
 	void give_active_players_pieces();
 	int die_roll;
 
@@ -42,17 +43,17 @@ public:
 	int throw_die(Player player);	
 
 	//member functions which return
-	Utility*	advance_to_nearest_utility(Piece* piece);
+	Utility*			advance_to_nearest_utility(Piece* piece);
 	nrails::Railroad*	advance_to_nearest_railroad(Piece* piece);
-	Spot*		get_spot(int position);
-	Player*		get_player(Piece p);
-	Utility*	get_utility(int position);
-	int			get_utility_cost_multiplier(Player& owner);
-	Player*		get_owner(std::string spot_name);
-	Property*	get_property(int pos);
+	Spot*				get_spot(int position);
+	Player*				get_player(Piece p);
+	Utility*			get_utility(int position);
+	int					get_utility_cost_multiplier(Player& owner);
+	Player*				get_owner(std::string spot_name);
+	Property*			get_property(int pos);
 	nrails::Railroad*	get_railroad(int pos);
 	nrails::Railroad*	get_nearest_railroad(Player& player);
-	int			get_railroad_rent(Player player);
+	int					get_railroad_rent(Player player);
 	
 	//receive cards
 	Card draw_community();
