@@ -804,7 +804,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 23:
 		//Grand Opera Night. Collect $50 from every player for opening night seats.
-		for (unsigned int i = 0; i < players.size() - 1; i++)
+		for (unsigned int i = 0; i < players.size(); i++)
 		{
 			if (player != players[i])//if not this player
 			{

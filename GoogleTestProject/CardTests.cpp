@@ -1,5 +1,15 @@
 #include "pch.h"
 
+TEST(CardCase, GrandOperaNight)
+{
+	Monopoly m;
+	Player* p = m.players[0];
+	p->get_piece(&m.pieces[0]);
+	Card c = m.cards[17];
+
+	m.do_card_action(c, p, true);
+	EXPECT_EQ(p->money, 1550);
+}
 TEST(CardCase, GoBackSpaces)
 {
 	Monopoly m;
