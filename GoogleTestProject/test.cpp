@@ -88,5 +88,6 @@ namespace testNamespace
 	{
 		Monopoly m;
 		m.play_game();
+		//m.play_game();
 	}
 }

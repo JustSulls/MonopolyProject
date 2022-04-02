@@ -1,5 +1,25 @@
 #include "pch.h"
 
+TEST(CardCase, ItIsYourBirthday)
+{
+	Monopoly m;
+	Player* p = m.players[0];
+	p->get_piece(&m.pieces[0]);
+	Card c = m.cards[8];
+
+	m.do_card_action(c, p, true);
+	EXPECT_EQ(p->money, 1510);
+}
+TEST(CardCase, GrandOperaNight)
+{
+	Monopoly m;
+	Player* p = m.players[0];
+	p->get_piece(&m.pieces[0]);
+	Card c = m.cards[17];
+
+	m.do_card_action(c, p, true);
+	EXPECT_EQ(p->money, 1550);
+}
 TEST(CardCase, GoBackSpaces)
 {
 	Monopoly m;
@@ -8,15 +28,8 @@ TEST(CardCase, GoBackSpaces)
 	Card c = m.cards[26];
 	//start
 	EXPECT_EQ(p->piece->getPosition(), 0);
-	//move up 3 from [0]
-	p->piece->advancePosition(3);
-	EXPECT_EQ(p->piece->getPosition(), 3);
 
-	//move back 3 from [3]
-	p->piece->advancePosition(-3);
-	EXPECT_EQ(p->piece->getPosition(), 0);
-
-	m.do_card_action(c, p);
+	m.do_card_action(c, p, true);
 	//after card action moves back 3 spaces then does spot action wherever land this could cause anomalies here?
 
 	EXPECT_EQ(p->piece->getPosition(), 37); //last board position is 39.. 0, 39, 38, 37
@@ -35,7 +48,6 @@ TEST(CardCase, GoToJail)
 	EXPECT_EQ(p->in_jail, true);
 	EXPECT_EQ(p->piece->getPosition(), 10);
 }
-
 TEST(CardCase, AdvanceToGo)
 {
 	Monopoly m;
@@ -51,7 +63,6 @@ TEST(CardCase, AdvanceToGo)
 	EXPECT_EQ(p->money, 1700);
 	EXPECT_EQ(p->piece->getPosition(), 0);
 }
-
 TEST(CardCase, Inherit100)
 {
 	Monopoly m;
@@ -67,7 +78,6 @@ TEST(CardCase, Inherit100)
 	EXPECT_EQ(p->money, 1600);
 	EXPECT_EQ(p->piece->getPosition(), 0);
 }
-
 TEST(CardCase, AdvanceToUtility)
 {
 	/*Advance token to nearest Utility.
@@ -102,7 +112,6 @@ TEST(CardCase, AdvanceToUtility)
 	EXPECT_EQ(p->money, startingMoney - current_utility_cost);
 	EXPECT_EQ(m.players[0]->money, startingMoney - m.utilities.at(0).cost + current_utility_cost);
 }
-
 TEST(CardCase, AdvanceToRailroad)
 {
 	Monopoly m;
@@ -130,7 +139,6 @@ TEST(CardCase, AdvanceToRailroad)
 	int landed_cost = m.get_railroad_rent(*m.players[0]);
 	EXPECT_EQ(p->money, startingMoney - landed_cost);
 }
-
 TEST(CardCase, BankPays50)
 {
 	Monopoly m;
@@ -146,7 +154,6 @@ TEST(CardCase, BankPays50)
 	EXPECT_EQ(p->money, 1550);
 	EXPECT_EQ(p->piece->getPosition(), 0);
 }
-
 TEST(CardCase, GetOutOfJailCard)
 {
 	Monopoly m;
@@ -177,7 +184,6 @@ TEST(CardCase, GetOutOfJailCard)
 	//has no cards left
 	EXPECT_EQ(p->has_get_out_of_jail_card(), false);
 }
-
 TEST(CardCase, DoGeneralRepairs)
 {
 	Monopoly m;
