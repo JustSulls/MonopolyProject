@@ -823,7 +823,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 26:
 		//It is your birthday. Collect $10 from every player.
-		for (unsigned int i = 0; i < players.size() - 1; i++)
+		for (unsigned int i = 0; i < players.size(); i++)
 		{
 			if (player != players[i])//if not this player
 			{
