@@ -4,7 +4,7 @@ void Monopoly::init_properties()
 {
 	std::fstream myfile;
 	try {
-		myfile.open("C:/Users/jsul2/Documents/monopoly_properties.csv"); // declare file stream: http://www.cplusplus.com/reference/iostream/ifstream/
+		myfile.open("C:/Users/jsul2/source/repos/MonopolyProject/MonopolyProject/CSV/monopoly_properties.csv"); // declare file stream: http://www.cplusplus.com/reference/iostream/ifstream/
 	}
 	catch (const std::exception& e)
 	{
@@ -124,7 +124,7 @@ void Monopoly::init_utilities()
 void Monopoly::init_cards()
 {
 	std::fstream myfile;
-	myfile.open("C:/Users/jsul2/Documents/monopoly_cards.csv"); // declare file stream: http://www.cplusplus.com/reference/iostream/ifstream/
+	myfile.open("C:/Users/jsul2/source/repos/MonopolyProject/MonopolyProject/CSV/monopoly_cards.csv"); // declare file stream: http://www.cplusplus.com/reference/iostream/ifstream/
 	std::string value;
 	std::vector<std::string> holding;
 	while (myfile.good())
@@ -476,6 +476,7 @@ Player* Monopoly::get_player(Piece p)
 bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 {
 	//present options to player, bounds check answer, return it	
+	//TODO:if test answer yes always/no always, make test global?
 	int answer = -1;
 	while (answer > 1 || answer < 0)
 	{
@@ -561,6 +562,7 @@ void Monopoly::play_game()
 			std::vector<Property*> potential_upgrades = activePlayer->property_upgrades_available();
 			if (!potential_upgrades.empty())
 			{
+				std::cout << "Decide whether to upgrade property.";
 				for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
 				{
 					activePlayer->decide_upgrade(*potential_upgrades[i]);
@@ -733,7 +735,10 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		//todo:
 		//do an action at this new position
 		s = get_spot(player->piece->getPosition());
-		do_spot_action(s, player);
+		if (!testing)
+		{	//skip if testing
+			do_spot_action(s, player);
+		}
 		break;
 	case 9:
 		//go to jail, directly, do not collect 200 if pass go
@@ -801,7 +806,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 23:
 		//Grand Opera Night. Collect $50 from every player for opening night seats.
-		for (unsigned int i = 0; i < players.size() - 1; i++)
+		for (unsigned int i = 0; i < players.size(); i++)
 		{
 			if (player != players[i])//if not this player
 			{
@@ -820,7 +825,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 26:
 		//It is your birthday. Collect $10 from every player.
-		for (unsigned int i = 0; i < players.size() - 1; i++)
+		for (unsigned int i = 0; i < players.size(); i++)
 		{
 			if (player != players[i])//if not this player
 			{

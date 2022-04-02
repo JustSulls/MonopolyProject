@@ -83,4 +83,10 @@ namespace testNamespace
 		player.get_piece(&piece);
 		EXPECT_EQ(player.piece->getPosition(), 1);
 	}
+
+	TEST(MonopolyCase, PlayGame)
+	{
+		Monopoly m;
+		m.play_game();
+	}
 }
