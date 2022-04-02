@@ -158,9 +158,9 @@ bool Player::buy_utility(Utility* utility)
 	}
 	return false;
 }
-std::vector<Property*> Player::property_upgrades_available()
+std::vector<Property> Player::property_upgrades_available()
 {
-	std::vector<Property*>return_properties;
+	std::vector<Property>return_properties;
 	if (!properties_owned.empty())
 	{
 		std::vector<Property::colors> vColorHolder;
@@ -198,7 +198,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::brown)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -208,7 +208,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::light_blue)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -218,7 +218,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::pink)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -228,7 +228,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::orange)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -238,7 +238,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::red)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -248,7 +248,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::yellow)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -258,7 +258,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::green)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -268,7 +268,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::dark_blue)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}

@@ -35,6 +35,8 @@ public:
 	bool operator ==(const Piece& p);
 
 private:
+	std::string name;
+	int _position;
 	std::map<pieces, std::string> piece_map{
 		{pieces::Battleship, "Battleship" },
 		{pieces::Boot, "Boot"},
@@ -43,7 +45,5 @@ private:
 		{pieces::TopHat, "TopHat"},
 		{pieces::Iron, "Iron"}
 	};
-	std::string name;
-	int _position;
 };
 

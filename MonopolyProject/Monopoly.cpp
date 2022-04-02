@@ -256,6 +256,7 @@ int Monopoly::throw_die(Player player)
 
 Spot* Monopoly::get_spot(int position)
 {
+	//TODO:something wrong with first return spots for loop here
 	for (unsigned int i = 0; i < spots.size(); i++)
 	{
 		if (spots[i].position == position)
@@ -461,6 +462,21 @@ int Monopoly::get_railroad_rent(Player player)
 	return rent_owed;
 }
 
+Player* Monopoly::get_active_player()
+{
+	//TODO: test
+	Player* currentActive = activePlayer;
+	if (activePlayerCounter == 0) {
+		activePlayer = players.at(1);
+		activePlayerCounter = 1;
+	}
+	else if (activePlayerCounter == 1) {
+		activePlayer = players.at(0);
+		activePlayerCounter = 0;
+	}
+	return currentActive;
+}
+
 Player* Monopoly::get_player(Piece p)
 {
 	for (int i = 0; i < players.size(); i++)
@@ -551,31 +567,30 @@ bool Monopoly::passes_go(Piece* piece, int n)
 void Monopoly::play_game()
 {
 	std::cout << "Game started." <<std::endl;
+	//assign first player active player for now
+	//TODO: change this 
+	activePlayer = players.at(0);
 	//loop 
 	while (!game_over)
 	{
-		for (unsigned int i = 0; i < players.size(); i++)
+		//decide upgrade logic
+		std::vector<Property> potential_upgrades = get_active_player()->property_upgrades_available();
+		if (!potential_upgrades.empty())
 		{
-			//wait for player roll
-			Player* activePlayer = players.at(i);
-			//decide upgrade logic
-			std::vector<Property*> potential_upgrades = activePlayer->property_upgrades_available();
-			if (!potential_upgrades.empty())
+			std::cout << "Decide whether to upgrade property.";
+			for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
 			{
-				std::cout << "Decide whether to upgrade property.";
-				for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
-				{
-					activePlayer->decide_upgrade(*potential_upgrades[i]);
-				}
+				activePlayer->decide_upgrade(potential_upgrades[i]);
 			}
-			//playern rolls 
-			throw_die(*activePlayer);
-			//playern moves based on roll
-			move_piece(activePlayer, die_roll);
-			//TODO:call move piece (figure out which ones to get rid of) 
-			Spot* the_spot = get_spot(activePlayer->piece->getPosition());
-			do_spot_action(the_spot, activePlayer);
 		}
+		//playern rolls 
+		throw_die(*get_active_player());
+		//playern moves based on roll
+		move_piece(get_active_player(), die_roll);
+		//TODO:call move piece (figure out which ones to get rid of) 
+		Spot* the_spot = get_spot(activePlayer->piece->getPosition());
+		do_spot_action(the_spot, activePlayer);
+
 	}
 	//todo:game over now handle that
 

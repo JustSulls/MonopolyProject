@@ -31,13 +31,15 @@ private:
 	void init_board();
 	void init_pieces();
 	void init_players(int num);
-public://todo:make private
+
+	Player* activePlayer = NULL;
+	int activePlayerCounter = 0;
+
+public:
 	Board board;
 	//init
 	void give_active_players_pieces();
 	int	die_roll;
-
-public:
 	Monopoly(int number_players = 2);
 	int pick_piece(Player& player);
 	int throw_die(Player player);	
@@ -54,6 +56,7 @@ public:
 	nrails::Railroad*	get_railroad(int pos);
 	nrails::Railroad*	get_nearest_railroad(Player& player);
 	int					get_railroad_rent(Player player);
+	Player*				get_active_player();
 	
 	//receive cards
 	Card draw_community();
