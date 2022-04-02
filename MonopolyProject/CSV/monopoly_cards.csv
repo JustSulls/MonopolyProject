@@ -1,0 +1,34 @@
+﻿id,text,type
+1,Advance to GO. (Collect $200),chance
+2,Advance to Illinois Avenue. If you pass GO  collect $200.,chance
+3,Advance to St. Charles Place. If you pass GO collect $200.,chance
+4,Advance token to nearest Utility. If unowned  you may buy it from the Bank. If owned throw dice and pay owner a total 10 times the amount thrown.,chance
+5,Advance token to the nearest Railroad and pay owner twice the rental to which he is otherwise entitled. If Railroad is unowned you may buy it from the Bank.,chance
+6,Bank pays you dividend of $50.,chance
+7,Get out of Jail Free. This card may be kept until needed or traded/sold.,chance
+8,Go back 3 Spaces.,chance
+9,Go to Jail. Go directly to Jail. Do not pass GO do not collect $200.,chance
+10,Make general repairs on all your property: For each house pay $25. For each hotel pay $100.,chance
+11,Pay poor tax of $15.,chance
+12,Take a trip to Reading Railroad. If you pass GO collect $200.,chance
+13,Take a walk on the Boardwalk. Advance token to Boardwalk.,chance
+14,You have been elected Chairman of the Board. Pay each player $50.,chance
+15,Your building and land matures. Collect $150.,chance
+16,You have won a crossword competition. Collect $100.,chance
+17,Advance to GO. Collect $200.,community chest
+18,Bank error in your favor. Collect $200.,community chest
+19,Doctor's fees. Pay $50.,community chest
+20,From sale of stock you get $50.,community chest
+21,Get Out of Jail Free. This card may be kept until needed or sold/traded.,community chest
+22,Go to Jail. Go directly to jail. Do not pass GO. Do not collect $200.,community chest
+23,Grand Opera Night. Collect $50 from every player for opening night seats.,community chest
+24,Holiday fund matures. Receive $100.,community chest
+25,Income tax refund. Collect $20.,community chest
+26,It is your birthday. Collect $10 from every player.,community chest
+27,Life insurance matures. Collect $100,community chest
+28,Hospital Fees. Pay $50.,community chest
+29,School fees. Pay $50.,community chest
+30,Receive $25 consultancy fee.,community chest
+31,You are assessed for street repairs: Pay $40 per house and $115 per hotel you own.,community chest
+32,You have won second prize in a beauty contest. Collect $10.,community chest
+33,You inherit $100.,community chest

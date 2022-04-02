@@ -4,7 +4,7 @@ void Monopoly::init_properties()
 {
 	std::fstream myfile;
 	try {
-		myfile.open("C:/Users/jsul2/Documents/monopoly_properties.csv"); // declare file stream: http://www.cplusplus.com/reference/iostream/ifstream/
+		myfile.open("C:/Users/jsul2/source/repos/MonopolyProject/MonopolyProject/CSV/monopoly_properties.csv"); // declare file stream: http://www.cplusplus.com/reference/iostream/ifstream/
 	}
 	catch (const std::exception& e)
 	{
@@ -124,7 +124,7 @@ void Monopoly::init_utilities()
 void Monopoly::init_cards()
 {
 	std::fstream myfile;
-	myfile.open("C:/Users/jsul2/Documents/monopoly_cards.csv"); // declare file stream: http://www.cplusplus.com/reference/iostream/ifstream/
+	myfile.open("C:/Users/jsul2/source/repos/MonopolyProject/MonopolyProject/CSV/monopoly_cards.csv"); // declare file stream: http://www.cplusplus.com/reference/iostream/ifstream/
 	std::string value;
 	std::vector<std::string> holding;
 	while (myfile.good())

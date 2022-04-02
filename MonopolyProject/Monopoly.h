@@ -35,7 +35,7 @@ public://todo:make private
 	Board board;
 	//init
 	void give_active_players_pieces();
-	int die_roll;
+	int	die_roll;
 
 public:
 	Monopoly(int number_players = 2);
@@ -97,15 +97,15 @@ public:
 	void player_throw_die_pay_owner(Player& p, Utility& the_utility);
 
 	//vectors
-	std::vector<nrails::Railroad> railroads;
-	std::vector<Utility> utilities;
-	std::vector<Card> cards;
-	std::vector<Card> chance_cards;
-	std::vector<Card> community_cards;
-	std::vector<Player*> players;
-	std::vector<Property> properties;
-	std::vector<Piece> pieces;
-	std::vector<Spot> spots;
+	std::vector<nrails::Railroad>	railroads;
+	std::vector<Utility>			utilities;
+	std::vector<Card>				cards;
+	std::vector<Card>				chance_cards;
+	std::vector<Card>				community_cards;
+	std::vector<Player*>			players;
+	std::vector<Property>			properties;
+	std::vector<Piece>				pieces;
+	std::vector<Spot>				spots;
 
 	//maps for properties and utilities
 	std::map<std::string, Property> map_property;	//do need, used

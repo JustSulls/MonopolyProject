@@ -48,7 +48,6 @@ TEST(CardCase, GoToJail)
 	EXPECT_EQ(p->in_jail, true);
 	EXPECT_EQ(p->piece->getPosition(), 10);
 }
-
 TEST(CardCase, AdvanceToGo)
 {
 	Monopoly m;
@@ -64,7 +63,6 @@ TEST(CardCase, AdvanceToGo)
 	EXPECT_EQ(p->money, 1700);
 	EXPECT_EQ(p->piece->getPosition(), 0);
 }
-
 TEST(CardCase, Inherit100)
 {
 	Monopoly m;
@@ -80,7 +78,6 @@ TEST(CardCase, Inherit100)
 	EXPECT_EQ(p->money, 1600);
 	EXPECT_EQ(p->piece->getPosition(), 0);
 }
-
 TEST(CardCase, AdvanceToUtility)
 {
 	/*Advance token to nearest Utility.
@@ -115,7 +112,6 @@ TEST(CardCase, AdvanceToUtility)
 	EXPECT_EQ(p->money, startingMoney - current_utility_cost);
 	EXPECT_EQ(m.players[0]->money, startingMoney - m.utilities.at(0).cost + current_utility_cost);
 }
-
 TEST(CardCase, AdvanceToRailroad)
 {
 	Monopoly m;
@@ -143,7 +139,6 @@ TEST(CardCase, AdvanceToRailroad)
 	int landed_cost = m.get_railroad_rent(*m.players[0]);
 	EXPECT_EQ(p->money, startingMoney - landed_cost);
 }
-
 TEST(CardCase, BankPays50)
 {
 	Monopoly m;
@@ -159,7 +154,6 @@ TEST(CardCase, BankPays50)
 	EXPECT_EQ(p->money, 1550);
 	EXPECT_EQ(p->piece->getPosition(), 0);
 }
-
 TEST(CardCase, GetOutOfJailCard)
 {
 	Monopoly m;
@@ -190,7 +184,6 @@ TEST(CardCase, GetOutOfJailCard)
 	//has no cards left
 	EXPECT_EQ(p->has_get_out_of_jail_card(), false);
 }
-
 TEST(CardCase, DoGeneralRepairs)
 {
 	Monopoly m;
