@@ -476,6 +476,7 @@ Player* Monopoly::get_player(Piece p)
 bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 {
 	//present options to player, bounds check answer, return it	
+	//TODO:if test answer yes always/no always, make test global?
 	int answer = -1;
 	while (answer > 1 || answer < 0)
 	{
@@ -561,6 +562,7 @@ void Monopoly::play_game()
 			std::vector<Property*> potential_upgrades = activePlayer->property_upgrades_available();
 			if (!potential_upgrades.empty())
 			{
+				std::cout << "Decide whether to upgrade property.";
 				for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
 				{
 					activePlayer->decide_upgrade(*potential_upgrades[i]);
