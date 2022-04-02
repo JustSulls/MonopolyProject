@@ -733,7 +733,10 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		//todo:
 		//do an action at this new position
 		s = get_spot(player->piece->getPosition());
-		do_spot_action(s, player);
+		if (!testing)
+		{	//skip if testing
+			do_spot_action(s, player);
+		}
 		break;
 	case 9:
 		//go to jail, directly, do not collect 200 if pass go

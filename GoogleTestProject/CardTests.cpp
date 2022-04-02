@@ -8,15 +8,8 @@ TEST(CardCase, GoBackSpaces)
 	Card c = m.cards[26];
 	//start
 	EXPECT_EQ(p->piece->getPosition(), 0);
-	//move up 3 from [0]
-	p->piece->advancePosition(3);
-	EXPECT_EQ(p->piece->getPosition(), 3);
 
-	//move back 3 from [3]
-	p->piece->advancePosition(-3);
-	EXPECT_EQ(p->piece->getPosition(), 0);
-
-	m.do_card_action(c, p);
+	m.do_card_action(c, p, true);
 	//after card action moves back 3 spaces then does spot action wherever land this could cause anomalies here?
 
 	EXPECT_EQ(p->piece->getPosition(), 37); //last board position is 39.. 0, 39, 38, 37
