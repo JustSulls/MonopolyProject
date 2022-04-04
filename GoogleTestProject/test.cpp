@@ -70,7 +70,7 @@ namespace testNamespace
 		p->get_piece(&m.pieces[0]);
 		nrails::Railroad r = m.railroads[0];
 
-		bool answer = m.decide_buy_or_pass(r, *p, 1);
+		bool answer = m.decide_buy_or_pass(r, *p);
 		EXPECT_EQ(answer, true);
 	}
 
@@ -87,6 +87,6 @@ namespace testNamespace
 	TEST(MonopolyCase, PlayGame)
 	{
 		Monopoly m;
-		m.play_game();
+		//m.play_game();
 	}
 }

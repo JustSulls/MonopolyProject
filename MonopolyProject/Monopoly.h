@@ -44,7 +44,7 @@ public:
 	int pick_piece(Player& player);
 	int throw_die(Player player);	
 
-	//member functions which return
+	//member get functions
 	Player* get_active_player();
 	Utility* advance_to_nearest_utility(Piece* piece);
 	nrails::Railroad* advance_to_nearest_railroad(Piece* piece);
@@ -70,13 +70,13 @@ public:
 	
 	//decide buy or pass
 	bool decide_buy_or_pass(Property prop, Player player);
-	bool decide_buy_or_pass(Utility util, Player player, bool testing=false);
-	bool decide_buy_or_pass(nrails::Railroad rail, Player player, int answer=-1);
+	bool decide_buy_or_pass(Utility util, Player player);
+	bool decide_buy_or_pass(nrails::Railroad rail, Player player);
 	
 	//decide upgrade
 	bool decide_upgrade(Property prop, Player player);
 	
-	//play gamee
+	//play game
 	void play_game();
 
 	//move

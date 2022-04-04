@@ -508,6 +508,7 @@ bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 	//TODO:if test answer yes always/no always, make test global?
 	if (test)
 	{
+		std::cout << player.name << " decides to buy " << prop.name << " for " << prop.prices[0] << ". ";
 		return true;
 	}
 	else
@@ -527,10 +528,11 @@ bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 	}
 }
 
-bool Monopoly::decide_buy_or_pass(Utility util, Player player, bool testing)
+bool Monopoly::decide_buy_or_pass(Utility util, Player player)
 {
-	if (testing)
+	if (test)
 	{
+		std::cout << player.name << " decides to buy " << util.name << " for " << util.cost << ". ";
 		return true;
 	}
 	else {
@@ -550,19 +552,29 @@ bool Monopoly::decide_buy_or_pass(Utility util, Player player, bool testing)
 	}
 }
 
-bool Monopoly::decide_buy_or_pass(nrails::Railroad rail, Player player, int answer)
+bool Monopoly::decide_buy_or_pass(nrails::Railroad rail, Player player)
 {
-	while (answer > 1 || answer < 0)
+	if (test)
 	{
-		std::cout << player.name << " decide to buy or pass " << rail.name << " for " <<
-			rail.cost << " [0] no, [1] yes?\n";
+		std::cout << player.name << " decides to buy " << rail.name << " for " << rail.cost << ". ";
+		return true;
+	}
+	else
+	{
+		int answer = -1;
 		std::cin >> answer;
+		while (answer > 1 || answer < 0)
+		{
+			std::cout << player.name << " decide to buy or pass " << rail.name << " for " <<
+				rail.cost << " [0] no, [1] yes?\n";
+			std::cin >> answer;
+		}
+		if (answer == 0)
+		{
+			return false;
+		}
+		else return true;
 	}
-	if (answer == 0)
-	{
-		return false;
-	}
-	else return true;
 }
 
 bool Monopoly::decide_upgrade(Property prop, Player player)
@@ -714,7 +726,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		{
 			if (testing)
 			{
-				decide_buy_or_pass(*util, *player, true);//returns true 
+				decide_buy_or_pass(*util, *player);//returns true 
 				player->pay(util->cost);
 				//add utility to player's utilities
 				player->utilities_owned.push_back(util);
@@ -747,7 +759,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		}
 		else
 		{
-			if (decide_buy_or_pass(*railroad, *player, 1))//offer player buy from bank//testing so always enter yes to buy
+			if (decide_buy_or_pass(*railroad, *player))//offer player buy from bank//testing so always enter yes to buy
 			{
 				player->pay(railroad->cost);
 				railroad->is_owned = true;
