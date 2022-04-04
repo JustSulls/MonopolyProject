@@ -235,6 +235,18 @@ void Monopoly::give_active_players_pieces()
 	}
 }
 
+void Monopoly::make_next_player_active()
+{
+	//todo:test
+	if (turnCounter < numberOfPlayers - 1)
+	{
+		turnCounter++;
+	}
+	else {
+		turnCounter = 0;
+	}
+}
+
 int Monopoly::pick_piece(Player& player)
 {
 	//present options to player, bounds check answer, return it
@@ -466,9 +478,16 @@ int Monopoly::get_railroad_rent(Player player)
 Player* Monopoly::get_active_player()
 {
 	//TODO: test
-	if (turnCounter >= numberOfPlayers) turnCounter = 0;	//keep turn counter cycling through number of player 0, 1, 2, 0, 1 etc. (3 players)
-	if (!players.empty()) return players.at(turnCounter++);
-	else return nullptr;
+	if (!players.empty()) {
+		try {
+			return players.at(turnCounter);
+		}
+		catch (const std::out_of_range& e)
+		{
+			return nullptr;
+		}
+	}
+	else return nullptr;//error
 }
 
 Player* Monopoly::get_player(Piece p)
@@ -487,18 +506,25 @@ bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 {
 	//present options to player, bounds check answer, return it	
 	//TODO:if test answer yes always/no always, make test global?
-	int answer = -1;
-	while (answer > 1 || answer < 0)
+	if (test)
 	{
-		std::cout << player.name << " decide to buy or pass " << prop.name << " for " <<
-			prop.prices[0] << " [0] no, [1] yes?\n";
-		std::cin >> answer;
+		return true;
 	}
-	if (answer == 0)
+	else
 	{
-		return false;
+		int answer = -1;
+		while (answer > 1 || answer < 0)
+		{
+			std::cout << player.name << " decide to buy or pass " << prop.name << " for " <<
+				prop.prices[0] << " [0] no, [1] yes?\n";
+			std::cin >> answer;
+		}
+		if (answer == 0)
+		{
+			return false;
+		}
+		else return true;
 	}
-	else return true;
 }
 
 bool Monopoly::decide_buy_or_pass(Utility util, Player player, bool testing)
@@ -561,12 +587,12 @@ bool Monopoly::passes_go(Piece* piece, int n)
 void Monopoly::play_game()
 {
 	std::cout << "Game started." <<std::endl;
+	Player* activePlayer = nullptr;
 	//assign first player active player for now
-	//TODO: change this 
-	Player* activePlayer = get_active_player();
 	//loop 
 	while (!game_over)
 	{
+		activePlayer = get_active_player();
 		//decide upgrade logic
 		std::vector<Property> potential_upgrades = get_active_player()->property_upgrades_available();
 		if (!potential_upgrades.empty())
@@ -582,12 +608,12 @@ void Monopoly::play_game()
 		//playern moves based on roll
 		move_piece(get_active_player(), die_roll);
 		//TODO:call move piece (figure out which ones to get rid of) 
-		Spot* the_spot = get_spot(activePlayer->piece->getPosition());
-		do_spot_action(the_spot, activePlayer);
-
+		Spot* the_spot = get_spot(get_active_player()->piece->getPosition());
+		do_spot_action(the_spot, get_active_player());
+		//turn over, increment turn counter to set next player active
+		make_next_player_active();
 	}
 	//todo:game over now handle that
-
 }
 
 void Monopoly::pay_rent(Player& player, Property property)
@@ -659,8 +685,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 	std::cout << player->name << " draws \"" << c.text << "\".\n";
 	Utility* util;
 	//Utility tempUtil;//todo::removing pointer to util above, this partialy complete
-	nrails::Railroad* railroad;
-	nrails::Railroad tempRailroad;
+	nrails::Railroad* railroad;	
 	Spot* s;
 	switch (c.id) {
 	case 1:

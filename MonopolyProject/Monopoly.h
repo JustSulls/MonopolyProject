@@ -33,11 +33,13 @@ private:
 	void init_players(int num);
 	int numberOfPlayers;
 	int turnCounter = 0;
+	bool test = true;
 
 public:
 	Monopoly(int number_players = 2);
 	Board board;
 	void give_active_players_pieces();
+	void make_next_player_active();
 	int	die_roll;
 	int pick_piece(Player& player);
 	int throw_die(Player player);	
