@@ -200,10 +200,10 @@ void Monopoly::init_board()
 	spots.push_back(spot_go_to_jail);
 	Spot tax_income(Spot::SpotType::taxes, 4, "income tax");
 	spots.push_back(tax_income);
-	Spot utility_electric(Spot::SpotType::utilities, 12, "electic company");
-	spots.push_back(utility_electric);
-	Spot utility_water(Spot::SpotType::utilities, 28, "water works");
-	spots.push_back(utility_water);
+	//Spot utility_electric(Spot::SpotType::utilities, 12, "electic company");
+	//spots.push_back(utility_electric);
+	//Spot utility_water(Spot::SpotType::utilities, 28, "water works");
+	//spots.push_back(utility_water);
 	Spot tax_luxury(Spot::SpotType::taxes, 38, "luxury tax");
 	spots.push_back(tax_luxury);
 }
@@ -219,6 +219,7 @@ void Monopoly::init_pieces()
 void Monopoly::init_players(int num)
 {
 	//todo:this array isn't being used atm
+	numberOfPlayers = num;
 	Player** array = new Player * [num];
 	for (int i = 0; i < num; i++)
 	{
@@ -465,16 +466,9 @@ int Monopoly::get_railroad_rent(Player player)
 Player* Monopoly::get_active_player()
 {
 	//TODO: test
-	Player* currentActive = activePlayer;
-	if (activePlayerCounter == 0) {
-		activePlayer = players.at(1);
-		activePlayerCounter = 1;
-	}
-	else if (activePlayerCounter == 1) {
-		activePlayer = players.at(0);
-		activePlayerCounter = 0;
-	}
-	return currentActive;
+	if (turnCounter >= numberOfPlayers) turnCounter = 0;	//keep turn counter cycling through number of player 0, 1, 2, 0, 1 etc. (3 players)
+	if (!players.empty()) return players.at(turnCounter++);
+	else return nullptr;
 }
 
 Player* Monopoly::get_player(Piece p)
@@ -569,7 +563,7 @@ void Monopoly::play_game()
 	std::cout << "Game started." <<std::endl;
 	//assign first player active player for now
 	//TODO: change this 
-	activePlayer = players.at(0);
+	Player* activePlayer = get_active_player();
 	//loop 
 	while (!game_over)
 	{

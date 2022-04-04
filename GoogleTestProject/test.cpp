@@ -87,6 +87,6 @@ namespace testNamespace
 	TEST(MonopolyCase, PlayGame)
 	{
 		Monopoly m;
-		//m.play_game();
+		m.play_game();
 	}
 }
