@@ -67,6 +67,7 @@ public:
 	
 	//game over
 	bool game_over = false;
+	bool check_game_over();
 	
 	//decide buy or pass
 	bool decide_buy_or_pass(Property prop, Player player);

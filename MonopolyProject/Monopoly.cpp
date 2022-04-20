@@ -97,6 +97,8 @@ void Monopoly::init_properties()
 		Property the_property(prices, rent_costs, the_color, property_name, location, Spot::SpotType::property);
 		//place properties in maps
 		properties.push_back(the_property);
+		//add to map of properties
+		map_property[the_property.name] = the_property;
 	}
 }
 
@@ -223,7 +225,8 @@ void Monopoly::init_players(int num)
 	Player** array = new Player * [num];
 	for (int i = 0; i < num; i++)
 	{
-		players.push_back(new Player(std::to_string(i+1)));
+		std::string playerName = "Player " + std::to_string(i + 1);
+		players.push_back(new Player(playerName));
 	}
 }
 
@@ -502,6 +505,16 @@ Player* Monopoly::get_player(Piece p)
 	return nullptr;
 }
 
+bool Monopoly::check_game_over()
+{
+	//FOR NOW check if any player has 0 or less money. (TODO: this is not technically game over, the player can sell property etc.)
+	for (int i = 0; i < players.size(); i++)
+	{
+		if (players.at(i)->money <= 0) return true;
+	}
+	return false;
+}
+
 bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 {
 	//present options to player, bounds check answer, return it	
@@ -624,6 +637,10 @@ void Monopoly::play_game()
 		do_spot_action(the_spot, get_active_player());
 		//turn over, increment turn counter to set next player active
 		make_next_player_active();
+		//check if game over
+		if (check_game_over()) {
+			game_over = true;
+		}
 	}
 	//todo:game over now handle that
 }
@@ -698,6 +715,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 	Utility* util;
 	//Utility tempUtil;//todo::removing pointer to util above, this partialy complete
 	nrails::Railroad* railroad;	
+	Property theProperty;
 	Spot* s;
 	switch (c.id) {
 	case 1:
@@ -706,10 +724,12 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 2:
 		//Advance to Illinois Avenue. If you pass GO  collect $200.
-		move_piece(player, map_property["Illinois Avenue"]);
+		theProperty = map_property["illinois avenue"];
+		move_piece(player, theProperty);
 		break;
 	case 3:
-		move_piece(player, map_property["St. Charles Place"]);
+		theProperty = map_property["st. charles place"];
+		move_piece(player, theProperty);
 		break;
 	case 4:
 		//Advance token to nearest Utility. If unowned 
@@ -804,7 +824,9 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 13:
 		//take a walk on the boardwalk. advance token to boardwalk.
-		move_piece(player, map_property["Boardwalk"]);
+		//TODO: this causes failure, fix
+		theProperty = map_property["boardwalk"];
+		move_piece(player, theProperty);
 		break;
 	case 14:
 		//you have been elected chariman of the board. pay each player $50		
@@ -958,6 +980,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 		//property handle
 		//if owned, pay owner
 		//if unowned present option to buy property
+		//TODO:handle/throw exception if get_property() returns nullptr;
 		Property* prop = get_property(theSpot->position);
 		if (prop->is_owned)
 		{
@@ -1080,7 +1103,8 @@ void Monopoly::move_piece(Player* player, int die_cast)
 	//set spot's piece to the piece
 	//move piece to new spot
 	player->piece->movePosition(new_position);
-	std::cout << player->name << "'s piece landed on " << the_spot->name << ".\n";
+
+	std::cout <<"[" << new_position << "]" << player->name << "'s piece landed on " << the_spot->name << ".\n";
 	//check if pass go and pay.
 	if (passes_go(player->piece, new_position - old_position))
 	{
@@ -1106,7 +1130,7 @@ void Monopoly::move_piece(Player* player, Spot pSpot)
 
 Property* Monopoly::get_property(int pos) 
 {
-	for (unsigned int i = 0; i < properties.size() - 1; i++)
+	for (unsigned int i = 0; i < properties.size(); i++)
 	{
 		try {
 			if (properties[i].position == pos)
