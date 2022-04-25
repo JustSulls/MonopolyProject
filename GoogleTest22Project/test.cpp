@@ -93,4 +93,11 @@ namespace testNamespace
 		m.do_spot_action(theSpot, activePlayer);*/
 		m.play_game();
 	}
+	TEST(LoggerCase, Log)
+	{
+		/*std::string msg = "log message 'msg'";
+		CLogger::GetLogger()->Log("message to be logged.");
+		CLogger::GetLogger()->Log(msg);
+		LOGGER->Log("Message is:%s Number is:%d", msg.c_str(), 4);*/
+	}
 }

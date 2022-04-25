@@ -37,7 +37,8 @@ public:
 	colors color;
 	int prices[number_prices] = { 0,0,0 };
 	int rent_costs[number_rent_costs] = { 0,0,0,0,0,0,0,0 };
-	int rent_cost = 0;
+	int get_rent();//TODO:
+	//int rent_cost = 0;
 	//todo:change this to enum
 	level current_level = level::alone;
 	void set_level(int setter);

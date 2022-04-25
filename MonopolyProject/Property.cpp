@@ -28,6 +28,38 @@ Property::Property(int pr[],
 	color = c;
 	is_owned = false;
 }
+int Property::get_rent()
+{
+	int rent = 0;
+	switch (current_level)
+	{
+	case level::alone:
+		rent = rent_costs[0];
+		break;
+	case level::monopoly:
+		rent = rent_costs[1];
+		break;
+	case level::with_1_house:
+		rent = rent_costs[2];
+		break;
+	case level::with_2_houses:
+		rent = rent_costs[3];
+		break;
+	case level::with_3_houses:
+		rent = rent_costs[4];
+		break;
+	case level::with_4_houses:
+		rent = rent_costs[5];
+		break;
+	case level::with_hotel:
+		rent = rent_costs[6];
+		break;
+	case level::with_skyscraper:
+		rent = rent_costs[7];
+		break;
+	}
+	return rent;
+}
 void Property::set_level(int setter)
 {
 	//todo: limit this

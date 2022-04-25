@@ -44,7 +44,7 @@ void Piece::presentPieceOptions()
 {
 	for (uint16_t i = 0; i < npiece::NUMBER_PIECES; i++)
 	{
-		std::cout << "[" << i << "] " << npiece::enum_str[i] << std::endl;
+		CLogger::GetLogger()->Log("[" + std::to_string(i) + "] " + npiece::enum_str[i]);
 	}
 }
 

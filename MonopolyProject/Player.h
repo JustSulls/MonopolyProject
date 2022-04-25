@@ -6,6 +6,7 @@
 #include "Property.h"
 #include "Utility.h"
 #include "Railroad.h"
+#include "Logger.h"
 class Player
 {
 public:
@@ -30,7 +31,7 @@ public:
 	bool buy_railroad(nrails::Railroad* rail);
 	bool buy_utility(Utility* utility);
 	bool has_get_out_of_jail_card();
-	std::vector<Property*>property_upgrades_available();
+	std::vector<Property>property_upgrades_available();
 	int throw_die();
 	//void assign_ownership(Property property);
 	int decide_upgrade(Property prop);

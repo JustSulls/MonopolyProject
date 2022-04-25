@@ -16,7 +16,6 @@ void Monopoly::init_properties()
 	while (myfile.good())
 	{
 		std::getline(myfile, value); // read a string until next comma: http://www.cplusplus.com/reference/string/getline/
-		//std::cout << std::string(value) << std::endl; // display value removing the first and the last character from it
 		holding.push_back(value);
 	}
 	std::vector<std::string> result;
@@ -52,11 +51,11 @@ void Monopoly::init_properties()
 		int location = std::stoi(result.at(m + 13));
 		//setup the parameters for the constructor for the property to be created
 		//these constants are in Property.h
-		int prices[3];
+		int prices[3]{};
 		prices[0] = printed_price;
 		prices[1] = mortgage_value;
 		prices[2] = building_costs;
-		int rent_costs[8];
+		int rent_costs[8]{};
 		rent_costs[0] = alone;
 		rent_costs[1] = monopoly;
 		rent_costs[2] = with_1_house;
@@ -97,6 +96,8 @@ void Monopoly::init_properties()
 		Property the_property(prices, rent_costs, the_color, property_name, location, Spot::SpotType::property);
 		//place properties in maps
 		properties.push_back(the_property);
+		//add to map of properties
+		map_property[the_property.name] = the_property;
 	}
 }
 
@@ -130,7 +131,6 @@ void Monopoly::init_cards()
 	while (myfile.good())
 	{
 		std::getline(myfile, value); // read a string until next comma: http://www.cplusplus.com/reference/string/getline/
-		//std::cout << std::string(value) << std::endl; // display value removing the first and the last character from it
 		holding.push_back(value);
 	}
 	std::vector<std::string> result;
@@ -200,10 +200,10 @@ void Monopoly::init_board()
 	spots.push_back(spot_go_to_jail);
 	Spot tax_income(Spot::SpotType::taxes, 4, "income tax");
 	spots.push_back(tax_income);
-	Spot utility_electric(Spot::SpotType::utilities, 12, "electic company");
-	spots.push_back(utility_electric);
-	Spot utility_water(Spot::SpotType::utilities, 28, "water works");
-	spots.push_back(utility_water);
+	//Spot utility_electric(Spot::SpotType::utilities, 12, "electic company");
+	//spots.push_back(utility_electric);
+	//Spot utility_water(Spot::SpotType::utilities, 28, "water works");
+	//spots.push_back(utility_water);
 	Spot tax_luxury(Spot::SpotType::taxes, 38, "luxury tax");
 	spots.push_back(tax_luxury);
 }
@@ -219,18 +219,32 @@ void Monopoly::init_pieces()
 void Monopoly::init_players(int num)
 {
 	//todo:this array isn't being used atm
+	numberOfPlayers = num;
 	Player** array = new Player * [num];
 	for (int i = 0; i < num; i++)
 	{
-		players.push_back(new Player(std::to_string(i+1)));
+		std::string playerName = "Player " + std::to_string(i + 1);
+		players.push_back(new Player(playerName));
 	}
 }
 
 void Monopoly::give_active_players_pieces()
 {
-	for (int i = 0; i < players.size(); i++)
+	for (unsigned int i = 0; i < players.size(); i++)
 	{
 		players.at(i)->get_piece(&pieces.at(i));
+	}
+}
+
+void Monopoly::make_next_player_active()
+{
+	//todo:test
+	if (turnCounter < numberOfPlayers - 1)
+	{
+		turnCounter++;
+	}
+	else {
+		turnCounter = 0;
 	}
 }
 
@@ -240,7 +254,7 @@ int Monopoly::pick_piece(Player& player)
 	int answer = -1;
 	while (answer > npiece::NUMBER_PIECES - 1 || answer < 0)
 	{
-		std::cout << "Pick piece: \n";
+		CLogger::GetLogger()->Log("Pick piece: ");
 		Piece::presentPieceOptions();
 		std::cin >> answer;
 	}
@@ -254,8 +268,16 @@ int Monopoly::throw_die(Player player)
 	return die_roll;
 }
 
+int Monopoly::throw_die()
+{
+	die_roll = rand() % 6 + 1;
+	CLogger::GetLogger()->Log("Rolled a " + std::to_string(die_roll) + ".");
+	return die_roll;
+}
+
 Spot* Monopoly::get_spot(int position)
 {
+	//TODO:something wrong with first return spots for loop here
 	for (unsigned int i = 0; i < spots.size(); i++)
 	{
 		if (spots[i].position == position)
@@ -328,7 +350,7 @@ Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
 
 	//advance token to that utility (no mention of passing go $$)
 	piece->movePosition(utilities.at(which_pos_was_shortest).position);
-	std::cout << piece->str() << " moved to " << utilities.at(which_pos_was_shortest).name << ".\n";
+	CLogger::GetLogger()->Log(piece->str() + " moved to " + utilities.at(which_pos_was_shortest).name + ".");
 	//piece.getPosition() = utilities.at(which_pos_was_shortest).position;
 
 	//will add rest of card here
@@ -461,9 +483,24 @@ int Monopoly::get_railroad_rent(Player player)
 	return rent_owed;
 }
 
+Player* Monopoly::get_active_player()
+{
+	//TODO: test
+	if (!players.empty()) {
+		try {
+			return players.at(turnCounter);
+		}
+		catch (const std::out_of_range& e)
+		{
+			return nullptr;
+		}
+	}
+	else return nullptr;//error
+}
+
 Player* Monopoly::get_player(Piece p)
 {
-	for (int i = 0; i < players.size(); i++)
+	for (unsigned int i = 0; i < players.size(); i++)
 	{
 		if (*players.at(i)->piece == p)
 		{
@@ -473,37 +510,32 @@ Player* Monopoly::get_player(Piece p)
 	return nullptr;
 }
 
+bool Monopoly::check_game_over()
+{
+	//FOR NOW check if any player has 0 or less money. (TODO: this is not technically game over, the player can sell property etc.)
+	for (unsigned int i = 0; i < players.size(); i++)
+	{
+		if (players.at(i)->money <= 0) return true;
+	}
+	return false;
+}
+
 bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 {
 	//present options to player, bounds check answer, return it	
 	//TODO:if test answer yes always/no always, make test global?
-	int answer = -1;
-	while (answer > 1 || answer < 0)
+	if (test)
 	{
-		std::cout << player.name << " decide to buy or pass " << prop.name << " for " <<
-			prop.prices[0] << " [0] no, [1] yes?\n";
-		std::cin >> answer;
-	}
-	if (answer == 0)
-	{
-		return false;
-	}
-	else return true;
-}
-
-bool Monopoly::decide_buy_or_pass(Utility util, Player player, bool testing)
-{
-	if (testing)
-	{
+		CLogger::GetLogger()->Log(player.name + " decides to buy " + prop.name + " for $" + std::to_string(prop.prices[0]) + ". ");
 		return true;
 	}
-	else {
+	else
+	{
 		int answer = -1;
-		std::cin >> answer;
 		while (answer > 1 || answer < 0)
 		{
-			std::cout << player.name << " decide to buy or pass " << util.name << " for " <<
-				util.cost << " [0] no, [1] yes?\n";
+			CLogger::GetLogger()->Log(player.name + " decide to buy or pass " + prop.name + " for $" +
+				std::to_string(prop.prices[0]) + " [0] no, [1] yes?");
 			std::cin >> answer;
 		}
 		if (answer == 0)
@@ -514,19 +546,53 @@ bool Monopoly::decide_buy_or_pass(Utility util, Player player, bool testing)
 	}
 }
 
-bool Monopoly::decide_buy_or_pass(nrails::Railroad rail, Player player, int answer)
+bool Monopoly::decide_buy_or_pass(Utility util, Player player)
 {
-	while (answer > 1 || answer < 0)
+	if (test)
 	{
-		std::cout << player.name << " decide to buy or pass " << rail.name << " for " <<
-			rail.cost << " [0] no, [1] yes?\n";
+		CLogger::GetLogger()->Log(player.name + " decides to buy " + util.name + " for $" + std::to_string(util.cost) + ". ");
+		return true;
+	}
+	else {
+		int answer = -1;
 		std::cin >> answer;
+		while (answer > 1 || answer < 0)
+		{
+			CLogger::GetLogger()->Log(player.name + " decide to buy or pass " + util.name + " for $" +
+				std::to_string(util.cost) + " [0] no, [1] yes?\n");
+			std::cin >> answer;
+		}
+		if (answer == 0)
+		{
+			return false;
+		}
+		else return true;
 	}
-	if (answer == 0)
+}
+
+bool Monopoly::decide_buy_or_pass(nrails::Railroad rail, Player player)
+{
+	if (test)
 	{
-		return false;
+		CLogger::GetLogger()->Log(player.name + " decides to buy " + rail.name + " for $" + std::to_string(rail.cost) + ". ");
+		return true;
 	}
-	else return true;
+	else
+	{
+		int answer = -1;
+		std::cin >> answer;
+		while (answer > 1 || answer < 0)
+		{
+			CLogger::GetLogger()->Log(player.name + " decide to buy or pass " + rail.name + " for $" +
+				std::to_string(rail.cost) + " [0] no, [1] yes?");
+			std::cin >> answer;
+		}
+		if (answer == 0)
+		{
+			return false;
+		}
+		else return true;
+	}
 }
 
 bool Monopoly::decide_upgrade(Property prop, Player player)
@@ -550,35 +616,44 @@ bool Monopoly::passes_go(Piece* piece, int n)
 
 void Monopoly::play_game()
 {
-	std::cout << "Game started." <<std::endl;
+	CLogger::GetLogger()->Log("Game started.");
+	Player* activePlayer = nullptr;
+	unsigned int turnCounter = 0;
+	//assign first player active player for now
 	//loop 
 	while (!game_over)
 	{
-		for (unsigned int i = 0; i < players.size(); i++)
+		turnCounter++;
+		CLogger::GetLogger()->Log("--Starting turn " + std::to_string(turnCounter) + "--");
+		activePlayer = get_active_player();
+		//decide upgrade logic
+		std::vector<Property> potential_upgrades = get_active_player()->property_upgrades_available();
+		if (!potential_upgrades.empty())
 		{
-			//wait for player roll
-			Player* activePlayer = players.at(i);
-			//decide upgrade logic
-			std::vector<Property*> potential_upgrades = activePlayer->property_upgrades_available();
-			if (!potential_upgrades.empty())
+			CLogger::GetLogger()->Log("Decide whether to upgrade property.");
+			for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
 			{
-				std::cout << "Decide whether to upgrade property.";
-				for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
-				{
-					activePlayer->decide_upgrade(*potential_upgrades[i]);
-				}
+				activePlayer->decide_upgrade(potential_upgrades[i]);
 			}
-			//playern rolls 
-			throw_die(*activePlayer);
-			//playern moves based on roll
-			move_piece(activePlayer, die_roll);
-			//TODO:call move piece (figure out which ones to get rid of) 
-			Spot* the_spot = get_spot(activePlayer->piece->getPosition());
-			do_spot_action(the_spot, activePlayer);
+		}
+		//playern rolls 
+		//throw_die(*get_active_player());
+		throw_die();
+		//playern moves based on roll
+		move_piece(get_active_player(), die_roll);
+		//TODO:call move piece (figure out which ones to get rid of) 
+		Spot* the_spot = get_spot(get_active_player()->piece->getPosition());
+		do_spot_action(the_spot, get_active_player());
+		//turn over, increment turn counter to set next player active
+		make_next_player_active();
+		//check if game over
+		if (check_game_over()) {
+			game_over = true;
+			CLogger::GetLogger()->Log("Game over. ");
+			//TODO:declare winner
 		}
 	}
 	//todo:game over now handle that
-
 }
 
 void Monopoly::pay_rent(Player& player, Property property)
@@ -624,7 +699,7 @@ void Monopoly::send_player_to_jail(Player& p)
 	//go to jail
 	p.in_jail = true;
 	p.piece->movePosition(position_jail);//jail location 10 
-	std::cout << p.name << " is now in jail.\n";
+	CLogger::GetLogger()->Log(p.name + " is now in jail.");
 }
 
 void Monopoly::upgrade_property(Property& property)
@@ -647,11 +722,11 @@ void Monopoly::upgrade_property(Property& property)
 
 void Monopoly::do_card_action(Card c, Player* player, bool testing)
 {
-	std::cout << player->name << " draws \"" << c.text << "\".\n";
+	CLogger::GetLogger()->Log(player->name + " draws \"" + c.text + "\".");
 	Utility* util;
 	//Utility tempUtil;//todo::removing pointer to util above, this partialy complete
-	nrails::Railroad* railroad;
-	nrails::Railroad tempRailroad;
+	nrails::Railroad* railroad;	
+	Property theProperty;
 	Spot* s;
 	switch (c.id) {
 	case 1:
@@ -660,10 +735,12 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 2:
 		//Advance to Illinois Avenue. If you pass GO  collect $200.
-		move_piece(player, map_property["Illinois Avenue"]);
+		theProperty = map_property["illinois avenue"];
+		move_piece(player, theProperty);
 		break;
 	case 3:
-		move_piece(player, map_property["St. Charles Place"]);
+		theProperty = map_property["st. charles place"];
+		move_piece(player, theProperty);
 		break;
 	case 4:
 		//Advance token to nearest Utility. If unowned 
@@ -680,7 +757,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		{
 			if (testing)
 			{
-				decide_buy_or_pass(*util, *player, true);//returns true 
+				decide_buy_or_pass(*util, *player);//returns true 
 				player->pay(util->cost);
 				//add utility to player's utilities
 				player->utilities_owned.push_back(util);
@@ -713,7 +790,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		}
 		else
 		{
-			if (decide_buy_or_pass(*railroad, *player, 1))//offer player buy from bank//testing so always enter yes to buy
+			if (decide_buy_or_pass(*railroad, *player))//offer player buy from bank//testing so always enter yes to buy
 			{
 				player->pay(railroad->cost);
 				railroad->is_owned = true;
@@ -758,7 +835,9 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 		break;
 	case 13:
 		//take a walk on the boardwalk. advance token to boardwalk.
-		move_piece(player, map_property["Boardwalk"]);
+		//TODO: this causes failure, fix
+		theProperty = map_property["boardwalk"];
+		move_piece(player, theProperty);
 		break;
 	case 14:
 		//you have been elected chariman of the board. pay each player $50		
@@ -875,7 +954,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 			//do card action
 			do_card_action(c, activePlayer);
 		}
-		else std::cout << "Chance card pile empty.\n";
+		else CLogger::GetLogger()->Log("Chance card pile empty.");
 	}
 	else if (theSpot->spot_type == Spot::SpotType::community_chest)
 	{
@@ -885,7 +964,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 			//do card action
 			do_card_action(c, activePlayer);
 		}
-		else std::cout << "Community chest card pile empty.\n";
+		else CLogger::GetLogger()->Log("Community chest card pile empty.");
 	}
 	else if (theSpot->spot_type == Spot::SpotType::free_parking)
 	{
@@ -912,6 +991,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 		//property handle
 		//if owned, pay owner
 		//if unowned present option to buy property
+		//TODO:handle/throw exception if get_property() returns nullptr;
 		Property* prop = get_property(theSpot->position);
 		if (prop->is_owned)
 		{
@@ -998,8 +1078,8 @@ void Monopoly::player_throw_die_pay_owner(Player& p, Utility& the_utility)
 	{
 		cost_multiplier = 4;
 	}
-	std::cout << p.name << " throws die and pays owner ("<<the_owner->name 
-		<<") a total of (" << cost_multiplier << ")  times.\n";
+	CLogger::GetLogger()->Log(p.name + " throws die and pays owner (" + the_owner->name
+		+") a total of (" + std::to_string(cost_multiplier) + ")  times.");
 	throw_die(p);
 	int cost = die_roll * cost_multiplier;
 	p.pay(cost);
@@ -1034,7 +1114,8 @@ void Monopoly::move_piece(Player* player, int die_cast)
 	//set spot's piece to the piece
 	//move piece to new spot
 	player->piece->movePosition(new_position);
-	std::cout << player->name << "'s piece landed on " << the_spot->name << ".\n";
+
+	CLogger::GetLogger()->Log(player->name + "'s piece landed on " + "[" + std::to_string(new_position) + "]" + the_spot->name + ".");
 	//check if pass go and pay.
 	if (passes_go(player->piece, new_position - old_position))
 	{
@@ -1049,7 +1130,7 @@ void Monopoly::move_piece(Player* player, Spot pSpot)
 	// move piece to new property
 	int new_position = pSpot.position;
 	Spot* the_spot = get_spot(new_position);	//returns correct spot
-	std::cout << player->name << "'s piece landed on " << the_spot->name << ".\n";
+	CLogger::GetLogger()->Log(player->name + "'s piece landed on " + "[" + std::to_string(new_position) + "]" + the_spot->name + ".");
 	//check if pass go and pay.
 	player->piece->movePosition(new_position);
 	if (passes_go(player->piece, new_position - old_position))
@@ -1060,7 +1141,7 @@ void Monopoly::move_piece(Player* player, Spot pSpot)
 
 Property* Monopoly::get_property(int pos) 
 {
-	for (unsigned int i = 0; i < properties.size() - 1; i++)
+	for (unsigned int i = 0; i < properties.size(); i++)
 	{
 		try {
 			if (properties[i].position == pos)
@@ -1107,6 +1188,7 @@ nrails::Railroad* Monopoly::get_railroad(int pos)
 
 Monopoly::Monopoly(int number_players)
 {
+	srand(time(NULL));
 	init_properties();
 	init_railroads();
 	init_utilities();

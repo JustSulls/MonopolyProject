@@ -12,7 +12,7 @@ Player::Player(std::string n)
 bool Player::has_get_out_of_jail_card()
 {
 	bool has = false;
-	for (int i = 0; i < get_out_of_jail_cards.size(); i++)
+	for (unsigned int i = 0; i < get_out_of_jail_cards.size(); i++)
 	{
 		if (get_out_of_jail_cards[i] == true)
 		{
@@ -24,12 +24,14 @@ bool Player::has_get_out_of_jail_card()
 void Player::collect(int amount)
 {
 	money += amount;
-	std::cout << name << " collects " << amount << ".\n";
+	CLogger::GetLogger()->Log(name + " collects $" + std::to_string(amount) +
+		" ($" + std::to_string(money) + " remaining.");
 }
 void Player::pay(int amount)
 {
 	money -= amount;
-	std::cout << name << " pays " << amount << ".\n";
+	CLogger::GetLogger()->Log(name + " pays $" + std::to_string(amount) + 
+		" ($" + std::to_string(money) + " remaining).");
 }
 void Player::do_street_repairs()
 {
@@ -107,13 +109,13 @@ bool Player::buy_property(Property* prop)
 	try {
 		if (prop->is_owned)
 		{
-			std::cout << prop->name << " already owned. Cannot purchase.\n";
+			CLogger::GetLogger()->Log(prop->name + " already owned. Cannot purchase.");
 			return false;
 		}
 		pay(prop->prices[0]);//printed price is prices[0]
 		prop->is_owned = true;
 		properties_owned.push_back(prop);
-		std::cout << name << " now owns " << prop->name << ".\n";
+		CLogger::GetLogger()->Log(name + " now owns " + prop->name);
 		return true;
 	}
 	catch (const std::invalid_argument& ia) {
@@ -126,12 +128,12 @@ bool Player::buy_railroad(nrails::Railroad* rail)
 	try {
 		if (rail->is_owned)
 		{
-			std::cout << rail->name << " already owned. Cannot purchase.\n";
+			CLogger::GetLogger()->Log(rail->name + " already owned. Cannot purchase.");
 			return false;
 		}
 		pay(rail->cost);//printed price is prices[0]
 		railroads_owned.push_back(rail);
-		std::cout << name << " now owns " << rail->name << ".\n";
+		CLogger::GetLogger()->Log(name + " now owns " + rail->name);
 		rail->is_owned = true;
 		return true;
 	}
@@ -145,7 +147,7 @@ bool Player::buy_utility(Utility* utility)
 	try {
 		if (utility->is_owned)
 		{
-			std::cout << utility->name << " already owned. Cannot purchase.\n";
+			CLogger::GetLogger()->Log(utility->name + " already owned. Cannot purchase.");
 			return false;
 		}
 		pay(utility->cost);//printed price is prices[0]
@@ -158,9 +160,9 @@ bool Player::buy_utility(Utility* utility)
 	}
 	return false;
 }
-std::vector<Property*> Player::property_upgrades_available()
+std::vector<Property> Player::property_upgrades_available()
 {
-	std::vector<Property*>return_properties;
+	std::vector<Property>return_properties;
 	if (!properties_owned.empty())
 	{
 		std::vector<Property::colors> vColorHolder;
@@ -198,7 +200,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::brown)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -208,7 +210,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::light_blue)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -218,7 +220,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::pink)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -228,7 +230,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::orange)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -238,7 +240,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::red)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -248,7 +250,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::yellow)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -258,7 +260,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::green)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -268,7 +270,7 @@ std::vector<Property*> Player::property_upgrades_available()
 				{
 					if (properties_owned[i]->color == Property::colors::dark_blue)	//if not already maxxed
 					{
-						return_properties.push_back(properties_owned[i]);
+						return_properties.push_back(*properties_owned[i]);
 					}
 				}
 			}
@@ -284,7 +286,7 @@ int Player::throw_die()
 	int ran;
 	srand(time(NULL));
 	ran = rand() % 6 + 1;
-	std::cout << name << " rolled a " << ran << "." << std::endl;
+	CLogger::GetLogger()->Log(name + " rolled a " + std::to_string(ran) + ".");
 	return ran;
 }
 bool Player::operator==(const Player& other)
@@ -305,7 +307,7 @@ int Player::decide_upgrade(Property prop)
 	int i = -1;
 	while (i > 1 || i < 0)
 	{
-		std::cout << "Decide upgrade " << prop.name << ": [0] no, [1] yes?\n";
+		CLogger::GetLogger()->Log("Decide upgrade " + prop.name + ": [0] no, [1] yes?");
 		std::cin >> i;
 	}
 	return i;
