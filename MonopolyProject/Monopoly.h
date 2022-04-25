@@ -20,6 +20,7 @@
 #include "Piece.h"
 #include <algorithm>
 #include <random>
+#include "Logger.h"
 
 class Monopoly
 {
@@ -38,25 +39,25 @@ private:
 public:
 	Monopoly(int number_players = 2);
 	Board board;
-	void give_active_players_pieces();
-	void make_next_player_active();
+	
 	int	die_roll;
 	int pick_piece(Player& player);
-	int throw_die(Player player);	
-
-	//member get functions
-	Player* get_active_player();
-	Utility* advance_to_nearest_utility(Piece* piece);
-	nrails::Railroad* advance_to_nearest_railroad(Piece* piece);
+	int throw_die(Player player);
+	int	get_railroad_rent(Player player);
+	int	get_utility_cost_multiplier(Player& owner);
+	
 	Spot* get_spot(int position);
 	Player* get_player(Piece p);
-	Utility* get_utility(int position);
-	int	get_utility_cost_multiplier(Player& owner);
 	Player* get_owner(std::string spot_name);
+	Player* get_active_player();
+	Utility* advance_to_nearest_utility(Piece* piece);
+	Utility* get_utility(int position);
 	Property* get_property(int pos);
+	
+	//railroads
 	nrails::Railroad* get_railroad(int pos);
+	nrails::Railroad* advance_to_nearest_railroad(Piece* piece);
 	nrails::Railroad* get_nearest_railroad(Player& player);
-	int	get_railroad_rent(Player player);
 	
 	//receive cards
 	Card draw_community();
@@ -64,21 +65,20 @@ public:
 
 	//pass go
 	bool passes_go(Piece* p, int n);
-	
 	//game over
 	bool game_over = false;
 	bool check_game_over();
-	
 	//decide buy or pass
 	bool decide_buy_or_pass(Property prop, Player player);
 	bool decide_buy_or_pass(Utility util, Player player);
 	bool decide_buy_or_pass(nrails::Railroad rail, Player player);
-	
 	//decide upgrade
 	bool decide_upgrade(Property prop, Player player);
 	
+	//
 	//play game
 	void play_game();
+	//
 
 	//move
 	void move_piece(Player* player, int die_cast);
@@ -99,6 +99,9 @@ public:
 	void do_spot_action(Spot* the_spot, Player* activePlayer);
 	void send_player_to_jail(Player& p);
 	void player_throw_die_pay_owner(Player& p, Utility& the_utility);
+
+	void give_active_players_pieces();
+	void make_next_player_active();
 
 	//vectors
 	std::vector<nrails::Railroad>	railroads;

@@ -4,12 +4,13 @@
 #include<iterator> // for iterators
 #include<vector> // for vectors
 #include "Monopoly.h"
+#include "Logger.h"
 
 using namespace std;
 int main()
 {
     Monopoly monopoly;
-
+    monopoly.play_game();
     return 0;
 }
 

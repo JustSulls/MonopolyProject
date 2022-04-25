@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <map>
+#include "Logger.h"
 
 namespace npiece
 {

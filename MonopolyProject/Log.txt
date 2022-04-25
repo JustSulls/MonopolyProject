@@ -1,0 +1,116 @@
+Mon-04:27:52 PM:	Game started.
+Mon-04:27:52 PM:	--Starting turn 1--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [3]baltic avenue.
+Mon-04:27:52 PM:	Player 1 decides to buy baltic avenue for $60. 
+Mon-04:27:52 PM:	Player 1 pays $60 ($1440 remaining).
+Mon-04:27:52 PM:	Player 1 now owns baltic avenue
+Mon-04:27:52 PM:	--Starting turn 2--
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2's piece landed on [3]baltic avenue.
+Mon-04:27:52 PM:	Player 2 pays $4 ($1496 remaining).
+Mon-04:27:52 PM:	Player 1 collects $4 ($1444 remaining.
+Mon-04:27:52 PM:	--Starting turn 3--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [6]oriental avenue.
+Mon-04:27:52 PM:	Player 1 decides to buy oriental avenue for $100. 
+Mon-04:27:52 PM:	Player 1 pays $100 ($1344 remaining).
+Mon-04:27:52 PM:	Player 1 now owns oriental avenue
+Mon-04:27:52 PM:	--Starting turn 4--
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2's piece landed on [6]oriental avenue.
+Mon-04:27:52 PM:	Player 2 pays $6 ($1490 remaining).
+Mon-04:27:52 PM:	Player 1 collects $6 ($1350 remaining.
+Mon-04:27:52 PM:	--Starting turn 5--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [9]connecticut avenue.
+Mon-04:27:52 PM:	Player 1 decides to buy connecticut avenue for $120. 
+Mon-04:27:52 PM:	Player 1 pays $120 ($1230 remaining).
+Mon-04:27:52 PM:	Player 1 now owns connecticut avenue
+Mon-04:27:52 PM:	--Starting turn 6--
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2's piece landed on [9]connecticut avenue.
+Mon-04:27:52 PM:	Player 2 pays $8 ($1482 remaining).
+Mon-04:27:52 PM:	Player 1 collects $8 ($1238 remaining.
+Mon-04:27:52 PM:	--Starting turn 7--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [12]Electric_Company.
+Mon-04:27:52 PM:	Player 1 decides to buy Electric_Company for $150. 
+Mon-04:27:52 PM:	Player 1 pays $150 ($1088 remaining).
+Mon-04:27:52 PM:	--Starting turn 8--
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2's piece landed on [12]Electric_Company.
+Mon-04:27:52 PM:	Player 2 throws die and pays owner (Player 1) a total of (4)  times.
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2 pays $12 ($1470 remaining).
+Mon-04:27:52 PM:	Player 1 collects $12 ($1100 remaining.
+Mon-04:27:52 PM:	--Starting turn 9--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [15]Pennsylvania_Railroad.
+Mon-04:27:52 PM:	Player 1 decides to buy Pennsylvania_Railroad for $200. 
+Mon-04:27:52 PM:	Player 1 pays $200 ($900 remaining).
+Mon-04:27:52 PM:	Player 1 now owns Pennsylvania_Railroad
+Mon-04:27:52 PM:	--Starting turn 10--
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2's piece landed on [15]Pennsylvania_Railroad.
+Mon-04:27:52 PM:	Player 2 pays $25 ($1445 remaining).
+Mon-04:27:52 PM:	Player 1 collects $25 ($925 remaining.
+Mon-04:27:52 PM:	--Starting turn 11--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [18]tennessee avenue.
+Mon-04:27:52 PM:	Player 1 decides to buy tennessee avenue for $180. 
+Mon-04:27:52 PM:	Player 1 pays $180 ($745 remaining).
+Mon-04:27:52 PM:	Player 1 now owns tennessee avenue
+Mon-04:27:52 PM:	--Starting turn 12--
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2's piece landed on [18]tennessee avenue.
+Mon-04:27:52 PM:	Player 2 pays $14 ($1431 remaining).
+Mon-04:27:52 PM:	Player 1 collects $14 ($759 remaining.
+Mon-04:27:52 PM:	--Starting turn 13--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [21]kentucky avenue.
+Mon-04:27:52 PM:	Player 1 decides to buy kentucky avenue for $220. 
+Mon-04:27:52 PM:	Player 1 pays $220 ($539 remaining).
+Mon-04:27:52 PM:	Player 1 now owns kentucky avenue
+Mon-04:27:52 PM:	--Starting turn 14--
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2's piece landed on [21]kentucky avenue.
+Mon-04:27:52 PM:	Player 2 pays $18 ($1413 remaining).
+Mon-04:27:52 PM:	Player 1 collects $18 ($557 remaining.
+Mon-04:27:52 PM:	--Starting turn 15--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [24]illinois avenue.
+Mon-04:27:52 PM:	Player 1 decides to buy illinois avenue for $240. 
+Mon-04:27:52 PM:	Player 1 pays $240 ($317 remaining).
+Mon-04:27:52 PM:	Player 1 now owns illinois avenue
+Mon-04:27:52 PM:	--Starting turn 16--
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2's piece landed on [24]illinois avenue.
+Mon-04:27:52 PM:	Player 2 pays $20 ($1393 remaining).
+Mon-04:27:52 PM:	Player 1 collects $20 ($337 remaining.
+Mon-04:27:52 PM:	--Starting turn 17--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [27]ventnor avenue.
+Mon-04:27:52 PM:	Player 1 decides to buy ventnor avenue for $260. 
+Mon-04:27:52 PM:	Player 1 pays $260 ($77 remaining).
+Mon-04:27:52 PM:	Player 1 now owns ventnor avenue
+Mon-04:27:52 PM:	--Starting turn 18--
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2's piece landed on [27]ventnor avenue.
+Mon-04:27:52 PM:	Player 2 pays $22 ($1371 remaining).
+Mon-04:27:52 PM:	Player 1 collects $22 ($99 remaining.
+Mon-04:27:52 PM:	--Starting turn 19--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [30]go to jail.
+Mon-04:27:52 PM:	Player 1 is now in jail.
+Mon-04:27:52 PM:	--Starting turn 20--
+Mon-04:27:52 PM:	Player 2 rolled a 3.
+Mon-04:27:52 PM:	Player 2's piece landed on [30]go to jail.
+Mon-04:27:52 PM:	Player 2 is now in jail.
+Mon-04:27:52 PM:	--Starting turn 21--
+Mon-04:27:52 PM:	Player 1 rolled a 3.
+Mon-04:27:52 PM:	Player 1's piece landed on [13]states avenue.
+Mon-04:27:52 PM:	Player 1 decides to buy states avenue for $140. 
+Mon-04:27:52 PM:	Player 1 pays $140 ($-41 remaining).
+Mon-04:27:52 PM:	Player 1 now owns states avenue
+Mon-04:27:52 PM:	Game over. 

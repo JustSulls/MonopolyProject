@@ -6,6 +6,7 @@
 #include "Property.h"
 #include "Utility.h"
 #include "Railroad.h"
+#include "Logger.h"
 class Player
 {
 public:
