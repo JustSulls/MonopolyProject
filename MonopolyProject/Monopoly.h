@@ -43,6 +43,7 @@ public:
 	int	die_roll;
 	int pick_piece(Player& player);
 	int throw_die(Player player);
+	int throw_die();
 	int	get_railroad_rent(Player player);
 	int	get_utility_cost_multiplier(Player& owner);
 	

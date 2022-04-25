@@ -268,6 +268,13 @@ int Monopoly::throw_die(Player player)
 	return die_roll;
 }
 
+int Monopoly::throw_die()
+{
+	die_roll = rand() % 6 + 1;
+	CLogger::GetLogger()->Log("Rolled a " + std::to_string(die_roll) + ".");
+	return die_roll;
+}
+
 Spot* Monopoly::get_spot(int position)
 {
 	//TODO:something wrong with first return spots for loop here
@@ -630,7 +637,8 @@ void Monopoly::play_game()
 			}
 		}
 		//playern rolls 
-		throw_die(*get_active_player());
+		//throw_die(*get_active_player());
+		throw_die();
 		//playern moves based on roll
 		move_piece(get_active_player(), die_roll);
 		//TODO:call move piece (figure out which ones to get rid of) 
@@ -1180,6 +1188,7 @@ nrails::Railroad* Monopoly::get_railroad(int pos)
 
 Monopoly::Monopoly(int number_players)
 {
+	srand(time(NULL));
 	init_properties();
 	init_railroads();
 	init_utilities();
