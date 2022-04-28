@@ -64,7 +64,7 @@ public:
 	Card draw_community();
 	Card draw_chance();
 
-	//pass go
+	//pass go, n is die roll
 	bool passes_go(Piece* p, int n);
 	//game over
 	bool game_over = false;
@@ -103,6 +103,9 @@ public:
 
 	void give_active_players_pieces();
 	void make_next_player_active();
+
+	//print results
+	void print_results();
 
 	//vectors
 	std::vector<nrails::Railroad>	railroads;

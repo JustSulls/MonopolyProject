@@ -25,13 +25,13 @@ void Player::collect(int amount)
 {
 	money += amount;
 	CLogger::GetLogger()->Log(name + " collects $" + std::to_string(amount) +
-		" ($" + std::to_string(money) + " remaining.");
+		" ($" + std::to_string(money) + " total).");
 }
 void Player::pay(int amount)
 {
 	money -= amount;
 	CLogger::GetLogger()->Log(name + " pays $" + std::to_string(amount) + 
-		" ($" + std::to_string(money) + " remaining).");
+		" ($" + std::to_string(money) + " total).");
 }
 void Player::do_street_repairs()
 {
