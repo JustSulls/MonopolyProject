@@ -39,6 +39,7 @@ public:
 	int rent_costs[number_rent_costs] = { 0,0,0,0,0,0,0,0 };
 	int get_rent();
 	level current_level = level::alone;
+	std::string getCurrentLevel();
 	void set_level(int setter);
 	bool is_owned;	
 };

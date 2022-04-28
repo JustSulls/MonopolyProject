@@ -255,7 +255,28 @@ void Monopoly::make_next_player_active()
 
 void Monopoly::print_results()
 {
-
+	CLogger::GetLogger()->Log("------------");
+	CLogger::GetLogger()->Log("Printing results..."); 
+	for (unsigned int i = 0; i < players.size(); i++)
+	{
+		CLogger::GetLogger()->Log(players[i]->name + " $" + std::to_string(players[i]->money));
+		CLogger::GetLogger()->Log(players[i]->name + " total payments made $" + std::to_string(players[i]->get_total_payments_made()));
+		CLogger::GetLogger()->Log(players[i]->name + " total payments collected $" + std::to_string(players[i]->get_total_payments_collected()));
+		CLogger::GetLogger()->Log("Properties owned: " + std::to_string(players[i]->properties_owned.size()));
+		for (unsigned int j = 0; j < players[i]->properties_owned.size(); j++)
+		{
+			CLogger::GetLogger()->Log(players[i]->properties_owned[j]->name);
+			//CLogger::GetLogger()->Log(players[i]->properties_owned[j]->getCurrentLevel());
+		}
+		for (unsigned int k = 0; k < players[i]->railroads_owned.size(); k++)
+		{
+			CLogger::GetLogger()->Log(players[i]->railroads_owned[k]->name);
+		}
+		for (unsigned int l = 0; l < players[i]->utilities_owned.size(); l++)
+		{
+			CLogger::GetLogger()->Log(players[i]->utilities_owned[l]->name);
+		}
+	}
 }
 
 int Monopoly::pick_piece(Player& player)
@@ -525,7 +546,12 @@ bool Monopoly::check_game_over()
 	//FOR NOW check if any player has 0 or less money. (TODO: this is not technically game over, the player can sell property etc.)
 	for (unsigned int i = 0; i < players.size(); i++)
 	{
-		if (players.at(i)->money <= 0) return true;
+		if (players.at(i)->money <= 0)
+		{
+			CLogger::GetLogger()->Log("Game over. ");
+			CLogger::GetLogger()->Log(players[i]->name + " wins.");
+			return true;
+		}
 	}
 	return false;
 }
@@ -707,7 +733,7 @@ void Monopoly::play_game()
 		//check if game over
 		if (check_game_over()) {
 			game_over = true;
-			CLogger::GetLogger()->Log("Game over. ");
+			print_results();
 			//TODO:declare winner
 		}
 	}
