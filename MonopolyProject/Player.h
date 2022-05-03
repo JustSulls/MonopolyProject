@@ -17,6 +17,7 @@ public:
 	int money;
 	std::vector<bool>get_out_of_jail_cards;
 	bool in_jail = false;
+	int total_passed_go;
 
 	std::vector<Property*>properties_owned;
 	std::vector<Utility*>utilities_owned;

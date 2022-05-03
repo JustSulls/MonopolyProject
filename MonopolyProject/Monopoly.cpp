@@ -262,6 +262,7 @@ void Monopoly::print_results()
 		CLogger::GetLogger()->Log(players[i]->name + " $" + std::to_string(players[i]->money));
 		CLogger::GetLogger()->Log(players[i]->name + " total payments made $" + std::to_string(players[i]->get_total_payments_made()));
 		CLogger::GetLogger()->Log(players[i]->name + " total payments collected $" + std::to_string(players[i]->get_total_payments_collected()));
+		CLogger::GetLogger()->Log(players[i]->name + " total times passed go: " + std::to_string(players[i]->total_passed_go));
 		CLogger::GetLogger()->Log("Properties owned: " + std::to_string(players[i]->properties_owned.size()));
 		for (unsigned int j = 0; j < players[i]->properties_owned.size(); j++)
 		{
@@ -676,10 +677,29 @@ bool Monopoly::decide_upgrade(Property prop, Player player)
 	return false;
 }
 
+void Monopoly::handle_jail_turn()
+{
+	//todo:
+	//You cannot stay in Jail as long as you like. 
+	//You must pay the fine (see below), use Get Out of Jail Free or try to roll doubles.
+	/*A player gets out of Jail "early" by:
+		>Rolling Doubles on any of that player's next three turns in Jail. If a player succeeds in doing this, he or she immediately moves forward the number of spaces shown by the throw. 
+			Even if doubles are rolled, the player does NOT take another turn.
+		>Using a "GET OUT OF JAIL FREE" card(possibly by purchasing from another player, at a price agreeable to both).
+		>Paying a $50 fine to the Bank BEFORE throwing the dice for either the first turn or the second turn in Jail.
+	A player MAY NOT remain in Jail after his / her third turn(i.e., not longer than having three turns to play after being sent to Jail).Immediately after throwing the dice for his / her third turn, if the player does not roll Doubles, he or she must pay the $50 fine.He then comes out and moves forward from Jail the number of spaces shown by his / her roll, as normal.*/
+}
+
+bool Monopoly::rolled_three_times_in_succession()
+{
+	//todo:
+	//check if player rolled doubles three times in succession
+	return false;
+}
+
 bool Monopoly::passes_go(Piece* piece, int n)
 {
 	//n is die roll
-	//TODO::confirm this 
 	//piece has already moved
 	int fromPosition = piece->getPosition() - n;
 	int toPosition = piece->getPosition();
@@ -702,32 +722,41 @@ void Monopoly::play_game()
 		turnCounter++;
 		CLogger::GetLogger()->Log("--Starting turn " + std::to_string(turnCounter) + "--");
 		activePlayer = get_active_player();
-		//decide upgrade logic
-		std::vector<Property> potential_upgrades = get_active_player()->property_upgrades_available();
-		if (!potential_upgrades.empty())
+		//First, confirm player not in jail
+		if (!activePlayer->in_jail)
 		{
-			CLogger::GetLogger()->Log("Decide whether to upgrade property.");
-			for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
+			//If property upgrades available, present options to player
+			std::vector<Property> potential_upgrades = get_active_player()->property_upgrades_available();
+			if (!potential_upgrades.empty())
 			{
-				activePlayer->decide_upgrade(potential_upgrades[i]);
+				CLogger::GetLogger()->Log("Decide whether to upgrade property.");
+				for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
+				{
+					activePlayer->decide_upgrade(potential_upgrades[i]);
+				}
 			}
+			//playern rolls 
+			//throw_die(*get_active_player());
+			throw_die();
+			//playern moves based on roll
+			//check if passed go here
+			move_piece(get_active_player(), die_roll);
+			//check if passed go
+			bool passedGo = passes_go(activePlayer->piece, die_roll);
+			if (passedGo)
+			{
+				CLogger::GetLogger()->Log(activePlayer->name + " passed go.");
+				activePlayer->collect(200);
+				activePlayer->total_passed_go++;
+			}
+			//TODO:call move piece (figure out which ones to get rid of) 
+			Spot* the_spot = get_spot(get_active_player()->piece->getPosition());
+			do_spot_action(the_spot, get_active_player());
 		}
-		//playern rolls 
-		//throw_die(*get_active_player());
-		throw_die();
-		//playern moves based on roll
-		//check if passed go here
-		move_piece(get_active_player(), die_roll);
-		//check if passed go
-		bool passedGo = passes_go(activePlayer->piece, die_roll);
-		if (passedGo)
+		else//player is in jail, offer a way out
 		{
-			CLogger::GetLogger()->Log(activePlayer->name + " passed go.");
-			activePlayer->collect(200);
+
 		}
-		//TODO:call move piece (figure out which ones to get rid of) 
-		Spot* the_spot = get_spot(get_active_player()->piece->getPosition());
-		do_spot_action(the_spot, get_active_player());
 		//turn over, increment turn counter to set next player active
 		make_next_player_active();
 		//check if game over

@@ -5,6 +5,7 @@ Player::Player()
 	money = 1500;
 	total_payments_made = 0;
 	total_payments_collected = 0;
+	total_passed_go = 0;
 }
 Player::Player(std::string n)
 {
@@ -12,6 +13,7 @@ Player::Player(std::string n)
 	money = 1500;
 	total_payments_made = 0;
 	total_payments_collected = 0;
+	total_passed_go = 0;
 }
 bool Player::has_get_out_of_jail_card()
 {
