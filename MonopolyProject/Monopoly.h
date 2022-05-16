@@ -43,7 +43,7 @@ public:
 	
 	int	die_roll;
 	int pick_piece(Player& player);
-	int throw_die(Player player);
+	//int throw_die(Player player);
 	int throw_die();
 	int	get_railroad_rent(Player player);
 	int	get_utility_cost_multiplier(Player& owner);
@@ -76,12 +76,14 @@ public:
 	bool decide_buy_or_pass(nrails::Railroad rail, Player player);
 	//decide upgrade
 	bool decide_upgrade(Property prop, Player player);
+	//decide what to do in jail
+	unsigned int decide_jail_turn_choice(Player player);
 	//JAIL
 	//	A player sent to Jail cannot collect $200 salary in that move since, regardless of where his/her piece is or of the path of the board, he/she must move his/her piece DIRECTLY into Jail. A player's turn ends when he is sent to Jail.
 	//You may buy and erect housesand /or hotels, sell or buy property, collect rent, mortgage properties, participate in auctionsand deal with other players even though in Jail.
 	//If you pass go before landing on chance or community chest and drawing a card that sends you to jail, you still collect your salary.
 	//handle jail
-	void handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* active_player);
+	void handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* active_player, unsigned int& jailTurnCounter);
 	//check if player rolled doubles three times in succession
 	bool rolled_three_times_in_succession();
 	

@@ -294,16 +294,20 @@ int Monopoly::pick_piece(Player& player)
 	return answer;
 }
 
-int Monopoly::throw_die(Player player)
-{
-	die_roll = player.throw_die();
-	return die_roll;
-}
+//int Monopoly::throw_die(Player player)
+//{
+//	die_roll = player.throw_die();
+//	die_roll += player.throw_die();
+//	return die_roll;
+//}
 
 int Monopoly::throw_die()
 {
-	die_roll = rand() % 6 + 1;
-	CLogger::GetLogger()->Log("Rolled a " + std::to_string(die_roll) + ".");
+	int first_roll = rand() % 6 + 1;
+	int second_roll = rand() % 6 + 1;
+	die_roll = first_roll + second_roll;
+	CLogger::GetLogger()->Log("Rolled a " + std::to_string(die_roll) + ". (" + std::to_string(first_roll) + " + " + 
+	std::to_string(second_roll) + ").");
 	return die_roll;
 }
 
@@ -677,7 +681,30 @@ bool Monopoly::decide_upgrade(Property prop, Player player)
 	return false;
 }
 
-void Monopoly::handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* active_player)
+unsigned int Monopoly::decide_jail_turn_choice(Player player)
+{
+	unsigned int answer = -1;
+	if (test)
+	{
+		//always choose roll for doubles
+		answer = 0;
+	}
+	else
+	{
+		std::cin >> answer;
+		while (answer > 2 || answer < 0)
+		{
+			CLogger::GetLogger()->Log(player.name + " decides what to do in jail.");
+			CLogger::GetLogger()->Log("choice [0]: Roll for doubles, if hit move forward roll.");
+			CLogger::GetLogger()->Log("choice [1]: Use get out of jail card.");
+			CLogger::GetLogger()->Log("choice [2]: Pay $50 before 1st or 2nd jail turn.");
+			std::cin >> answer;
+		}
+	}
+	return answer;
+}
+
+void Monopoly::handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* active_player, unsigned int& jailTurnCounter)
 {
 
 	//todo:
@@ -702,30 +729,31 @@ void Monopoly::handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* act
 	//	roll for doubles, if no doubles pay $50
 	//	move forward roll
 	//	player no longer in jail(in jail=false, jail_turn_counter=0)
-	//get_valid_choices {1, 2, or 3}
-	//get_player_choice {1, 2, or 3}
-	//	choice 1:
+	//get_valid_choices {0, 1, or 2}
+	//get_player_choice {0, 1, or 2}
+	//	choice 0:
 	//		roll for doubles, 
 	//		if hit move forward roll
 	//			player no longer in jail(in jail=false, jail_turn_counter=0)
-	//	choice 2:
+	//	choice 1:
 	//		Use get out of jail card
 	//			player no longer in jail(in jail=false, jail_turn_counter=0)
-	//	choice 3:
+	//	choice 2:
 	//		Pay $50 before 1st or 2nd jail turn (no roll?)
 	//			player no longer in jail(in jail=false, jail_turn_counter=0)
 	//--
 	//--Pseudo code C++
 	//----
-	//if (jailTurnCounter >= 3)
-	//{
-	//	get_player_jail_turn_choice()
-	//	if(choice = 1)
-	//	{
-	//		rolled_doubles = roll_for_doubles();
-	//		if(!rolled_doubles){active_player.pay(50);}
-	//		else if (rolled_doubles){move(roll);}
-	//	}
+	if (jailTurnCounter < 3)
+	{
+		unsigned int answer = decide_jail_turn_choice(*active_player);
+		/*switch (answer)
+		{
+		case 0:
+			rolled_doubles = roll_for_doubles();
+			if(!rolled_doubles){active_player.pay(50);}
+			else if (rolled_doubles){move(roll);}
+		};*/
 	//	else if (choice = 2)
 	//	{
 	//		if (has_get_out_of_jail_card())
@@ -745,7 +773,7 @@ void Monopoly::handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* act
 	//		pay(50);
 	//		roll_and_move();
 	//	}
-	//}
+	}
 	//else//jailTurnCounter == 3
 	//{
 	//	rolled_doubles = roll_for_doubles();
@@ -1297,7 +1325,7 @@ void Monopoly::player_throw_die_pay_owner(Player& p, Utility& the_utility)
 	}
 	CLogger::GetLogger()->Log(p.name + " throws die and pays owner (" + the_owner->name
 		+") a total of (" + std::to_string(cost_multiplier) + ")  times.");
-	throw_die(p);
+	throw_die();
 	int cost = die_roll * cost_multiplier;
 	p.pay(cost);
 	the_owner->collect(cost);
