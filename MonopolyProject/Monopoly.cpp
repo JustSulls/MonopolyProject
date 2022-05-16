@@ -677,17 +677,89 @@ bool Monopoly::decide_upgrade(Property prop, Player player)
 	return false;
 }
 
-void Monopoly::handle_jail_turn()
+void Monopoly::handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* active_player)
 {
+
 	//todo:
+	//--
+	//--Notes
+	//----
 	//You cannot stay in Jail as long as you like. 
-	//You must pay the fine (see below), use Get Out of Jail Free or try to roll doubles.
-	/*A player gets out of Jail "early" by:
-		>Rolling Doubles on any of that player's next three turns in Jail. If a player succeeds in doing this, he or she immediately moves forward the number of spaces shown by the throw. 
-			Even if doubles are rolled, the player does NOT take another turn.
-		>Using a "GET OUT OF JAIL FREE" card(possibly by purchasing from another player, at a price agreeable to both).
-		>Paying a $50 fine to the Bank BEFORE throwing the dice for either the first turn or the second turn in Jail.
-	A player MAY NOT remain in Jail after his / her third turn(i.e., not longer than having three turns to play after being sent to Jail).Immediately after throwing the dice for his / her third turn, if the player does not roll Doubles, he or she must pay the $50 fine.He then comes out and moves forward from Jail the number of spaces shown by his / her roll, as normal.*/
+	//You must pay the fine, use Get Out of Jail Free card or try to roll doubles.
+	//A player gets out of Jail "early" by:
+	//	>Rolling Doubles on any of that player's next three turns in Jail. If a player succeeds in doing this, he or she 
+	//	immediately moves forward the number of spaces shown by the throw. 
+	//		Even if doubles are rolled, the player does NOT take another turn.
+	//	>Using a "GET OUT OF JAIL FREE" card(possibly by purchasing from another player, at a price agreeable to both).
+	//	>Paying a $50 fine to the Bank BEFORE throwing the dice for either the first turn or the second turn in Jail.
+	//A player MAY NOT remain in Jail after his third turn(i.e., not longer than having three turns to play after being sent to Jail).
+	//Immediately after throwing the dice for his third turn, if the player does not roll Doubles, he or she must pay the $50 fine. 
+	//He then comes out and moves forward from Jail the number of spaces shown by his roll.
+	//--
+	//--Pseudo code English
+	//----
+	//if jail_turn_counter >= 3
+	//	roll for doubles, if no doubles pay $50
+	//	move forward roll
+	//	player no longer in jail(in jail=false, jail_turn_counter=0)
+	//get_valid_choices {1, 2, or 3}
+	//get_player_choice {1, 2, or 3}
+	//	choice 1:
+	//		roll for doubles, 
+	//		if hit move forward roll
+	//			player no longer in jail(in jail=false, jail_turn_counter=0)
+	//	choice 2:
+	//		Use get out of jail card
+	//			player no longer in jail(in jail=false, jail_turn_counter=0)
+	//	choice 3:
+	//		Pay $50 before 1st or 2nd jail turn (no roll?)
+	//			player no longer in jail(in jail=false, jail_turn_counter=0)
+	//--
+	//--Pseudo code C++
+	//----
+	//if (jailTurnCounter >= 3)
+	//{
+	//	get_player_jail_turn_choice()
+	//	if(choice = 1)
+	//	{
+	//		rolled_doubles = roll_for_doubles();
+	//		if(!rolled_doubles){active_player.pay(50);}
+	//		else if (rolled_doubles){move(roll);}
+	//	}
+	//	else if (choice = 2)
+	//	{
+	//		if (has_get_out_of_jail_card())
+	//		{
+	//			remove_get_out_of_jail_card();
+	//			player.in_jail = false;
+	//			roll_and_move();
+	//		}
+	//		else
+	//		{
+	//			bad_choice_choose_again()
+	//		}
+	//	}
+	//	else if (choice = 3)
+	//	{
+	//		confirm_valid_turn();
+	//		pay(50);
+	//		roll_and_move();
+	//	}
+	//}
+	//else//jailTurnCounter == 3
+	//{
+	//	rolled_doubles = roll_for_doubles();
+	//	if(!rolled_doubles)
+	//		{
+	//			active_player.pay(50);
+	//			move(roll);
+	//		}
+	//	else if (rolled_doubles)
+	//		{
+	//			move(roll);
+	//		}
+	//}
+	// 
 }
 
 bool Monopoly::rolled_three_times_in_succession()
@@ -755,7 +827,13 @@ void Monopoly::play_game()
 		}
 		else//player is in jail, offer a way out
 		{
-
+			jailTurnCounter++;
+			//for now, just stay here 3 turns...
+			//todo implement actual logic
+			if (jailTurnCounter >= 3)
+			{
+				activePlayer->in_jail = false;
+			}
 		}
 		//turn over, increment turn counter to set next player active
 		make_next_player_active();
