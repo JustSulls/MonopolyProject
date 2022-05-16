@@ -17,6 +17,7 @@ public:
 	int money;
 	std::vector<bool>get_out_of_jail_cards;
 	bool in_jail = false;
+	int total_passed_go;
 
 	std::vector<Property*>properties_owned;
 	std::vector<Utility*>utilities_owned;
@@ -39,6 +40,8 @@ public:
 	int get_num_houses();
 	int get_num_hotels();
 	int get_general_repair_cost();
+	int get_total_payments_collected();
+	int get_total_payments_made();
 	bool operator==(const Player& other);
 	bool operator!=(const Player& other);
 
@@ -54,4 +57,6 @@ private:
 		int maxLightBlue=	3;
 		int maxBrown	=	2;
 	}ColorCount;
+	int total_payments_collected;
+	int total_payments_made;
 };

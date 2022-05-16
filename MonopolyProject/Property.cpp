@@ -60,6 +60,38 @@ int Property::get_rent()
 	}
 	return rent;
 }
+std::string Property::getCurrentLevel()
+{
+	std::string returnStr;
+	switch (current_level)
+	{
+	case level::alone:
+		returnStr = "alone";
+		break;
+	case level::monopoly:
+		returnStr = "monopoly";
+		break;
+	case level::with_1_house:
+		returnStr = "with_1_house";
+		break;
+	case level::with_2_houses:
+		returnStr = "with_2_houses";
+		break;
+	case level::with_3_houses:
+		returnStr = "with_3_houses";
+		break;
+	case level::with_4_houses:
+		returnStr = "with_4_houses";
+		break;
+	case level::with_hotel:
+		returnStr = "with_hotel";
+		break;
+	case level::with_skyscraper:
+		returnStr = "with_skyscraper";
+		break;
+	}
+	return returnStr;
+}
 void Property::set_level(int setter)
 {
 	//todo: limit this

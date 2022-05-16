@@ -3,11 +3,17 @@ Player::Player()
 {
 	name = "default";
 	money = 1500;
+	total_payments_made = 0;
+	total_payments_collected = 0;
+	total_passed_go = 0;
 }
 Player::Player(std::string n)
 {
 	name = n;
 	money = 1500;
+	total_payments_made = 0;
+	total_payments_collected = 0;
+	total_passed_go = 0;
 }
 bool Player::has_get_out_of_jail_card()
 {
@@ -24,14 +30,16 @@ bool Player::has_get_out_of_jail_card()
 void Player::collect(int amount)
 {
 	money += amount;
+	total_payments_collected += amount;
 	CLogger::GetLogger()->Log(name + " collects $" + std::to_string(amount) +
-		" ($" + std::to_string(money) + " remaining.");
+		" ($" + std::to_string(money) + " total).");
 }
 void Player::pay(int amount)
 {
 	money -= amount;
+	total_payments_made += amount;
 	CLogger::GetLogger()->Log(name + " pays $" + std::to_string(amount) + 
-		" ($" + std::to_string(money) + " remaining).");
+		" ($" + std::to_string(money) + " total).");
 }
 void Player::do_street_repairs()
 {
@@ -57,6 +65,14 @@ int Player::get_general_repair_cost()
 {
 	int payment = (25 * get_num_houses()) + (100 * get_num_hotels());
 	return payment;
+}
+int Player::get_total_payments_collected()
+{
+	return total_payments_collected;
+}
+int Player::get_total_payments_made()
+{
+	return total_payments_made;
 }
 void Player::do_general_repairs()
 {

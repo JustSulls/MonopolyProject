@@ -1,188 +1,243 @@
-Mon-04:44:09 PM:	Game started.
-Mon-04:44:09 PM:	--Starting turn 1--
-Mon-04:44:09 PM:	Rolled a 2.
-Mon-04:44:09 PM:	Player 1's piece landed on [2]community chest 1.
-Mon-04:44:09 PM:	Player 1 draws "You inherit $100.".
-Mon-04:44:09 PM:	Player 1 collects $100 ($1600 remaining.
-Mon-04:44:09 PM:	--Starting turn 2--
-Mon-04:44:09 PM:	Rolled a 1.
-Mon-04:44:09 PM:	Player 2's piece landed on [1]mediterranean avenue.
-Mon-04:44:09 PM:	Player 2 decides to buy mediterranean avenue for $60. 
-Mon-04:44:09 PM:	Player 2 pays $60 ($1440 remaining).
-Mon-04:44:09 PM:	Player 2 now owns mediterranean avenue
-Mon-04:44:09 PM:	--Starting turn 3--
-Mon-04:44:09 PM:	Rolled a 1.
-Mon-04:44:09 PM:	Player 1's piece landed on [3]baltic avenue.
-Mon-04:44:09 PM:	Player 1 decides to buy baltic avenue for $60. 
-Mon-04:44:09 PM:	Player 1 pays $60 ($1540 remaining).
-Mon-04:44:09 PM:	Player 1 now owns baltic avenue
-Mon-04:44:09 PM:	--Starting turn 4--
-Mon-04:44:09 PM:	Rolled a 2.
-Mon-04:44:09 PM:	Player 2's piece landed on [3]baltic avenue.
-Mon-04:44:09 PM:	Player 2 pays $4 ($1436 remaining).
-Mon-04:44:09 PM:	Player 1 collects $4 ($1544 remaining.
-Mon-04:44:09 PM:	--Starting turn 5--
-Mon-04:44:09 PM:	Rolled a 4.
-Mon-04:44:09 PM:	Player 1's piece landed on [7]chance 1.
-Mon-04:44:09 PM:	Player 1 draws "You have won a crossword competition. Collect $100.".
-Mon-04:44:09 PM:	Player 1 collects $100 ($1644 remaining.
-Mon-04:44:09 PM:	--Starting turn 6--
-Mon-04:44:09 PM:	Rolled a 4.
-Mon-04:44:09 PM:	Player 2's piece landed on [7]chance 1.
-Mon-04:44:09 PM:	Player 2 draws "Your building and land matures. Collect $150.".
-Mon-04:44:09 PM:	Player 2 collects $150 ($1586 remaining.
-Mon-04:44:09 PM:	--Starting turn 7--
-Mon-04:44:09 PM:	Rolled a 6.
-Mon-04:44:09 PM:	Player 1's piece landed on [13]states avenue.
-Mon-04:44:09 PM:	Player 1 decides to buy states avenue for $140. 
-Mon-04:44:09 PM:	Player 1 pays $140 ($1504 remaining).
-Mon-04:44:09 PM:	Player 1 now owns states avenue
-Mon-04:44:09 PM:	--Starting turn 8--
-Mon-04:44:09 PM:	Rolled a 6.
-Mon-04:44:09 PM:	Player 2's piece landed on [13]states avenue.
-Mon-04:44:09 PM:	Player 2 pays $10 ($1576 remaining).
-Mon-04:44:09 PM:	Player 1 collects $10 ($1514 remaining.
-Mon-04:44:09 PM:	--Starting turn 9--
-Mon-04:44:09 PM:	Rolled a 3.
-Mon-04:44:09 PM:	Player 1's piece landed on [16]st. james place.
-Mon-04:44:09 PM:	Player 1 decides to buy st. james place for $180. 
-Mon-04:44:09 PM:	Player 1 pays $180 ($1334 remaining).
-Mon-04:44:09 PM:	Player 1 now owns st. james place
-Mon-04:44:09 PM:	--Starting turn 10--
-Mon-04:44:09 PM:	Rolled a 2.
-Mon-04:44:09 PM:	Player 2's piece landed on [15]Pennsylvania_Railroad.
-Mon-04:44:09 PM:	Player 2 decides to buy Pennsylvania_Railroad for $200. 
-Mon-04:44:09 PM:	Player 2 pays $200 ($1376 remaining).
-Mon-04:44:09 PM:	Player 2 now owns Pennsylvania_Railroad
-Mon-04:44:09 PM:	--Starting turn 11--
-Mon-04:44:09 PM:	Rolled a 2.
-Mon-04:44:09 PM:	Player 1's piece landed on [18]tennessee avenue.
-Mon-04:44:09 PM:	Player 1 decides to buy tennessee avenue for $180. 
-Mon-04:44:09 PM:	Player 1 pays $180 ($1154 remaining).
-Mon-04:44:09 PM:	Player 1 now owns tennessee avenue
-Mon-04:44:09 PM:	--Starting turn 12--
-Mon-04:44:09 PM:	Rolled a 5.
-Mon-04:44:09 PM:	Player 2's piece landed on [20]free parking.
-Mon-04:44:09 PM:	--Starting turn 13--
-Mon-04:44:09 PM:	Rolled a 4.
-Mon-04:44:09 PM:	Player 1's piece landed on [22]chance 2.
-Mon-04:44:09 PM:	Player 1 draws "You have been elected Chairman of the Board. Pay each player $50.".
-Mon-04:44:09 PM:	--Starting turn 14--
-Mon-04:44:09 PM:	Rolled a 3.
-Mon-04:44:09 PM:	Player 2's piece landed on [23]indiana avenue.
-Mon-04:44:09 PM:	Player 2 decides to buy indiana avenue for $220. 
-Mon-04:44:09 PM:	Player 2 pays $220 ($1156 remaining).
-Mon-04:44:09 PM:	Player 2 now owns indiana avenue
-Mon-04:44:09 PM:	--Starting turn 15--
-Mon-04:44:09 PM:	Rolled a 4.
-Mon-04:44:09 PM:	Player 1's piece landed on [26]atlantic avenue.
-Mon-04:44:09 PM:	Player 1 decides to buy atlantic avenue for $260. 
-Mon-04:44:09 PM:	Player 1 pays $260 ($894 remaining).
-Mon-04:44:09 PM:	Player 1 now owns atlantic avenue
-Mon-04:44:09 PM:	--Starting turn 16--
-Mon-04:44:09 PM:	Rolled a 3.
-Mon-04:44:09 PM:	Player 2's piece landed on [26]atlantic avenue.
-Mon-04:44:09 PM:	Player 2 pays $22 ($1134 remaining).
-Mon-04:44:09 PM:	Player 1 collects $22 ($916 remaining.
-Mon-04:44:09 PM:	--Starting turn 17--
-Mon-04:44:09 PM:	Rolled a 6.
-Mon-04:44:09 PM:	Player 1's piece landed on [32]north carolina avenue.
-Mon-04:44:09 PM:	Player 1 decides to buy north carolina avenue for $300. 
-Mon-04:44:09 PM:	Player 1 pays $300 ($616 remaining).
-Mon-04:44:09 PM:	Player 1 now owns north carolina avenue
-Mon-04:44:09 PM:	--Starting turn 18--
-Mon-04:44:09 PM:	Rolled a 4.
-Mon-04:44:09 PM:	Player 2's piece landed on [30]go to jail.
-Mon-04:44:09 PM:	Player 2 is now in jail.
-Mon-04:44:09 PM:	--Starting turn 19--
-Mon-04:44:09 PM:	Rolled a 6.
-Mon-04:44:09 PM:	Player 1's piece landed on [38]luxury tax.
-Mon-04:44:09 PM:	Player 1 collects $200 ($816 remaining.
-Mon-04:44:09 PM:	Player 1 pays $150 ($666 remaining).
-Mon-04:44:09 PM:	--Starting turn 20--
-Mon-04:44:09 PM:	Rolled a 5.
-Mon-04:44:09 PM:	Player 2's piece landed on [15]Pennsylvania_Railroad.
-Mon-04:44:09 PM:	Player 2 pays $25 ($1109 remaining).
-Mon-04:44:09 PM:	Player 2 collects $25 ($1134 remaining.
-Mon-04:44:09 PM:	--Starting turn 21--
-Mon-04:44:09 PM:	Rolled a 4.
-Mon-04:44:09 PM:	Player 1's piece landed on [2]community chest 1.
-Mon-04:44:09 PM:	Player 1 draws "You have won second prize in a beauty contest. Collect $10.".
-Mon-04:44:09 PM:	Player 1 collects $10 ($676 remaining.
-Mon-04:44:09 PM:	--Starting turn 22--
-Mon-04:44:09 PM:	Rolled a 3.
-Mon-04:44:09 PM:	Player 2's piece landed on [18]tennessee avenue.
-Mon-04:44:09 PM:	Player 2 pays $14 ($1120 remaining).
-Mon-04:44:09 PM:	Player 1 collects $14 ($690 remaining.
-Mon-04:44:09 PM:	--Starting turn 23--
-Mon-04:44:09 PM:	Rolled a 4.
-Mon-04:44:09 PM:	Player 1's piece landed on [6]oriental avenue.
-Mon-04:44:09 PM:	Player 1 decides to buy oriental avenue for $100. 
-Mon-04:44:09 PM:	Player 1 pays $100 ($590 remaining).
-Mon-04:44:09 PM:	Player 1 now owns oriental avenue
-Mon-04:44:09 PM:	--Starting turn 24--
-Mon-04:44:09 PM:	Rolled a 4.
-Mon-04:44:09 PM:	Player 2's piece landed on [22]chance 2.
-Mon-04:44:09 PM:	Player 2 draws "Take a walk on the Boardwalk. Advance token to Boardwalk.".
-Mon-04:44:09 PM:	Player 2's piece landed on [39]boardwalk.
-Mon-04:44:09 PM:	Player 2 collects $200 ($1320 remaining.
-Mon-04:44:09 PM:	--Starting turn 25--
-Mon-04:44:09 PM:	Rolled a 5.
-Mon-04:44:09 PM:	Player 1's piece landed on [11]st. charles place.
-Mon-04:44:09 PM:	Player 1 decides to buy st. charles place for $140. 
-Mon-04:44:09 PM:	Player 1 pays $140 ($450 remaining).
-Mon-04:44:09 PM:	Player 1 now owns st. charles place
-Mon-04:44:09 PM:	--Starting turn 26--
-Mon-04:44:09 PM:	Rolled a 4.
-Mon-04:44:09 PM:	Player 2's piece landed on [3]baltic avenue.
-Mon-04:44:09 PM:	Player 2 pays $4 ($1316 remaining).
-Mon-04:44:09 PM:	Player 1 collects $4 ($454 remaining.
-Mon-04:44:09 PM:	--Starting turn 27--
-Mon-04:44:09 PM:	Rolled a 1.
-Mon-04:44:09 PM:	Player 1's piece landed on [12]Electric_Company.
-Mon-04:44:09 PM:	Player 1 decides to buy Electric_Company for $150. 
-Mon-04:44:09 PM:	Player 1 pays $150 ($304 remaining).
-Mon-04:44:09 PM:	--Starting turn 28--
-Mon-04:44:09 PM:	Rolled a 6.
-Mon-04:44:09 PM:	Player 2's piece landed on [9]connecticut avenue.
-Mon-04:44:09 PM:	Player 2 decides to buy connecticut avenue for $120. 
-Mon-04:44:09 PM:	Player 2 pays $120 ($1196 remaining).
-Mon-04:44:09 PM:	Player 2 now owns connecticut avenue
-Mon-04:44:09 PM:	--Starting turn 29--
-Mon-04:44:09 PM:	Rolled a 3.
-Mon-04:44:09 PM:	Player 1's piece landed on [15]Pennsylvania_Railroad.
-Mon-04:44:09 PM:	Player 1 pays $25 ($279 remaining).
-Mon-04:44:09 PM:	Player 2 collects $25 ($1221 remaining.
-Mon-04:44:09 PM:	--Starting turn 30--
-Mon-04:44:09 PM:	Rolled a 2.
-Mon-04:44:09 PM:	Player 2's piece landed on [11]st. charles place.
-Mon-04:44:09 PM:	Player 2 pays $10 ($1211 remaining).
-Mon-04:44:09 PM:	Player 1 collects $10 ($289 remaining.
-Mon-04:44:09 PM:	--Starting turn 31--
-Mon-04:44:09 PM:	Rolled a 6.
-Mon-04:44:09 PM:	Player 1's piece landed on [21]kentucky avenue.
-Mon-04:44:09 PM:	Player 1 decides to buy kentucky avenue for $220. 
-Mon-04:44:09 PM:	Player 1 pays $220 ($69 remaining).
-Mon-04:44:09 PM:	Player 1 now owns kentucky avenue
-Mon-04:44:09 PM:	--Starting turn 32--
-Mon-04:44:09 PM:	Rolled a 6.
-Mon-04:44:09 PM:	Player 2's piece landed on [17]community chest 2.
-Mon-04:44:09 PM:	Player 2 draws "You are assessed for street repairs: Pay $40 per house and $115 per hotel you own.".
-Mon-04:44:09 PM:	Player 2 pays $0 ($1211 remaining).
-Mon-04:44:09 PM:	--Starting turn 33--
-Mon-04:44:09 PM:	Rolled a 2.
-Mon-04:44:09 PM:	Player 1's piece landed on [23]indiana avenue.
-Mon-04:44:09 PM:	Player 1 pays $18 ($51 remaining).
-Mon-04:44:09 PM:	Player 2 collects $18 ($1229 remaining.
-Mon-04:44:09 PM:	--Starting turn 34--
-Mon-04:44:09 PM:	Rolled a 5.
-Mon-04:44:09 PM:	Player 2's piece landed on [22]chance 2.
-Mon-04:44:09 PM:	Player 2 draws "Take a trip to Reading Railroad. If you pass GO collect $200.".
-Mon-04:44:09 PM:	Player 2's piece landed on [27]ventnor avenue.
-Mon-04:44:09 PM:	--Starting turn 35--
-Mon-04:44:09 PM:	Rolled a 2.
-Mon-04:44:09 PM:	Player 1's piece landed on [25]B_0_Railroad.
-Mon-04:44:09 PM:	Player 1 decides to buy B_0_Railroad for $200. 
-Mon-04:44:09 PM:	Player 1 pays $200 ($-149 remaining).
-Mon-04:44:09 PM:	Player 1 now owns B_0_Railroad
-Mon-04:44:09 PM:	Game over. 
+Mon-05:53:26 PM:	Game started.
+Mon-05:53:26 PM:	--Starting turn 1--
+Mon-05:53:26 PM:	Rolled a 4.
+Mon-05:53:26 PM:	Player 1's piece landed on [4]income tax.
+Mon-05:53:26 PM:	Player 1 pays $200 ($1300 total).
+Mon-05:53:26 PM:	--Starting turn 2--
+Mon-05:53:26 PM:	Rolled a 4.
+Mon-05:53:26 PM:	Player 2's piece landed on [4]income tax.
+Mon-05:53:26 PM:	Player 2 pays $200 ($1300 total).
+Mon-05:53:26 PM:	--Starting turn 3--
+Mon-05:53:26 PM:	Rolled a 1.
+Mon-05:53:26 PM:	Player 1's piece landed on [5]Reading_Railroad.
+Mon-05:53:26 PM:	Player 1 decides to buy Reading_Railroad for $200. 
+Mon-05:53:26 PM:	Player 1 pays $200 ($1100 total).
+Mon-05:53:26 PM:	Player 1 now owns Reading_Railroad
+Mon-05:53:26 PM:	--Starting turn 4--
+Mon-05:53:26 PM:	Rolled a 2.
+Mon-05:53:26 PM:	Player 2's piece landed on [6]oriental avenue.
+Mon-05:53:26 PM:	Player 2 decides to buy oriental avenue for $100. 
+Mon-05:53:26 PM:	Player 2 pays $100 ($1200 total).
+Mon-05:53:26 PM:	Player 2 now owns oriental avenue
+Mon-05:53:26 PM:	--Starting turn 5--
+Mon-05:53:26 PM:	Rolled a 6.
+Mon-05:53:26 PM:	Player 1's piece landed on [11]st. charles place.
+Mon-05:53:26 PM:	Player 1 decides to buy st. charles place for $140. 
+Mon-05:53:26 PM:	Player 1 pays $140 ($960 total).
+Mon-05:53:26 PM:	Player 1 now owns st. charles place
+Mon-05:53:26 PM:	--Starting turn 6--
+Mon-05:53:26 PM:	Rolled a 1.
+Mon-05:53:26 PM:	Player 2's piece landed on [7]chance 1.
+Mon-05:53:26 PM:	Player 2 draws "You have won a crossword competition. Collect $100.".
+Mon-05:53:26 PM:	Player 2 collects $100 ($1300 total).
+Mon-05:53:26 PM:	--Starting turn 7--
+Mon-05:53:26 PM:	Rolled a 1.
+Mon-05:53:26 PM:	Player 1's piece landed on [12]Electric_Company.
+Mon-05:53:26 PM:	Player 1 decides to buy Electric_Company for $150. 
+Mon-05:53:26 PM:	Player 1 pays $150 ($810 total).
+Mon-05:53:26 PM:	--Starting turn 8--
+Mon-05:53:26 PM:	Rolled a 2.
+Mon-05:53:26 PM:	Player 2's piece landed on [9]connecticut avenue.
+Mon-05:53:26 PM:	Player 2 decides to buy connecticut avenue for $120. 
+Mon-05:53:26 PM:	Player 2 pays $120 ($1180 total).
+Mon-05:53:26 PM:	Player 2 now owns connecticut avenue
+Mon-05:53:26 PM:	--Starting turn 9--
+Mon-05:53:26 PM:	Rolled a 5.
+Mon-05:53:26 PM:	Player 1's piece landed on [17]community chest 2.
+Mon-05:53:26 PM:	Player 1 draws "You inherit $100.".
+Mon-05:53:26 PM:	Player 1 collects $100 ($910 total).
+Mon-05:53:26 PM:	--Starting turn 10--
+Mon-05:53:26 PM:	Rolled a 2.
+Mon-05:53:26 PM:	Player 2's piece landed on [11]st. charles place.
+Mon-05:53:26 PM:	Player 2 pays $10 ($1170 total).
+Mon-05:53:26 PM:	Player 1 collects $10 ($920 total).
+Mon-05:53:26 PM:	--Starting turn 11--
+Mon-05:53:26 PM:	Rolled a 6.
+Mon-05:53:26 PM:	Player 1's piece landed on [23]indiana avenue.
+Mon-05:53:26 PM:	Player 1 decides to buy indiana avenue for $220. 
+Mon-05:53:26 PM:	Player 1 pays $220 ($700 total).
+Mon-05:53:26 PM:	Player 1 now owns indiana avenue
+Mon-05:53:26 PM:	--Starting turn 12--
+Mon-05:53:26 PM:	Rolled a 4.
+Mon-05:53:26 PM:	Player 2's piece landed on [15]Pennsylvania_Railroad.
+Mon-05:53:26 PM:	Player 2 decides to buy Pennsylvania_Railroad for $200. 
+Mon-05:53:26 PM:	Player 2 pays $200 ($970 total).
+Mon-05:53:26 PM:	Player 2 now owns Pennsylvania_Railroad
+Mon-05:53:26 PM:	--Starting turn 13--
+Mon-05:53:26 PM:	Rolled a 2.
+Mon-05:53:26 PM:	Player 1's piece landed on [25]B_0_Railroad.
+Mon-05:53:26 PM:	Player 1 decides to buy B_0_Railroad for $200. 
+Mon-05:53:26 PM:	Player 1 pays $200 ($500 total).
+Mon-05:53:26 PM:	Player 1 now owns B_0_Railroad
+Mon-05:53:26 PM:	--Starting turn 14--
+Mon-05:53:26 PM:	Rolled a 1.
+Mon-05:53:26 PM:	Player 2's piece landed on [16]st. james place.
+Mon-05:53:26 PM:	Player 2 decides to buy st. james place for $180. 
+Mon-05:53:26 PM:	Player 2 pays $180 ($790 total).
+Mon-05:53:26 PM:	Player 2 now owns st. james place
+Mon-05:53:26 PM:	--Starting turn 15--
+Mon-05:53:26 PM:	Rolled a 4.
+Mon-05:53:26 PM:	Player 1's piece landed on [29]marvin gardens.
+Mon-05:53:26 PM:	Player 1 decides to buy marvin gardens for $280. 
+Mon-05:53:26 PM:	Player 1 pays $280 ($220 total).
+Mon-05:53:26 PM:	Player 1 now owns marvin gardens
+Mon-05:53:26 PM:	--Starting turn 16--
+Mon-05:53:26 PM:	Rolled a 3.
+Mon-05:53:26 PM:	Player 2's piece landed on [19]new york avenue.
+Mon-05:53:26 PM:	Player 2 decides to buy new york avenue for $200. 
+Mon-05:53:26 PM:	Player 2 pays $200 ($590 total).
+Mon-05:53:26 PM:	Player 2 now owns new york avenue
+Mon-05:53:26 PM:	--Starting turn 17--
+Mon-05:53:26 PM:	Rolled a 2.
+Mon-05:53:26 PM:	Player 1's piece landed on [31]pacific avenue.
+Mon-05:53:26 PM:	Player 1 can't afford to buy pacific avenue for $300(has only $220). 
+Mon-05:53:26 PM:	--Starting turn 18--
+Mon-05:53:26 PM:	Rolled a 6.
+Mon-05:53:26 PM:	Player 2's piece landed on [25]B_0_Railroad.
+Mon-05:53:26 PM:	Player 2 pays $50 ($540 total).
+Mon-05:53:26 PM:	Player 1 collects $50 ($270 total).
+Mon-05:53:26 PM:	--Starting turn 19--
+Mon-05:53:26 PM:	Rolled a 6.
+Mon-05:53:26 PM:	Player 1's piece landed on [37]park place.
+Mon-05:53:26 PM:	Player 1 can't afford to buy park place for $350(has only $270). 
+Mon-05:53:26 PM:	--Starting turn 20--
+Mon-05:53:26 PM:	Rolled a 6.
+Mon-05:53:26 PM:	Player 2's piece landed on [31]pacific avenue.
+Mon-05:53:26 PM:	Player 2 decides to buy pacific avenue for $300. 
+Mon-05:53:26 PM:	Player 2 pays $300 ($240 total).
+Mon-05:53:26 PM:	Player 2 now owns pacific avenue
+Mon-05:53:26 PM:	--Starting turn 21--
+Mon-05:53:26 PM:	Rolled a 2.
+Mon-05:53:26 PM:	Player 1's piece landed on [39]boardwalk.
+Mon-05:53:26 PM:	Player 1 can't afford to buy boardwalk for $400(has only $270). 
+Mon-05:53:26 PM:	--Starting turn 22--
+Mon-05:53:26 PM:	Rolled a 4.
+Mon-05:53:26 PM:	Player 2's piece landed on [35]Short_Line.
+Mon-05:53:26 PM:	Player 2 decides to buy Short_Line for $200. 
+Mon-05:53:26 PM:	Player 2 pays $200 ($40 total).
+Mon-05:53:26 PM:	Player 2 now owns Short_Line
+Mon-05:53:26 PM:	--Starting turn 23--
+Mon-05:53:26 PM:	Rolled a 1.
+Mon-05:53:26 PM:	Player 1's piece landed on [0]go.
+Mon-05:53:26 PM:	Player 1 passed go.
+Mon-05:53:26 PM:	Player 1 collects $200 ($470 total).
+Mon-05:53:26 PM:	--Starting turn 24--
+Mon-05:53:26 PM:	Rolled a 2.
+Mon-05:53:26 PM:	Player 2's piece landed on [37]park place.
+Mon-05:53:26 PM:	Player 2 can't afford to buy park place for $350(has only $40). 
+Mon-05:53:26 PM:	--Starting turn 25--
+Mon-05:53:26 PM:	Rolled a 2.
+Mon-05:53:26 PM:	Player 1's piece landed on [2]community chest 1.
+Mon-05:53:26 PM:	Player 1 draws "You have won second prize in a beauty contest. Collect $10.".
+Mon-05:53:26 PM:	Player 1 collects $10 ($480 total).
+Mon-05:53:26 PM:	--Starting turn 26--
+Mon-05:53:26 PM:	Rolled a 3.
+Mon-05:53:26 PM:	Player 2's piece landed on [0]go.
+Mon-05:53:26 PM:	Player 2 passed go.
+Mon-05:53:26 PM:	Player 2 collects $200 ($240 total).
+Mon-05:53:26 PM:	--Starting turn 27--
+Mon-05:53:26 PM:	Rolled a 1.
+Mon-05:53:26 PM:	Player 1's piece landed on [3]baltic avenue.
+Mon-05:53:26 PM:	Player 1 decides to buy baltic avenue for $60. 
+Mon-05:53:26 PM:	Player 1 pays $60 ($420 total).
+Mon-05:53:26 PM:	Player 1 now owns baltic avenue
+Mon-05:53:26 PM:	--Starting turn 28--
+Mon-05:53:26 PM:	Rolled a 1.
+Mon-05:53:26 PM:	Player 2's piece landed on [1]mediterranean avenue.
+Mon-05:53:26 PM:	Player 2 decides to buy mediterranean avenue for $60. 
+Mon-05:53:26 PM:	Player 2 pays $60 ($180 total).
+Mon-05:53:26 PM:	Player 2 now owns mediterranean avenue
+Mon-05:53:26 PM:	--Starting turn 29--
+Mon-05:53:26 PM:	Rolled a 3.
+Mon-05:53:26 PM:	Player 1's piece landed on [6]oriental avenue.
+Mon-05:53:26 PM:	Player 1 pays $6 ($414 total).
+Mon-05:53:26 PM:	Player 2 collects $6 ($186 total).
+Mon-05:53:26 PM:	--Starting turn 30--
+Mon-05:53:26 PM:	Rolled a 5.
+Mon-05:53:26 PM:	Player 2's piece landed on [6]oriental avenue.
+Mon-05:53:26 PM:	Player 2 already owns oriental avenue. 
+Mon-05:53:26 PM:	--Starting turn 31--
+Mon-05:53:26 PM:	Rolled a 2.
+Mon-05:53:26 PM:	Player 1's piece landed on [8]vermont avenue.
+Mon-05:53:26 PM:	Player 1 decides to buy vermont avenue for $100. 
+Mon-05:53:26 PM:	Player 1 pays $100 ($314 total).
+Mon-05:53:26 PM:	Player 1 now owns vermont avenue
+Mon-05:53:26 PM:	--Starting turn 32--
+Mon-05:53:26 PM:	Rolled a 2.
+Mon-05:53:26 PM:	Player 2's piece landed on [8]vermont avenue.
+Mon-05:53:26 PM:	Player 2 pays $6 ($180 total).
+Mon-05:53:26 PM:	Player 1 collects $6 ($320 total).
+Mon-05:53:26 PM:	--Starting turn 33--
+Mon-05:53:26 PM:	Rolled a 4.
+Mon-05:53:26 PM:	Player 1's piece landed on [12]Electric_Company.
+Mon-05:53:26 PM:	Player 1 already owns Electric_Company. 
+Mon-05:53:26 PM:	--Starting turn 34--
+Mon-05:53:26 PM:	Rolled a 5.
+Mon-05:53:26 PM:	Player 2's piece landed on [13]states avenue.
+Mon-05:53:26 PM:	Player 2 decides to buy states avenue for $140. 
+Mon-05:53:26 PM:	Player 2 pays $140 ($40 total).
+Mon-05:53:26 PM:	Player 2 now owns states avenue
+Mon-05:53:26 PM:	--Starting turn 35--
+Mon-05:53:26 PM:	Rolled a 5.
+Mon-05:53:26 PM:	Player 1's piece landed on [17]community chest 2.
+Mon-05:53:26 PM:	Player 1 draws "You are assessed for street repairs: Pay $40 per house and $115 per hotel you own.".
+Mon-05:53:26 PM:	Player 1 pays $0 ($320 total).
+Mon-05:53:26 PM:	--Starting turn 36--
+Mon-05:53:26 PM:	Rolled a 4.
+Mon-05:53:26 PM:	Player 2's piece landed on [17]community chest 2.
+Mon-05:53:26 PM:	Player 2 draws "Receive $25 consultancy fee.".
+Mon-05:53:26 PM:	Player 2 collects $25 ($65 total).
+Mon-05:53:26 PM:	--Starting turn 37--
+Mon-05:53:26 PM:	Rolled a 5.
+Mon-05:53:26 PM:	Player 1's piece landed on [22]chance 2.
+Mon-05:53:26 PM:	Player 1 draws "Your building and land matures. Collect $150.".
+Mon-05:53:26 PM:	Player 1 collects $150 ($470 total).
+Mon-05:53:26 PM:	--Starting turn 38--
+Mon-05:53:26 PM:	Rolled a 5.
+Mon-05:53:26 PM:	Player 2's piece landed on [22]chance 2.
+Mon-05:53:26 PM:	Player 2 draws "You have been elected Chairman of the Board. Pay each player $50.".
+Mon-05:53:26 PM:	Player 2 pays $50 ($15 total).
+Mon-05:53:26 PM:	Player 1 collects $50 ($520 total).
+Mon-05:53:26 PM:	--Starting turn 39--
+Mon-05:53:26 PM:	Rolled a 4.
+Mon-05:53:26 PM:	Player 1's piece landed on [26]atlantic avenue.
+Mon-05:53:26 PM:	Player 1 decides to buy atlantic avenue for $260. 
+Mon-05:53:26 PM:	Player 1 pays $260 ($260 total).
+Mon-05:53:26 PM:	Player 1 now owns atlantic avenue
+Mon-05:53:26 PM:	--Starting turn 40--
+Mon-05:53:26 PM:	Rolled a 1.
+Mon-05:53:26 PM:	Player 2's piece landed on [23]indiana avenue.
+Mon-05:53:26 PM:	Player 2 pays $18 ($-3 total).
+Mon-05:53:26 PM:	Player 1 collects $18 ($278 total).
+Mon-05:53:26 PM:	Game over. 
+Mon-05:53:26 PM:	Player 2 wins.
+Mon-05:53:26 PM:	------------
+Mon-05:53:26 PM:	Printing results...
+Mon-05:53:26 PM:	Player 1 $278
+Mon-05:53:26 PM:	Player 1 total payments made $1816
+Mon-05:53:26 PM:	Player 1 total payments collected $594
+Mon-05:53:26 PM:	Player 1 total times passed go: 1
+Mon-05:53:26 PM:	Properties owned: 6
+Mon-05:53:26 PM:	st. charles place
+Mon-05:53:26 PM:	indiana avenue
+Mon-05:53:26 PM:	marvin gardens
+Mon-05:53:26 PM:	baltic avenue
+Mon-05:53:26 PM:	vermont avenue
+Mon-05:53:26 PM:	atlantic avenue
+Mon-05:53:26 PM:	Reading_Railroad
+Mon-05:53:26 PM:	B_0_Railroad
+Mon-05:53:26 PM:	Electric_Company
+Mon-05:53:26 PM:	Player 2 $-3
+Mon-05:53:26 PM:	Player 2 total payments made $1834
+Mon-05:53:26 PM:	Player 2 total payments collected $331
+Mon-05:53:26 PM:	Player 2 total times passed go: 1
+Mon-05:53:26 PM:	Properties owned: 7
+Mon-05:53:26 PM:	oriental avenue
+Mon-05:53:26 PM:	connecticut avenue
+Mon-05:53:26 PM:	st. james place
+Mon-05:53:26 PM:	new york avenue
+Mon-05:53:26 PM:	pacific avenue
+Mon-05:53:26 PM:	mediterranean avenue
+Mon-05:53:26 PM:	states avenue
+Mon-05:53:26 PM:	Pennsylvania_Railroad
+Mon-05:53:26 PM:	Short_Line

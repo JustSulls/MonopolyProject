@@ -51,10 +51,15 @@ void Monopoly::init_properties()
 		int location = std::stoi(result.at(m + 13));
 		//setup the parameters for the constructor for the property to be created
 		//these constants are in Property.h
-		int prices[3]{};
-		prices[0] = printed_price;
+		int prices[3]
+		{
+			printed_price,	//cost to purchase and own property
+			mortgage_value,	//cost to mortgage property
+			building_costs	//cost to upgrade with a building (house/skyscraper)
+		};
+		/*prices[0] = printed_price;
 		prices[1] = mortgage_value;
-		prices[2] = building_costs;
+		prices[2] = building_costs;*/
 		int rent_costs[8]{};
 		rent_costs[0] = alone;
 		rent_costs[1] = monopoly;
@@ -245,6 +250,33 @@ void Monopoly::make_next_player_active()
 	}
 	else {
 		turnCounter = 0;
+	}
+}
+
+void Monopoly::print_results()
+{
+	CLogger::GetLogger()->Log("------------");
+	CLogger::GetLogger()->Log("Printing results..."); 
+	for (unsigned int i = 0; i < players.size(); i++)
+	{
+		CLogger::GetLogger()->Log(players[i]->name + " $" + std::to_string(players[i]->money));
+		CLogger::GetLogger()->Log(players[i]->name + " total payments made $" + std::to_string(players[i]->get_total_payments_made()));
+		CLogger::GetLogger()->Log(players[i]->name + " total payments collected $" + std::to_string(players[i]->get_total_payments_collected()));
+		CLogger::GetLogger()->Log(players[i]->name + " total times passed go: " + std::to_string(players[i]->total_passed_go));
+		CLogger::GetLogger()->Log("Properties owned: " + std::to_string(players[i]->properties_owned.size()));
+		for (unsigned int j = 0; j < players[i]->properties_owned.size(); j++)
+		{
+			CLogger::GetLogger()->Log(players[i]->properties_owned[j]->name);
+			//CLogger::GetLogger()->Log(players[i]->properties_owned[j]->getCurrentLevel());
+		}
+		for (unsigned int k = 0; k < players[i]->railroads_owned.size(); k++)
+		{
+			CLogger::GetLogger()->Log(players[i]->railroads_owned[k]->name);
+		}
+		for (unsigned int l = 0; l < players[i]->utilities_owned.size(); l++)
+		{
+			CLogger::GetLogger()->Log(players[i]->utilities_owned[l]->name);
+		}
 	}
 }
 
@@ -485,7 +517,6 @@ int Monopoly::get_railroad_rent(Player player)
 
 Player* Monopoly::get_active_player()
 {
-	//TODO: test
 	if (!players.empty()) {
 		try {
 			return players.at(turnCounter);
@@ -512,22 +543,40 @@ Player* Monopoly::get_player(Piece p)
 
 bool Monopoly::check_game_over()
 {
+	if (turnCounter > 1000) return true;//todo:remove when done testing
 	//FOR NOW check if any player has 0 or less money. (TODO: this is not technically game over, the player can sell property etc.)
 	for (unsigned int i = 0; i < players.size(); i++)
 	{
-		if (players.at(i)->money <= 0) return true;
+		if (players.at(i)->money <= 0)
+		{
+			CLogger::GetLogger()->Log("Game over. ");
+			CLogger::GetLogger()->Log(players[i]->name + " wins.");
+			return true;
+		}
 	}
 	return false;
 }
 
 bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 {
-	//present options to player, bounds check answer, return it	
-	//TODO:if test answer yes always/no always, make test global?
-	if (test)
+	//present options to player(unless testing), bounds check answer, return it	
+	if (test)//TEST
 	{
-		CLogger::GetLogger()->Log(player.name + " decides to buy " + prop.name + " for $" + std::to_string(prop.prices[0]) + ". ");
-		return true;
+		//Make sure player has enough money to buy
+		if (player.money >= prop.prices[0])
+		{
+			CLogger::GetLogger()->Log(player.name + " decides to buy " + prop.name + 
+				" for $" + std::to_string(prop.prices[0]) + ". ");
+			return true;
+		}
+		else
+		{
+			//Player not enough money to buy property
+			CLogger::GetLogger()->Log(player.name + " can't afford to buy " + prop.name + 
+				" for $" + std::to_string(prop.prices[0]) + "(has only $" + 
+				std::to_string(player.money) +  "). ");
+			return false;
+		}
 	}
 	else
 	{
@@ -550,8 +599,20 @@ bool Monopoly::decide_buy_or_pass(Utility util, Player player)
 {
 	if (test)
 	{
-		CLogger::GetLogger()->Log(player.name + " decides to buy " + util.name + " for $" + std::to_string(util.cost) + ". ");
-		return true;
+		if (player.money >= util.cost)
+		{
+			CLogger::GetLogger()->Log(player.name + " decides to buy " + util.name + 
+				" for $" + std::to_string(util.cost) + ". ");
+			return true;
+		}
+		else
+		{
+			//Player not enough money to buy utility
+			CLogger::GetLogger()->Log(player.name + " can't afford to buy " + util.name +
+				" for $" + std::to_string(util.cost) + "(has only $" +
+				std::to_string(player.money) + "). ");
+			return false;
+		}
 	}
 	else {
 		int answer = -1;
@@ -574,8 +635,20 @@ bool Monopoly::decide_buy_or_pass(nrails::Railroad rail, Player player)
 {
 	if (test)
 	{
-		CLogger::GetLogger()->Log(player.name + " decides to buy " + rail.name + " for $" + std::to_string(rail.cost) + ". ");
-		return true;
+		if (player.money >= rail.cost)
+		{
+			CLogger::GetLogger()->Log(player.name + " decides to buy " + rail.name + 
+				" for $" + std::to_string(rail.cost) + ". ");
+			return true;
+		}
+		else
+		{
+			//Player not enough money to buy railroad
+			CLogger::GetLogger()->Log(player.name + " can't afford to buy " + rail.name + 
+				" for $" + std::to_string(rail.cost) +"(has only $" +
+				std::to_string(player.money) + "). ");
+			return false;
+		}
 	}
 	else
 	{
@@ -604,10 +677,105 @@ bool Monopoly::decide_upgrade(Property prop, Player player)
 	return false;
 }
 
+void Monopoly::handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* active_player)
+{
+
+	//todo:
+	//--
+	//--Notes
+	//----
+	//You cannot stay in Jail as long as you like. 
+	//You must pay the fine, use Get Out of Jail Free card or try to roll doubles.
+	//A player gets out of Jail "early" by:
+	//	>Rolling Doubles on any of that player's next three turns in Jail. If a player succeeds in doing this, he or she 
+	//	immediately moves forward the number of spaces shown by the throw. 
+	//		Even if doubles are rolled, the player does NOT take another turn.
+	//	>Using a "GET OUT OF JAIL FREE" card(possibly by purchasing from another player, at a price agreeable to both).
+	//	>Paying a $50 fine to the Bank BEFORE throwing the dice for either the first turn or the second turn in Jail.
+	//A player MAY NOT remain in Jail after his third turn(i.e., not longer than having three turns to play after being sent to Jail).
+	//Immediately after throwing the dice for his third turn, if the player does not roll Doubles, he or she must pay the $50 fine. 
+	//He then comes out and moves forward from Jail the number of spaces shown by his roll.
+	//--
+	//--Pseudo code English
+	//----
+	//if jail_turn_counter >= 3
+	//	roll for doubles, if no doubles pay $50
+	//	move forward roll
+	//	player no longer in jail(in jail=false, jail_turn_counter=0)
+	//get_valid_choices {1, 2, or 3}
+	//get_player_choice {1, 2, or 3}
+	//	choice 1:
+	//		roll for doubles, 
+	//		if hit move forward roll
+	//			player no longer in jail(in jail=false, jail_turn_counter=0)
+	//	choice 2:
+	//		Use get out of jail card
+	//			player no longer in jail(in jail=false, jail_turn_counter=0)
+	//	choice 3:
+	//		Pay $50 before 1st or 2nd jail turn (no roll?)
+	//			player no longer in jail(in jail=false, jail_turn_counter=0)
+	//--
+	//--Pseudo code C++
+	//----
+	//if (jailTurnCounter >= 3)
+	//{
+	//	get_player_jail_turn_choice()
+	//	if(choice = 1)
+	//	{
+	//		rolled_doubles = roll_for_doubles();
+	//		if(!rolled_doubles){active_player.pay(50);}
+	//		else if (rolled_doubles){move(roll);}
+	//	}
+	//	else if (choice = 2)
+	//	{
+	//		if (has_get_out_of_jail_card())
+	//		{
+	//			remove_get_out_of_jail_card();
+	//			player.in_jail = false;
+	//			roll_and_move();
+	//		}
+	//		else
+	//		{
+	//			bad_choice_choose_again()
+	//		}
+	//	}
+	//	else if (choice = 3)
+	//	{
+	//		confirm_valid_turn();
+	//		pay(50);
+	//		roll_and_move();
+	//	}
+	//}
+	//else//jailTurnCounter == 3
+	//{
+	//	rolled_doubles = roll_for_doubles();
+	//	if(!rolled_doubles)
+	//		{
+	//			active_player.pay(50);
+	//			move(roll);
+	//		}
+	//	else if (rolled_doubles)
+	//		{
+	//			move(roll);
+	//		}
+	//}
+	// 
+}
+
+bool Monopoly::rolled_three_times_in_succession()
+{
+	//todo:
+	//check if player rolled doubles three times in succession
+	return false;
+}
+
 bool Monopoly::passes_go(Piece* piece, int n)
 {
-	//TODO::confirm this 
-	if ((piece->getPosition() + n) > board.LAST_BOARD_POSITION)
+	//n is die roll
+	//piece has already moved
+	int fromPosition = piece->getPosition() - n;
+	int toPosition = piece->getPosition();
+	if (fromPosition < 0)
 	{
 		return true;
 	}
@@ -626,30 +794,53 @@ void Monopoly::play_game()
 		turnCounter++;
 		CLogger::GetLogger()->Log("--Starting turn " + std::to_string(turnCounter) + "--");
 		activePlayer = get_active_player();
-		//decide upgrade logic
-		std::vector<Property> potential_upgrades = get_active_player()->property_upgrades_available();
-		if (!potential_upgrades.empty())
+		//First, confirm player not in jail
+		if (!activePlayer->in_jail)
 		{
-			CLogger::GetLogger()->Log("Decide whether to upgrade property.");
-			for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
+			//If property upgrades available, present options to player
+			std::vector<Property> potential_upgrades = get_active_player()->property_upgrades_available();
+			if (!potential_upgrades.empty())
 			{
-				activePlayer->decide_upgrade(potential_upgrades[i]);
+				CLogger::GetLogger()->Log("Decide whether to upgrade property.");
+				for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
+				{
+					activePlayer->decide_upgrade(potential_upgrades[i]);
+				}
+			}
+			//playern rolls 
+			//throw_die(*get_active_player());
+			throw_die();
+			//playern moves based on roll
+			//check if passed go here
+			move_piece(get_active_player(), die_roll);
+			//check if passed go
+			bool passedGo = passes_go(activePlayer->piece, die_roll);
+			if (passedGo)
+			{
+				CLogger::GetLogger()->Log(activePlayer->name + " passed go.");
+				activePlayer->collect(200);
+				activePlayer->total_passed_go++;
+			}
+			//TODO:call move piece (figure out which ones to get rid of) 
+			Spot* the_spot = get_spot(get_active_player()->piece->getPosition());
+			do_spot_action(the_spot, get_active_player());
+		}
+		else//player is in jail, offer a way out
+		{
+			jailTurnCounter++;
+			//for now, just stay here 3 turns...
+			//todo implement actual logic
+			if (jailTurnCounter >= 3)
+			{
+				activePlayer->in_jail = false;
 			}
 		}
-		//playern rolls 
-		//throw_die(*get_active_player());
-		throw_die();
-		//playern moves based on roll
-		move_piece(get_active_player(), die_roll);
-		//TODO:call move piece (figure out which ones to get rid of) 
-		Spot* the_spot = get_spot(get_active_player()->piece->getPosition());
-		do_spot_action(the_spot, get_active_player());
 		//turn over, increment turn counter to set next player active
 		make_next_player_active();
 		//check if game over
 		if (check_game_over()) {
 			game_over = true;
-			CLogger::GetLogger()->Log("Game over. ");
+			print_results();
 			//TODO:declare winner
 		}
 	}
@@ -995,8 +1186,17 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 		Property* prop = get_property(theSpot->position);
 		if (prop->is_owned)
 		{
-			//pay rent
-			pay_rent(*activePlayer, *prop);
+			//First confirm this is not your own property so you don't pay yourself
+			Player* owner = get_owner(prop->name);
+			if (owner != activePlayer)
+			{
+				//pay rent
+				pay_rent(*activePlayer, *prop);
+			}
+			else
+			{
+				CLogger::GetLogger()->Log(activePlayer->name + " already owns " + prop->name + ". ");
+			}
 		}
 		else
 		{
@@ -1015,8 +1215,16 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 		nrails::Railroad* railroad = get_railroad(theSpot->position);
 		if (railroad->is_owned)
 		{
-			//pay rent
-			pay_rent(*activePlayer, *railroad);
+			Player* owner = get_owner(railroad->name);
+			if (owner != activePlayer)
+			{
+				//pay rent
+				pay_rent(*activePlayer, *railroad);
+			}
+			else
+			{
+				CLogger::GetLogger()->Log(activePlayer->name + " already owns " + railroad->name + ". ");
+			}
 		}
 		else
 		{
@@ -1036,7 +1244,16 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 		Utility* utility = get_utility(theSpot->position);
 		if (utility->is_owned)
 		{
-			pay_utilities(*activePlayer, *utility);
+			Player* owner = get_owner(utility->name);
+			if (owner != activePlayer)
+			{
+				//pay utility
+				pay_utilities(*activePlayer, *utility);
+			}
+			else
+			{
+				CLogger::GetLogger()->Log(activePlayer->name + " already owns " + utility->name + ". ");
+			}
 		}
 		else
 		{
@@ -1116,11 +1333,6 @@ void Monopoly::move_piece(Player* player, int die_cast)
 	player->piece->movePosition(new_position);
 
 	CLogger::GetLogger()->Log(player->name + "'s piece landed on " + "[" + std::to_string(new_position) + "]" + the_spot->name + ".");
-	//check if pass go and pay.
-	if (passes_go(player->piece, new_position - old_position))
-	{
-		player->collect(200);
-	}
 }
 
 void Monopoly::move_piece(Player* player, Spot pSpot)
@@ -1133,10 +1345,6 @@ void Monopoly::move_piece(Player* player, Spot pSpot)
 	CLogger::GetLogger()->Log(player->name + "'s piece landed on " + "[" + std::to_string(new_position) + "]" + the_spot->name + ".");
 	//check if pass go and pay.
 	player->piece->movePosition(new_position);
-	if (passes_go(player->piece, new_position - old_position))
-	{
-		player->collect(200);
-	}
 }
 
 Property* Monopoly::get_property(int pos) 
