@@ -7,8 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonopolyProject", "Monopoly
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D118702E-7D9D-43E9-BBA9-2E7E16A6430F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GoogleTestProject", "GoogleTestProject\GoogleTestProject.vcxproj", "{DD30C22A-1B17-4D16-918C-0E76449D996E}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GoogleTest22Project", "GoogleTest22Project\GoogleTest22Project.vcxproj", "{1B4D6BAF-B9E3-41F9-9E1D-5508F72575A9}"
 EndProject
 Global
@@ -27,14 +25,6 @@ Global
 		{90974D76-9DD5-4D1E-9D2A-7F498BF42FD8}.Release|x64.Build.0 = Release|x64
 		{90974D76-9DD5-4D1E-9D2A-7F498BF42FD8}.Release|x86.ActiveCfg = Release|Win32
 		{90974D76-9DD5-4D1E-9D2A-7F498BF42FD8}.Release|x86.Build.0 = Release|Win32
-		{DD30C22A-1B17-4D16-918C-0E76449D996E}.Debug|x64.ActiveCfg = Debug|x64
-		{DD30C22A-1B17-4D16-918C-0E76449D996E}.Debug|x64.Build.0 = Debug|x64
-		{DD30C22A-1B17-4D16-918C-0E76449D996E}.Debug|x86.ActiveCfg = Debug|Win32
-		{DD30C22A-1B17-4D16-918C-0E76449D996E}.Debug|x86.Build.0 = Debug|Win32
-		{DD30C22A-1B17-4D16-918C-0E76449D996E}.Release|x64.ActiveCfg = Release|x64
-		{DD30C22A-1B17-4D16-918C-0E76449D996E}.Release|x64.Build.0 = Release|x64
-		{DD30C22A-1B17-4D16-918C-0E76449D996E}.Release|x86.ActiveCfg = Release|Win32
-		{DD30C22A-1B17-4D16-918C-0E76449D996E}.Release|x86.Build.0 = Release|Win32
 		{1B4D6BAF-B9E3-41F9-9E1D-5508F72575A9}.Debug|x64.ActiveCfg = Debug|x64
 		{1B4D6BAF-B9E3-41F9-9E1D-5508F72575A9}.Debug|x64.Build.0 = Debug|x64
 		{1B4D6BAF-B9E3-41F9-9E1D-5508F72575A9}.Debug|x86.ActiveCfg = Debug|Win32
