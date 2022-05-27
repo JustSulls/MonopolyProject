@@ -108,7 +108,7 @@ TEST(CardCase, AdvanceToUtility)
 	m.do_spot_action(the_spot, p);
 	//should be able to see that the second player payed the first
 	int cost_multiplier = m.get_utility_cost_multiplier(*m.players[0]);
-	int current_utility_cost = m.die_roll * cost_multiplier;
+	int current_utility_cost = m.dice.diceRoll * cost_multiplier;
 	EXPECT_EQ(p->money, startingMoney - current_utility_cost);
 	EXPECT_EQ(m.players[0]->money, startingMoney - m.utilities.at(0).cost + current_utility_cost);
 }

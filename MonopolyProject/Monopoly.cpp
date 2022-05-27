@@ -294,18 +294,14 @@ int Monopoly::pick_piece(Player& player)
 	return answer;
 }
 
-//int Monopoly::throw_die(Player player)
-//{
-//	die_roll = player.throw_die();
-//	die_roll += player.throw_die();
-//	return die_roll;
-//}
-
 int Monopoly::throw_die()
 {
 	int first_roll = rand() % 6 + 1;
 	int second_roll = rand() % 6 + 1;
-	die_roll = first_roll + second_roll;
+	int die_roll = first_roll + second_roll;
+	dice.diceRoll = die_roll;
+	dice.firstDieRoll = first_roll;
+	dice.secondDieRoll = second_roll;
 	CLogger::GetLogger()->Log("Rolled a " + std::to_string(die_roll) + ". (" + std::to_string(first_roll) + " + " + 
 	std::to_string(second_roll) + ").");
 	return die_roll;
@@ -701,6 +697,7 @@ unsigned int Monopoly::decide_jail_turn_choice(Player player)
 			std::cin >> answer;
 		}
 	}
+	//TODO: check if answer valid here?
 	return answer;
 }
 
@@ -747,13 +744,13 @@ void Monopoly::handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* act
 	if (jailTurnCounter < 3)
 	{
 		unsigned int answer = decide_jail_turn_choice(*active_player);
-		/*switch (answer)
-		{
-		case 0:
-			rolled_doubles = roll_for_doubles();
-			if(!rolled_doubles){active_player.pay(50);}
-			else if (rolled_doubles){move(roll);}
-		};*/
+	//	switch (answer)
+	//	{
+	//	case 0:
+	//		rolled_doubles = roll_for_doubles();
+	//		if(!rolled_doubles){active_player.pay(50);}
+	//		else if (rolled_doubles){move(roll);}
+	//	};
 	//	else if (choice = 2)
 	//	{
 	//		if (has_get_out_of_jail_card())
@@ -794,6 +791,12 @@ bool Monopoly::rolled_three_times_in_succession()
 {
 	//todo:
 	//check if player rolled doubles three times in succession
+	return false;
+}
+
+bool Monopoly::didRollDoubles()
+{
+	
 	return false;
 }
 
@@ -840,9 +843,9 @@ void Monopoly::play_game()
 			throw_die();
 			//playern moves based on roll
 			//check if passed go here
-			move_piece(get_active_player(), die_roll);
+			move_piece(get_active_player(), dice.diceRoll);
 			//check if passed go
-			bool passedGo = passes_go(activePlayer->piece, die_roll);
+			bool passedGo = passes_go(activePlayer->piece, dice.diceRoll);
 			if (passedGo)
 			{
 				CLogger::GetLogger()->Log(activePlayer->name + " passed go.");
@@ -1326,7 +1329,7 @@ void Monopoly::player_throw_die_pay_owner(Player& p, Utility& the_utility)
 	CLogger::GetLogger()->Log(p.name + " throws die and pays owner (" + the_owner->name
 		+") a total of (" + std::to_string(cost_multiplier) + ")  times.");
 	throw_die();
-	int cost = die_roll * cost_multiplier;
+	int cost = dice.diceRoll * cost_multiplier;
 	p.pay(cost);
 	the_owner->collect(cost);
 }

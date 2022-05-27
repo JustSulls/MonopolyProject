@@ -41,9 +41,13 @@ public:
 	Monopoly(int number_players = 2);
 	Board board;
 	
-	int	die_roll;
+	struct Dice
+	{
+		int diceRoll;
+		int firstDieRoll;
+		int secondDieRoll;
+	}dice;
 	int pick_piece(Player& player);
-	//int throw_die(Player player);
 	int throw_die();
 	int	get_railroad_rent(Player player);
 	int	get_utility_cost_multiplier(Player& owner);
@@ -86,6 +90,7 @@ public:
 	void handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* active_player, unsigned int& jailTurnCounter);
 	//check if player rolled doubles three times in succession
 	bool rolled_three_times_in_succession();
+	bool didRollDoubles();
 	
 	//
 	//play game

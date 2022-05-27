@@ -297,14 +297,6 @@ std::vector<Property> Player::property_upgrades_available()
 		return return_properties;
 	}
 }
-int Player::throw_die()
-{
-	int ran;
-	srand(time(NULL));
-	ran = rand() % 6 + 1;
-	CLogger::GetLogger()->Log(name + " rolled a " + std::to_string(ran) + ".");
-	return ran;
-}
 bool Player::operator==(const Player& other)
 {
 	std::string n = other.name;
