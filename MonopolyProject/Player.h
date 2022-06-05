@@ -18,6 +18,8 @@ public:
 	std::vector<bool>get_out_of_jail_cards;
 	bool in_jail = false;
 	int total_passed_go;
+	int jailTurnCounter;
+	int tryRollDoublesCounter;
 
 	std::vector<Property*>properties_owned;
 	std::vector<Utility*>utilities_owned;
@@ -31,6 +33,8 @@ public:
 	bool buy_property(Property* prop);
 	bool buy_railroad(nrails::Railroad* rail);
 	bool buy_utility(Utility* utility);
+	
+	//Sets in_jail to false
 	bool has_get_out_of_jail_card();
 	std::vector<Property>property_upgrades_available();
 	//void assign_ownership(Property property);

@@ -100,4 +100,13 @@ namespace testNamespace
 		CLogger::GetLogger()->Log(msg);
 		LOGGER->Log("Message is:%s Number is:%d", msg.c_str(), 4);*/
 	}
+	TEST(JailCase, JailTurn)
+	{
+		Monopoly m;
+		Player* activePlayer = m.players[0];
+		m.send_player_to_jail(*activePlayer);
+		m.handle_jail_turn(activePlayer);
+		m.handle_jail_turn(activePlayer);
+		m.handle_jail_turn(activePlayer);
+	}
 }

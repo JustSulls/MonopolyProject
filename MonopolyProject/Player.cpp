@@ -6,6 +6,8 @@ Player::Player()
 	total_payments_made = 0;
 	total_payments_collected = 0;
 	total_passed_go = 0;
+	jailTurnCounter = 0;
+	tryRollDoublesCounter = 0;
 }
 Player::Player(std::string n)
 {
@@ -14,6 +16,8 @@ Player::Player(std::string n)
 	total_payments_made = 0;
 	total_payments_collected = 0;
 	total_passed_go = 0;
+	jailTurnCounter = 0;
+	tryRollDoublesCounter = 0;
 }
 bool Player::has_get_out_of_jail_card()
 {

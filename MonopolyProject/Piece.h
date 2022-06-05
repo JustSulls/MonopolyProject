@@ -35,6 +35,7 @@ public:
 	static void presentPieceOptions();
 	bool operator ==(const Piece& p);
 
+
 private:
 	std::string name;
 	int _position;

@@ -677,6 +677,27 @@ bool Monopoly::decide_upgrade(Property prop, Player player)
 	return false;
 }
 
+bool* Monopoly::get_valid_jail_choices(Player activePlayer)
+{
+	static bool validChoices[3]{true, true, true};
+	//--
+	//--Pseudo code English
+	//----
+	//if jail_turn_counter >= 3
+	if (activePlayer.jailTurnCounter > 2)
+	{
+		//elminate options 2 & 3
+		validChoices[1] = false;
+		validChoices[2] = false;
+	}
+	if (!activePlayer.has_get_out_of_jail_card())
+	{
+		//no get out of jail card, eliminate option 2
+		validChoices[1] = false;
+	}
+	return validChoices;
+}
+
 unsigned int Monopoly::decide_jail_turn_choice(Player player)
 {
 	unsigned int answer = -1;
@@ -687,27 +708,45 @@ unsigned int Monopoly::decide_jail_turn_choice(Player player)
 	}
 	else
 	{
+		//find and eliminate invalid choices
+		bool* validChoices = get_valid_jail_choices(player);
+		bool answerValid = false;
 		std::cin >> answer;
-		while (answer > 2 || answer < 0)
+		while (!answerValid)
 		{
 			CLogger::GetLogger()->Log(player.name + " decides what to do in jail.");
-			CLogger::GetLogger()->Log("choice [0]: Roll for doubles, if hit move forward roll.");
-			CLogger::GetLogger()->Log("choice [1]: Use get out of jail card.");
-			CLogger::GetLogger()->Log("choice [2]: Pay $50 before 1st or 2nd jail turn.");
+			if (validChoices[0])
+			{
+				CLogger::GetLogger()->Log("choice [0]: Roll for doubles, if hit move forward roll.");
+			}
+			if (validChoices[1]) {
+				CLogger::GetLogger()->Log("choice [1]: Use get out of jail card.");
+			}
+			if (validChoices[2])
+			{
+				CLogger::GetLogger()->Log("choice [2]: Pay $50 before 1st or 2nd jail turn.");
+			}
 			std::cin >> answer;
+			//if player chose option 0 and its an invalid choice answer is invalid
+			if (validChoices[0] && answer == 0)
+			{
+				answerValid = false;
+			}
+			if (validChoices[1] && answer == 1)
+			{
+				answerValid = false;
+			}
+			if (validChoices[2] && answer == 2)
+			{
+				answerValid = false;
+			}
 		}
 	}
-	//TODO: check if answer valid here?
 	return answer;
 }
 
-void Monopoly::handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* active_player, unsigned int& jailTurnCounter)
+void Monopoly::handle_jail_turn(Player* active_player)
 {
-
-	//todo:
-	//--
-	//--Notes
-	//----
 	//You cannot stay in Jail as long as you like. 
 	//You must pay the fine, use Get Out of Jail Free card or try to roll doubles.
 	//A player gets out of Jail "early" by:
@@ -719,85 +758,72 @@ void Monopoly::handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* act
 	//A player MAY NOT remain in Jail after his third turn(i.e., not longer than having three turns to play after being sent to Jail).
 	//Immediately after throwing the dice for his third turn, if the player does not roll Doubles, he or she must pay the $50 fine. 
 	//He then comes out and moves forward from Jail the number of spaces shown by his roll.
-	//--
-	//--Pseudo code English
-	//----
-	//if jail_turn_counter >= 3
-	//	roll for doubles, if no doubles pay $50
-	//	move forward roll
-	//	player no longer in jail(in jail=false, jail_turn_counter=0)
-	//get_valid_choices {0, 1, or 2}
-	//get_player_choice {0, 1, or 2}
-	//	choice 0:
-	//		roll for doubles, 
-	//		if hit move forward roll
-	//			player no longer in jail(in jail=false, jail_turn_counter=0)
-	//	choice 1:
-	//		Use get out of jail card
-	//			player no longer in jail(in jail=false, jail_turn_counter=0)
-	//	choice 2:
-	//		Pay $50 before 1st or 2nd jail turn (no roll?)
-	//			player no longer in jail(in jail=false, jail_turn_counter=0)
-	//--
-	//--Pseudo code C++
-	//----
-	if (jailTurnCounter < 3)
+	if (active_player->in_jail)
 	{
 		unsigned int answer = decide_jail_turn_choice(*active_player);
-	//	switch (answer)
-	//	{
-	//	case 0:
-	//		rolled_doubles = roll_for_doubles();
-	//		if(!rolled_doubles){active_player.pay(50);}
-	//		else if (rolled_doubles){move(roll);}
-	//	};
-	//	else if (choice = 2)
-	//	{
-	//		if (has_get_out_of_jail_card())
-	//		{
-	//			remove_get_out_of_jail_card();
-	//			player.in_jail = false;
-	//			roll_and_move();
-	//		}
-	//		else
-	//		{
-	//			bad_choice_choose_again()
-	//		}
-	//	}
-	//	else if (choice = 3)
-	//	{
-	//		confirm_valid_turn();
-	//		pay(50);
-	//		roll_and_move();
-	//	}
+		switch (answer)
+		{
+		case 0:
+			//roll for doubles
+			CLogger::GetLogger()->Log(active_player->name + " rolls for doubles to try to get out of jail.");
+			throw_die();
+			active_player->tryRollDoublesCounter++;// roll for doubles counter up
+			if (didRollDoubles())
+			{
+				//Leave jail
+				//move forward roll
+				CLogger::GetLogger()->Log(active_player->name + " fails to roll doubles.");//TODO: say what was rolled.
+				release_player_from_jail(*active_player);
+				move_piece(active_player, dice.diceRoll);
+				do_spot_action(get_spot(active_player->piece->getPosition()), active_player);
+			}
+			else
+			{
+				//Roll failed, stay in jail (unless it's third turn and roll doubles failed)
+				//If rolled doubles on third jail turn and it failed, pay $50,
+				//then release from jail and move spaces rolled.
+				if (active_player->jailTurnCounter >= 3)
+				{
+					CLogger::GetLogger()->Log(active_player->name + "'s time in jail is up, pays to get out of jail. Roll's to move.");
+					active_player->pay(50);//TODO: handle if can't pay
+					release_player_from_jail(*active_player);
+					move_piece(active_player, dice.diceRoll);
+					do_spot_action(get_spot(active_player->piece->getPosition()), active_player);
+				}
+				CLogger::GetLogger()->Log(active_player->name + " fails to roll doubles.");//TODO: say what was rolled.
+				active_player->jailTurnCounter++;
+			}
+			break;
+		case 1:
+			//Use get out of jail card
+			try {
+				active_player->use_get_out_of_jail_card();
+				release_player_from_jail(*active_player);
+				CLogger::GetLogger()->Log(active_player->name + " uses get out of jail card.");
+			}
+			catch (std::exception& e)
+			{
+				std::cout << e.what() << std::endl;
+			}
+			break;
+		case 2:
+			//Pay $50 before 1st or 2nd jail turn (no roll?)
+			if (active_player->jailTurnCounter < 3)
+			{
+				CLogger::GetLogger()->Log(active_player->name + " pays to get out of jail.");
+				active_player->pay(50);
+				active_player->in_jail = false;
+				active_player->jailTurnCounter = 0;
+			}
+			break;
+		}
 	}
-	//else//jailTurnCounter == 3
-	//{
-	//	rolled_doubles = roll_for_doubles();
-	//	if(!rolled_doubles)
-	//		{
-	//			active_player.pay(50);
-	//			move(roll);
-	//		}
-	//	else if (rolled_doubles)
-	//		{
-	//			move(roll);
-	//		}
-	//}
-	// 
-}
-
-bool Monopoly::rolled_three_times_in_succession()
-{
-	//todo:
-	//check if player rolled doubles three times in succession
-	return false;
 }
 
 bool Monopoly::didRollDoubles()
 {
-	
-	return false;
+	if (dice.firstDieRoll == dice.secondDieRoll) return true;
+	else return false;
 }
 
 bool Monopoly::passes_go(Piece* piece, int n)
@@ -858,13 +884,13 @@ void Monopoly::play_game()
 		}
 		else//player is in jail, offer a way out
 		{
-			jailTurnCounter++;
+			//jailTurnCounter++;
 			//for now, just stay here 3 turns...
 			//todo implement actual logic
-			if (jailTurnCounter >= 3)
-			{
-				activePlayer->in_jail = false;
-			}
+			//if (jailTurnCounter >= 3)
+			//{
+			//	activePlayer->in_jail = false;
+			//}
 		}
 		//turn over, increment turn counter to set next player active
 		make_next_player_active();
@@ -922,6 +948,13 @@ void Monopoly::send_player_to_jail(Player& p)
 	p.in_jail = true;
 	p.piece->movePosition(position_jail);//jail location 10 
 	CLogger::GetLogger()->Log(p.name + " is now in jail.");
+}
+
+void Monopoly::release_player_from_jail(Player& p)
+{
+	p.in_jail = false;
+	p.jailTurnCounter = 0;
+	p.tryRollDoublesCounter = 0;
 }
 
 void Monopoly::upgrade_property(Property& property)
@@ -1435,5 +1468,5 @@ Monopoly::Monopoly(int number_players)
 	init_board();
 	init_pieces();
 	init_players(number_players);
-	give_active_players_pieces();//remove when giving players choice of piece
+	give_active_players_pieces();//TODO:remove when giving players choice of piece
 }

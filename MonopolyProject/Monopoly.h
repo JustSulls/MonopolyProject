@@ -34,7 +34,6 @@ private:
 	void init_players(int num);
 	int numberOfPlayers;
 	int turnCounter = 0;
-	int jailTurnCounter = 0;
 	bool test = true;
 
 public:
@@ -80,22 +79,23 @@ public:
 	bool decide_buy_or_pass(nrails::Railroad rail, Player player);
 	//decide upgrade
 	bool decide_upgrade(Property prop, Player player);
+	//get valid jail turn choices based on jail counter turn
+	bool* get_valid_jail_choices(Player activePlayer);
 	//decide what to do in jail
 	unsigned int decide_jail_turn_choice(Player player);
 	//JAIL
 	//	A player sent to Jail cannot collect $200 salary in that move since, regardless of where his/her piece is or of the path of the board, he/she must move his/her piece DIRECTLY into Jail. A player's turn ends when he is sent to Jail.
 	//You may buy and erect housesand /or hotels, sell or buy property, collect rent, mortgage properties, participate in auctionsand deal with other players even though in Jail.
 	//If you pass go before landing on chance or community chest and drawing a card that sends you to jail, you still collect your salary.
-	//handle jail
-	void handle_jail_turn(unsigned int& tryRollDoublesCounter, Player* active_player, unsigned int& jailTurnCounter);
-	//check if player rolled doubles three times in succession
-	bool rolled_three_times_in_succession();
+	
+	//handle jail turn
+	void handle_jail_turn(Player* active_player);
+	
+	//did roll doubles
 	bool didRollDoubles();
 	
-	//
 	//play game
 	void play_game();
-	//
 
 	//move
 	void move_piece(Player* player, int die_cast);
@@ -104,6 +104,8 @@ public:
 	//pay rent
 	void pay_rent(Player& player, Property property);
 	void pay_rent(Player& player, nrails::Railroad railroad);
+
+	//pay utilities
 	void pay_utilities(Player& player, Utility& utility);
 
 	//upgrade property
@@ -114,10 +116,20 @@ public:
 	
 	//do spot action
 	void do_spot_action(Spot* the_spot, Player* activePlayer);
+
+	//send player to jail
 	void send_player_to_jail(Player& p);
+
+	//release player from jail
+	void release_player_from_jail(Player& p);
+
+	//player throws die and pays owner of utility based on roll and utilities
 	void player_throw_die_pay_owner(Player& p, Utility& the_utility);
 
+	//give all players a piece
 	void give_active_players_pieces();
+
+	//make next player active player
 	void make_next_player_active();
 
 	//print results
