@@ -760,6 +760,7 @@ void Monopoly::handle_jail_turn(Player* active_player)
 	//He then comes out and moves forward from Jail the number of spaces shown by his roll.
 	if (active_player->in_jail)
 	{
+		active_player->jailTurnCounter++;
 		unsigned int answer = decide_jail_turn_choice(*active_player);
 		switch (answer)
 		{
@@ -791,7 +792,6 @@ void Monopoly::handle_jail_turn(Player* active_player)
 					do_spot_action(get_spot(active_player->piece->getPosition()), active_player);
 				}
 				CLogger::GetLogger()->Log(active_player->name + " fails to roll doubles.");//TODO: say what was rolled.
-				active_player->jailTurnCounter++;
 			}
 			break;
 		case 1:
