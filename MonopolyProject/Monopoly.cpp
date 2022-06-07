@@ -704,7 +704,7 @@ unsigned int Monopoly::decide_jail_turn_choice(Player player)
 	if (test)
 	{
 		//always choose roll for doubles
-		answer = 0;
+		answer = 2;
 	}
 	else
 	{
@@ -812,8 +812,7 @@ void Monopoly::handle_jail_turn(Player* active_player)
 			{
 				CLogger::GetLogger()->Log(active_player->name + " pays to get out of jail.");
 				active_player->pay(50);
-				active_player->in_jail = false;
-				active_player->jailTurnCounter = 0;
+				release_player_from_jail(*active_player);
 			}
 			break;
 		}

@@ -104,9 +104,12 @@ namespace testNamespace
 	{
 		Monopoly m;
 		Player* activePlayer = m.players[0];
+		activePlayer->get_out_of_jail_cards.push_back(true);
 		m.send_player_to_jail(*activePlayer);
+		EXPECT_EQ(activePlayer->in_jail, true);
 		m.handle_jail_turn(activePlayer);
 		m.handle_jail_turn(activePlayer);
 		m.handle_jail_turn(activePlayer);
+		EXPECT_EQ(activePlayer->in_jail, false);
  	}
 }
