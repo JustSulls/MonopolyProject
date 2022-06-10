@@ -50,7 +50,7 @@ void Player::do_street_repairs()
 	//Pay $40 per houseand $115 per hotel you own.
 	unsigned int num_houses = 0;
 	unsigned int num_hotels = 0;
-	for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+	for (unsigned int i = 0; i < properties_owned.size(); i++)
 	{
 		int l = static_cast<int>(properties_owned[i]->current_level);
 		if (l > 1)
@@ -89,7 +89,7 @@ int Player::get_num_houses()
 	unsigned int num_houses = 0;
 	if (!properties_owned.empty())
 	{
-		for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+		for (unsigned int i = 0; i < properties_owned.size(); i++)
 		{
 			int l = static_cast<int>(properties_owned[i]->current_level);
 			if (l > 1)
@@ -105,7 +105,7 @@ int Player::get_num_hotels()
 	unsigned int num_hotels = 0;
 	if (!properties_owned.empty())
 	{
-		for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+		for (unsigned int i = 0; i < properties_owned.size(); i++)
 		{
 			int l = static_cast<int>(properties_owned[i]->current_level);
 			if (l == 6)//hotel 
@@ -186,7 +186,7 @@ std::vector<Property> Player::property_upgrades_available()
 	if (!properties_owned.empty())
 	{
 		std::vector<Property::colors> vColorHolder;
-		for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+		for (unsigned int i = 0; i < properties_owned.size(); i++)
 		{
 			if (properties_owned[i]->current_level < Property::level::with_skyscraper)	//if not already maxxed
 			{
@@ -203,7 +203,7 @@ std::vector<Property> Player::property_upgrades_available()
 			int yellow = 0;
 			int green = 0;
 			int darkblue = 0;
-			for (unsigned int i = 0; i < vColorHolder.size() - 1; i++)
+			for (unsigned int i = 0; i < vColorHolder.size(); i++)
 			{
 				if (vColorHolder[i] == Property::colors::brown) brown++;
 				else if (vColorHolder[i] == Property::colors::light_blue) lightblue++;
@@ -216,7 +216,7 @@ std::vector<Property> Player::property_upgrades_available()
 			}
 			if (brown == ColorCount.maxBrown)
 			{
-				for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
 					if (properties_owned[i]->color == Property::colors::brown)	//if not already maxxed
 					{
@@ -226,7 +226,7 @@ std::vector<Property> Player::property_upgrades_available()
 			}
 			if (lightblue == ColorCount.maxLightBlue)
 			{
-				for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
 					if (properties_owned[i]->color == Property::colors::light_blue)	//if not already maxxed
 					{
@@ -236,7 +236,7 @@ std::vector<Property> Player::property_upgrades_available()
 			}
 			if (pink== ColorCount.maxPink)
 			{
-				for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
 					if (properties_owned[i]->color == Property::colors::pink)	//if not already maxxed
 					{
@@ -246,7 +246,7 @@ std::vector<Property> Player::property_upgrades_available()
 			}
 			if (orange== ColorCount.maxOrange)
 			{
-				for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
 					if (properties_owned[i]->color == Property::colors::orange)	//if not already maxxed
 					{
@@ -256,7 +256,7 @@ std::vector<Property> Player::property_upgrades_available()
 			}
 			if (red == ColorCount.maxRed)
 			{
-				for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
 					if (properties_owned[i]->color == Property::colors::red)	//if not already maxxed
 					{
@@ -266,7 +266,7 @@ std::vector<Property> Player::property_upgrades_available()
 			}
 			if (yellow== ColorCount.maxYellow)
 			{
-				for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
 					if (properties_owned[i]->color == Property::colors::yellow)	//if not already maxxed
 					{
@@ -276,7 +276,7 @@ std::vector<Property> Player::property_upgrades_available()
 			}
 			if (green == ColorCount.maxGreen)
 			{
-				for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
 					if (properties_owned[i]->color == Property::colors::green)	//if not already maxxed
 					{
@@ -286,7 +286,7 @@ std::vector<Property> Player::property_upgrades_available()
 			}
 			if (darkblue== ColorCount.maxDarkBlue)
 			{
-				for (unsigned int i = 0; i < properties_owned.size() - 1; i++)
+				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
 					if (properties_owned[i]->color == Property::colors::dark_blue)	//if not already maxxed
 					{
@@ -296,10 +296,7 @@ std::vector<Property> Player::property_upgrades_available()
 			}
 		}
 	}
-	else
-	{
-		return return_properties;
-	}
+	return return_properties;
 }
 bool Player::operator==(const Player& other)
 {
@@ -317,6 +314,7 @@ int Player::decide_upgrade(Property prop)
 {
 	//present options to player, bounds check answer, return it
 	int i = -1;
+	if (in_test) i = 1;
 	while (i > 1 || i < 0)
 	{
 		CLogger::GetLogger()->Log("Decide upgrade " + prop.name + ": [0] no, [1] yes?");

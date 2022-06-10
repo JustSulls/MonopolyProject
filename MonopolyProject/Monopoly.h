@@ -58,6 +58,7 @@ public:
 	Utility* advance_to_nearest_utility(Piece* piece);
 	Utility* get_utility(int position);
 	Property* get_property(int pos);
+	Player* get_winner();
 	
 	//railroads
 	nrails::Railroad* get_railroad(int pos);

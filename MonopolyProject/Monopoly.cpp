@@ -404,6 +404,18 @@ nrails::Railroad* Monopoly::advance_to_nearest_railroad(Piece* piece)
 	//todo:test this
 }
 
+Player* Monopoly::get_winner()
+{
+	for (int i = 0; i < numberOfPlayers; i++)
+	{
+		if (players[i]->money <= 0)
+		{
+			return players[i];
+		}
+	}
+	return nullptr;
+}
+
 nrails::Railroad* Monopoly::get_nearest_railroad(Player& player)
 {
 	// get piece position
@@ -549,8 +561,6 @@ bool Monopoly::check_game_over()
 	{
 		if (players.at(i)->money <= 0)
 		{
-			CLogger::GetLogger()->Log("Game over. ");
-			CLogger::GetLogger()->Log(players[i]->name + " wins.");
 			return true;
 		}
 	}
@@ -704,7 +714,7 @@ unsigned int Monopoly::decide_jail_turn_choice(Player player)
 	if (test)
 	{
 		//always choose roll for doubles
-		answer = 2;
+		answer = 0;
 	}
 	else
 	{
@@ -844,23 +854,42 @@ void Monopoly::play_game()
 	Player* activePlayer = nullptr;
 	unsigned int turnCounter = 0;
 	//assign first player active player for now
-	//loop 
+	//loop
+	// -- 
+	//TEST
+	//
+	if (test)
+	{
+		for (int i = 0; i < properties.size(); i++)
+		{
+			if (properties[i].color == Property::colors::light_blue)
+			{
+				players[0]->buy_property(&properties[i]);
+			}
+		}
+	}
 	while (!game_over)
 	{
+		//Turn counter
 		turnCounter++;
 		CLogger::GetLogger()->Log("--Starting turn " + std::to_string(turnCounter) + "--");
+		
+		//Get active player
 		activePlayer = get_active_player();
+
 		//First, confirm player not in jail
 		if (!activePlayer->in_jail)
 		{
-			//If property upgrades available, present options to player
+			//Get any properties that can be upgraded
 			std::vector<Property> potential_upgrades = get_active_player()->property_upgrades_available();
+
+			//If any properties were returned
 			if (!potential_upgrades.empty())
 			{
 				CLogger::GetLogger()->Log("Decide whether to upgrade property.");
-				for (unsigned int i = 0; i < potential_upgrades.size() - 1; i++)
+				for (unsigned int i = 0; i < potential_upgrades.size(); i++)
 				{
-					activePlayer->decide_upgrade(potential_upgrades[i]);
+					activePlayer->decide_upgrade(potential_upgrades[i]);//TODO: start here
 				}
 			}
 			//playern rolls 
@@ -883,24 +912,20 @@ void Monopoly::play_game()
 		}
 		else//player is in jail, offer a way out
 		{
-			//jailTurnCounter++;
-			//for now, just stay here 3 turns...
-			//todo implement actual logic
-			//if (jailTurnCounter >= 3)
-			//{
-			//	activePlayer->in_jail = false;
-			//}
+			handle_jail_turn(activePlayer);
 		}
 		//turn over, increment turn counter to set next player active
 		make_next_player_active();
 		//check if game over
 		if (check_game_over()) {
 			game_over = true;
+			//get winner
+			activePlayer = get_winner();
+			CLogger::GetLogger()->Log("Game over.");
+			CLogger::GetLogger()->Log(activePlayer->name + " wins.");
 			print_results();
-			//TODO:declare winner
 		}
 	}
-	//todo:game over now handle that
 }
 
 void Monopoly::pay_rent(Player& player, Property property)
