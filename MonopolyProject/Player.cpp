@@ -135,6 +135,9 @@ bool Player::buy_property(Property* prop)
 		pay(prop->prices[0]);//printed price is prices[0]
 		prop->is_owned = true;
 		properties_owned.push_back(prop);
+		//if player now has the correct number of same colored properties
+		//TODO: move all this to Monopoly
+		//upgrade property level from alone to monopoly
 		CLogger::GetLogger()->Log(name + " now owns " + prop->name);
 		return true;
 	}
@@ -188,7 +191,11 @@ std::vector<Property> Player::property_upgrades_available()
 		std::vector<Property::colors> vColorHolder;
 		for (unsigned int i = 0; i < properties_owned.size(); i++)
 		{
-			if (properties_owned[i]->current_level < Property::level::with_skyscraper)	//if not already maxxed
+			//If property current level is less than skyscraper (max)
+			//and greater than alone (min, because level monopoly is set automatically
+			//not through player choice)
+			if (properties_owned[i]->current_level < Property::level::with_skyscraper
+				&& properties_owned[i]->current_level >= Property::level::monopoly)	//if not already maxxed
 			{
 				vColorHolder.push_back(properties_owned[i]->color);
 			}
