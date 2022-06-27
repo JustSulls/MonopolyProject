@@ -35,11 +35,13 @@ public:
 	const static int number_prices = 3;
 	const static int number_rent_costs = 8;
 	colors color;
+	colors get_color();
 	int prices[number_prices] = { 0,0,0 };
 	int rent_costs[number_rent_costs] = { 0,0,0,0,0,0,0,0 };
 	int get_rent();
 	level current_level = level::alone;
 	std::string getCurrentLevel();
 	void set_level(int setter);
+	void set_level(Property::level level);
 	bool is_owned;	
 };

@@ -98,11 +98,11 @@ void Monopoly::init_properties()
       break;
     }
     //create the property
-    Property the_property(prices, rent_costs, the_color, property_name, location, Spot::SpotType::property);
+    Property* the_property = new Property(prices, rent_costs, the_color, property_name, location, Spot::SpotType::property);
     //place properties in maps
     properties.push_back(the_property);
     //add to map of properties
-    map_property[the_property.name] = the_property;
+    //map_property[the_property.name] = the_property;
   }
 }
 
@@ -319,9 +319,9 @@ Spot* Monopoly::get_spot(int position)
   }
   for (unsigned int i = 0; i < properties.size(); i++)
   {
-    if (properties[i].position == position)
+    if (properties[i]->position == position)
     {
-      return &properties[i];
+      return properties[i];
     }
   }
   for (unsigned int i = 0; i < utilities.size(); i++)
@@ -448,12 +448,12 @@ nrails::Railroad* Monopoly::get_nearest_railroad(Player& player)
   return rail_ptr;
 }
 
-std::vector<Property> Monopoly::get_all_properties_in_color(Property::colors c)
+std::vector<Property*> Monopoly::get_all_properties_in_color(Property::colors c)
 {
-  std::vector<Property> return_properties;
+  std::vector<Property*> return_properties;
   for (unsigned int i = 0; i < properties.size(); ++i)
   {
-    if (properties[i].color == c)
+    if (properties[i]->color == c)
     {
       return_properties.push_back(properties[i]);//may want to change properties to pointers
     }
@@ -901,19 +901,18 @@ void Monopoly::play_game()
   CLogger::GetLogger()->Log("Game started.");
   Player* activePlayer = nullptr;
   unsigned int turnCounter = 0;
-  //assign first player active player for now
-  //loop
-  // -- 
+  
   //TEST
+  //make player buy a compelte set for monopoly testing
   //
   if (test)
   {
     for (int i = 0; i < properties.size(); i++)
     {
-      if (properties[i].color == Property::colors::light_blue)
+      if (properties[i]->color == Property::colors::light_blue)
       {
         //players[0]->buy_property(&properties[i]);
-        buy_property(players[0], &properties[i]);//TODO:test this
+        buy_property(players[0], properties[i]);//TODO:test this
       }
     }
   }
@@ -1091,31 +1090,33 @@ bool Monopoly::property_monopoly(Property prop)
 
 void Monopoly::assign_property_monopoly(Property* prop)
 {
-  //TODO: test this
-  //upgrade all properties of this color in player's properties to level monopoly
-  if (prop->current_level == Property::level::alone)
-  {
-    prop->current_level = Property::level::monopoly;
-    CLogger::GetLogger()->Log("Upgraded " + prop->name + " to Monopoly.");
-  }
-  //already did validity check outside this function
-  
-  Player* owner = get_owner(prop->name);
-  //For all owner's properties
-  for (int i = 0; i < owner->properties_owned.size(); i++)
-  {
-    //If property has same color as param property
-    if (owner->properties_owned[i]->color == prop->color)
-    {
-      //If property level is alone
-      if (owner->properties_owned[i]->current_level == Property::level::alone)
-      {
-        //Set property level to monopoly
-        owner->properties_owned[i]->current_level = Property::level::monopoly;
-        CLogger::GetLogger()->Log("Upgraded " + owner->properties_owned[i]->name + " to Monopoly.");
-      }
-    }
-  }
+  std::vector<Property*> the_set = get_all_properties_in_color(prop->get_color());
+  upgrade_property_color_set_to_monopoly(the_set);
+  ////TODO: test this
+  ////upgrade all properties of this color in player's properties to level monopoly
+  //if (prop->current_level == Property::level::alone)
+  //{
+  //  prop->set_level(Property::level::monopoly);
+  //  CLogger::GetLogger()->Log("Upgraded " + prop->name + " to Monopoly.");
+  //}
+  ////already did validity check outside this function
+  //
+  //Player* owner = get_owner(prop->name);
+  ////For all owner's properties
+  //for (int i = 0; i < owner->properties_owned.size(); i++)
+  //{
+  //  //If property has same color as param property
+  //  if (owner->properties_owned[i]->color == prop->color)
+  //  {
+  //    //If property level is alone
+  //    if (owner->properties_owned[i]->current_level == Property::level::alone)
+  //    {
+  //      //Set property level to monopoly
+  //      owner->properties_owned[i]->current_level = Property::level::monopoly;
+  //      CLogger::GetLogger()->Log("Upgraded " + owner->properties_owned[i]->name + " to Monopoly.");
+  //    }
+  //  }
+  //}
 }
 
 void Monopoly::pay_utilities(Player& player, Utility& utility)
@@ -1159,6 +1160,15 @@ void Monopoly::upgrade_property(Property& property)
     next_l += current_l + 1;
   }
   property.set_level(next_l);
+}
+
+void Monopoly::upgrade_property_color_set_to_monopoly(std::vector<Property*> set)
+{
+  //Does not confirm this is a set of the same color, that's done outside as of now ...
+  for (unsigned int i = 0; i < set.size(); i++)
+  {
+    set[i]->set_level(1);//1 is property::level monopoly
+  }
 }
 
 void Monopoly::do_card_action(Card c, Player* player, bool testing)
@@ -1460,10 +1470,12 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
         //If now has a property monopoly
         if (property_monopoly(*prop))
         {
+          //get property color
+          Property::colors the_color = prop->get_color();
           //get_every_property_in_color
-          //TODO: Upgrade each property to a property monopoly
-          //TODO: need to change player->buyProperty to buyProperty 
-          //monopoly should own that function not the player
+          std::vector<Property*> colored_properties = get_all_properties_in_color(the_color);
+          //upgrade every property in color to level monopoly
+          upgrade_property_color_set_to_monopoly(colored_properties);
         }
         
       }
@@ -1615,9 +1627,9 @@ Property* Monopoly::get_property(int pos)
   for (unsigned int i = 0; i < properties.size(); i++)
   {
     try {
-      if (properties[i].position == pos)
+      if (properties[i]->position == pos)
       {
-        return &properties[i];
+        return properties[i];
       }
     }
     catch (const std::out_of_range& oor) {

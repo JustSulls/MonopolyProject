@@ -57,26 +57,27 @@ public:
     int firstDieRoll;
     int secondDieRoll;
   }dice;
+
   int pick_piece(Player& player);
   int throw_die();
-  int	get_railroad_rent(Player player);
-  int	get_utility_cost_multiplier(Player& owner);
+  int get_railroad_rent(Player player);
+  int get_utility_cost_multiplier(Player& owner);
   
-  Spot* get_spot(int position);
-  Player* get_player(Piece p);
-  Player* get_owner(std::string spot_name);
-  Player* get_active_player();
-  Utility* advance_to_nearest_utility(Piece* piece);
-  Utility* get_utility(int position);
+  //Getters
+  Spot*     get_spot(int position);
+  Player*   get_player(Piece p);
+  Player*   get_owner(std::string spot_name);
+  Player*   get_active_player();
+  Utility*  advance_to_nearest_utility(Piece* piece);
+  Utility*  get_utility(int position);
   Property* get_property(int pos);
-  Player* get_winner();
+  Player*   get_winner();
   
+
   //railroads
   nrails::Railroad* get_railroad(int pos);
   nrails::Railroad* advance_to_nearest_railroad(Piece* piece);
   nrails::Railroad* get_nearest_railroad(Player& player);
-
-  std::vector<Property> get_all_properties_in_color(Property::colors c);
   
   //receive cards
   Card draw_community();
@@ -96,24 +97,28 @@ public:
   //decide upgrade
   bool decide_upgrade(Property prop, Player player);
   void do_manual_upgrade(Property* prop);
+
+  //
+  // JAIL
+  // 
   //get valid jail turn choices based on jail counter turn
   bool* get_valid_jail_choices(Player activePlayer);
   //decide what to do in jail
   unsigned int decide_jail_turn_choice(Player player);
-  //JAIL
-  //	A player sent to Jail cannot collect $200 salary in that move since, regardless of where his/her piece is or of the path of the board, he/she must move his/her piece DIRECTLY into Jail. A player's turn ends when he is sent to Jail.
-  //You may buy and erect housesand /or hotels, sell or buy property, collect rent, mortgage properties, participate in auctionsand deal with other players even though in Jail.
-  //If you pass go before landing on chance or community chest and drawing a card that sends you to jail, you still collect your salary.
-  
   //handle jail turn
   void handle_jail_turn(Player* active_player);
-  
   //did roll doubles
   bool didRollDoubles();
 
+  //
+  // Creating Monopolies
+  // 
   //if last property bought completes the set (monopoly)
   bool property_monopoly(Property prop);
   void assign_property_monopoly(Property* prop);
+  //upgrade all property of same color to monopoly level
+  void upgrade_property_color_set_to_monopoly(std::vector<Property*> set);
+  std::vector<Property*> get_all_properties_in_color(Property::colors c);
   
   //play game
   void play_game();
@@ -158,14 +163,14 @@ public:
 
   //vectors
   std::vector<nrails::Railroad>	railroads;
-  std::vector<Utility>			utilities;
-  std::vector<Card>				cards;
-  std::vector<Card>				chance_cards;
-  std::vector<Card>				community_cards;
-  std::vector<Player*>			players;
-  std::vector<Property>			properties;
-  std::vector<Piece>				pieces;
-  std::vector<Spot>				spots;
+  std::vector<Utility>			    utilities;
+  std::vector<Card>				      cards;
+  std::vector<Card>				      chance_cards;
+  std::vector<Card>				      community_cards;
+  std::vector<Player*>			    players;
+  std::vector<Property*>			  properties;
+  std::vector<Piece>				    pieces;
+  std::vector<Spot>				      spots;
 
   //maps for properties and utilities
   std::map<std::string, Property> map_property;	//do need, used

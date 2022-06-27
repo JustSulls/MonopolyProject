@@ -28,6 +28,10 @@ Property::Property(int pr[],
 	color = c;
 	is_owned = false;
 }
+Property::colors Property::get_color()
+{
+	return color;
+}
 int Property::get_rent()
 {
 	int rent = 0;
@@ -95,7 +99,13 @@ std::string Property::getCurrentLevel()
 void Property::set_level(int setter)
 {
 	//todo: limit this
-	if (8 > setter && setter > 0) {
+	if ((setter < 8) && (setter > 0)) {
 		level l = static_cast<level>(setter);
+		current_level = l;
 	}
+}
+
+void Property::set_level(Property::level level)
+{
+	current_level = level;
 }
