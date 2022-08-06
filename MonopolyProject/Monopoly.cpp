@@ -1168,6 +1168,7 @@ void Monopoly::upgrade_property_color_set_to_monopoly(std::vector<Property*> set
   for (unsigned int i = 0; i < set.size(); i++)
   {
     set[i]->set_level(1);//1 is property::level monopoly
+    CLogger::GetLogger()->Log(set[i]->name + " upgraded to a Monopoly.");
   }
 }
 
@@ -1466,18 +1467,6 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
         //If player buys property successfully
         //if (activePlayer->buy_property(prop))
         buy_property(activePlayer, prop);
-        
-        //If now has a property monopoly
-        if (property_monopoly(*prop))
-        {
-          //get property color
-          Property::colors the_color = prop->get_color();
-          //get_every_property_in_color
-          std::vector<Property*> colored_properties = get_all_properties_in_color(the_color);
-          //upgrade every property in color to level monopoly
-          upgrade_property_color_set_to_monopoly(colored_properties);
-        }
-        
       }
       //TODO:else auction off property, currently nothing
     }
