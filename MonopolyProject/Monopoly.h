@@ -96,7 +96,7 @@ public:
   void buy_property(Player* player, Property* prop);
   //decide upgrade
   bool decide_upgrade(Property prop, Player player);
-  void do_manual_upgrade(Property* prop);
+  void do_manual_upgrade(Property* prop, Player* owner);
 
   //
   // JAIL
@@ -120,7 +120,9 @@ public:
   void upgrade_property_color_set_to_monopoly(std::vector<Property*> set);
   std::vector<Property*> get_all_properties_in_color(Property::colors c);
   
+  //
   //play game
+  //
   void play_game();
 
   //move

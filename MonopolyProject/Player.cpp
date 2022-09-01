@@ -321,7 +321,7 @@ int Player::decide_upgrade(Property prop)
 {
 	//present options to player, bounds check answer, return it
 	int i = -1;
-	if (in_test) i = 1;
+	if (in_test) i = 0;//in test always answer 0 (no) upgrade
 	while (i > 1 || i < 0)
 	{
 		CLogger::GetLogger()->Log("Decide upgrade " + prop.name + ": [0] no, [1] yes?");

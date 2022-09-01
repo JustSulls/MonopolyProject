@@ -727,12 +727,17 @@ bool Monopoly::decide_upgrade(Property prop, Player player)
   return false;
 }
 
-void Monopoly::do_manual_upgrade(Property* prop)
+void Monopoly::do_manual_upgrade(Property* prop, Player* owner)
 {
   //Get current level
+  Property::level itsLevel = prop->current_level;//TODO: make getter function to return level
   //Get price to upgrade
+  int cost = prop->get_upgrade_cost();
   //Get owner to pay upgrade price
+  owner->pay(cost);
   //Set new level on property
+  int newLevel = static_cast<int>(itsLevel)+ 1;//TODO: limit return new level if already max
+  prop->set_level(newLevel);
 }
 
 bool* Monopoly::get_valid_jail_choices(Player activePlayer)
@@ -941,13 +946,15 @@ void Monopoly::play_game()
           if (answer == 0)
           {
             //Decided no upgrade
+            CLogger::GetLogger()->Log("Player decided not to upgrade any property.");
           }
           else
           {
+            CLogger::GetLogger()->Log("Player decided to upgrade property.");
             //Decided yes upgrade
             //Already validated that we can do upgrade during player.propertyupgradesavailable()
             //Do upgrade (except monopoly that should be one automatically)
-            //TODO:
+            //TODO: make answer the selection of which property to upgrade not just a yes or no
             //do_manual_upgrade(potential_upgrade[i]);
           }
         }

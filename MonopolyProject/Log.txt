@@ -1,0 +1,232 @@
+Sat-11:11:29 PM:	Game started.
+Sat-11:11:29 PM:	Player 1 pays $100 ($1400 total).
+Sat-11:11:29 PM:	Player 1 now owns oriental avenue
+Sat-11:11:29 PM:	Player 1 pays $100 ($1300 total).
+Sat-11:11:29 PM:	Player 1 now owns vermont avenue
+Sat-11:11:29 PM:	Player 1 pays $120 ($1180 total).
+Sat-11:11:29 PM:	oriental avenue upgraded to a Monopoly.
+Sat-11:11:29 PM:	vermont avenue upgraded to a Monopoly.
+Sat-11:11:29 PM:	connecticut avenue upgraded to a Monopoly.
+Sat-11:11:29 PM:	Player 1 now owns connecticut avenue
+Sat-11:11:29 PM:	--Starting turn 1--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 8. (3 + 5).
+Sat-11:11:29 PM:	Player 1's piece landed on [8]vermont avenue.
+Sat-11:11:29 PM:	Player 1 already owns vermont avenue. 
+Sat-11:11:29 PM:	--Starting turn 2--
+Sat-11:11:29 PM:	Rolled a 7. (4 + 3).
+Sat-11:11:29 PM:	Player 2's piece landed on [7]chance 1.
+Sat-11:11:29 PM:	Player 2 draws "You have won a crossword competition. Collect $100.".
+Sat-11:11:29 PM:	Player 2 collects $100 ($1600 total).
+Sat-11:11:29 PM:	--Starting turn 3--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 9. (6 + 3).
+Sat-11:11:29 PM:	Player 1's piece landed on [17]community chest 2.
+Sat-11:11:29 PM:	Player 1 draws "You inherit $100.".
+Sat-11:11:29 PM:	Player 1 collects $100 ($1280 total).
+Sat-11:11:29 PM:	--Starting turn 4--
+Sat-11:11:29 PM:	Rolled a 8. (4 + 4).
+Sat-11:11:29 PM:	Player 2's piece landed on [15]Pennsylvania_Railroad.
+Sat-11:11:29 PM:	Player 2 decides to buy Pennsylvania_Railroad for $200. 
+Sat-11:11:29 PM:	Player 2 pays $200 ($1400 total).
+Sat-11:11:29 PM:	Player 2 now owns Pennsylvania_Railroad
+Sat-11:11:29 PM:	--Starting turn 5--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 9. (4 + 5).
+Sat-11:11:29 PM:	Player 1's piece landed on [26]atlantic avenue.
+Sat-11:11:29 PM:	Player 1 decides to buy atlantic avenue for $260. 
+Sat-11:11:29 PM:	Player 1 pays $260 ($1020 total).
+Sat-11:11:29 PM:	Player 1 now owns atlantic avenue
+Sat-11:11:29 PM:	--Starting turn 6--
+Sat-11:11:29 PM:	Rolled a 9. (6 + 3).
+Sat-11:11:29 PM:	Player 2's piece landed on [24]illinois avenue.
+Sat-11:11:29 PM:	Player 2 decides to buy illinois avenue for $240. 
+Sat-11:11:29 PM:	Player 2 pays $240 ($1160 total).
+Sat-11:11:29 PM:	Player 2 now owns illinois avenue
+Sat-11:11:29 PM:	--Starting turn 7--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 8. (3 + 5).
+Sat-11:11:29 PM:	Player 1's piece landed on [34]pennyslvania avenue.
+Sat-11:11:29 PM:	Player 1 decides to buy pennyslvania avenue for $320. 
+Sat-11:11:29 PM:	Player 1 pays $320 ($700 total).
+Sat-11:11:29 PM:	Player 1 now owns pennyslvania avenue
+Sat-11:11:29 PM:	--Starting turn 8--
+Sat-11:11:29 PM:	Rolled a 7. (3 + 4).
+Sat-11:11:29 PM:	Player 2's piece landed on [31]pacific avenue.
+Sat-11:11:29 PM:	Player 2 decides to buy pacific avenue for $300. 
+Sat-11:11:29 PM:	Player 2 pays $300 ($860 total).
+Sat-11:11:29 PM:	Player 2 now owns pacific avenue
+Sat-11:11:29 PM:	--Starting turn 9--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 8. (4 + 4).
+Sat-11:11:29 PM:	Player 1's piece landed on [2]community chest 1.
+Sat-11:11:29 PM:	Player 1 passed go.
+Sat-11:11:29 PM:	Player 1 collects $200 ($900 total).
+Sat-11:11:29 PM:	Player 1 draws "You have won second prize in a beauty contest. Collect $10.".
+Sat-11:11:29 PM:	Player 1 collects $10 ($910 total).
+Sat-11:11:29 PM:	--Starting turn 10--
+Sat-11:11:29 PM:	Rolled a 7. (3 + 4).
+Sat-11:11:29 PM:	Player 2's piece landed on [38]luxury tax.
+Sat-11:11:29 PM:	Player 2 pays $150 ($710 total).
+Sat-11:11:29 PM:	--Starting turn 11--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 8. (2 + 6).
+Sat-11:11:29 PM:	Player 1's piece landed on [10]jail or just visiting.
+Sat-11:11:29 PM:	--Starting turn 12--
+Sat-11:11:29 PM:	Rolled a 5. (4 + 1).
+Sat-11:11:29 PM:	Player 2's piece landed on [3]baltic avenue.
+Sat-11:11:29 PM:	Player 2 passed go.
+Sat-11:11:29 PM:	Player 2 collects $200 ($910 total).
+Sat-11:11:29 PM:	Player 2 decides to buy baltic avenue for $60. 
+Sat-11:11:29 PM:	Player 2 pays $60 ($850 total).
+Sat-11:11:29 PM:	Player 2 now owns baltic avenue
+Sat-11:11:29 PM:	--Starting turn 13--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 8. (4 + 4).
+Sat-11:11:29 PM:	Player 1's piece landed on [18]tennessee avenue.
+Sat-11:11:29 PM:	Player 1 decides to buy tennessee avenue for $180. 
+Sat-11:11:29 PM:	Player 1 pays $180 ($730 total).
+Sat-11:11:29 PM:	Player 1 now owns tennessee avenue
+Sat-11:11:29 PM:	--Starting turn 14--
+Sat-11:11:29 PM:	Rolled a 10. (4 + 6).
+Sat-11:11:29 PM:	Player 2's piece landed on [13]states avenue.
+Sat-11:11:29 PM:	Player 2 decides to buy states avenue for $140. 
+Sat-11:11:29 PM:	Player 2 pays $140 ($710 total).
+Sat-11:11:29 PM:	Player 2 now owns states avenue
+Sat-11:11:29 PM:	--Starting turn 15--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 8. (2 + 6).
+Sat-11:11:29 PM:	Player 1's piece landed on [26]atlantic avenue.
+Sat-11:11:29 PM:	Player 1 already owns atlantic avenue. 
+Sat-11:11:29 PM:	--Starting turn 16--
+Sat-11:11:29 PM:	Rolled a 10. (5 + 5).
+Sat-11:11:29 PM:	Player 2's piece landed on [23]indiana avenue.
+Sat-11:11:29 PM:	Player 2 decides to buy indiana avenue for $220. 
+Sat-11:11:29 PM:	Player 2 pays $220 ($490 total).
+Sat-11:11:29 PM:	Player 2 now owns indiana avenue
+Sat-11:11:29 PM:	--Starting turn 17--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 7. (5 + 2).
+Sat-11:11:29 PM:	Player 1's piece landed on [33]community chest 3.
+Sat-11:11:29 PM:	Player 1 draws "You are assessed for street repairs: Pay $40 per house and $115 per hotel you own.".
+Sat-11:11:29 PM:	Player 1 pays $0 ($730 total).
+Sat-11:11:29 PM:	--Starting turn 18--
+Sat-11:11:29 PM:	Rolled a 3. (2 + 1).
+Sat-11:11:29 PM:	Player 2's piece landed on [26]atlantic avenue.
+Sat-11:11:29 PM:	Player 2 pays $22 ($468 total).
+Sat-11:11:29 PM:	Player 1 collects $22 ($752 total).
+Sat-11:11:29 PM:	--Starting turn 19--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 6. (5 + 1).
+Sat-11:11:29 PM:	Player 1's piece landed on [39]boardwalk.
+Sat-11:11:29 PM:	Player 1 decides to buy boardwalk for $400. 
+Sat-11:11:29 PM:	Player 1 pays $400 ($352 total).
+Sat-11:11:29 PM:	Player 1 now owns boardwalk
+Sat-11:11:29 PM:	--Starting turn 20--
+Sat-11:11:29 PM:	Rolled a 7. (2 + 5).
+Sat-11:11:29 PM:	Player 2's piece landed on [33]community chest 3.
+Sat-11:11:29 PM:	Player 2 draws "Receive $25 consultancy fee.".
+Sat-11:11:29 PM:	Player 2 collects $25 ($493 total).
+Sat-11:11:29 PM:	--Starting turn 21--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 5. (1 + 4).
+Sat-11:11:29 PM:	Player 1's piece landed on [4]income tax.
+Sat-11:11:29 PM:	Player 1 passed go.
+Sat-11:11:29 PM:	Player 1 collects $200 ($552 total).
+Sat-11:11:29 PM:	Player 1 pays $200 ($352 total).
+Sat-11:11:29 PM:	--Starting turn 22--
+Sat-11:11:29 PM:	Rolled a 12. (6 + 6).
+Sat-11:11:29 PM:	Player 2's piece landed on [5]Reading_Railroad.
+Sat-11:11:29 PM:	Player 2 passed go.
+Sat-11:11:29 PM:	Player 2 collects $200 ($693 total).
+Sat-11:11:29 PM:	Player 2 decides to buy Reading_Railroad for $200. 
+Sat-11:11:29 PM:	Player 2 pays $200 ($493 total).
+Sat-11:11:29 PM:	Player 2 now owns Reading_Railroad
+Sat-11:11:29 PM:	--Starting turn 23--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 7. (4 + 3).
+Sat-11:11:29 PM:	Player 1's piece landed on [11]st. charles place.
+Sat-11:11:29 PM:	Player 1 decides to buy st. charles place for $140. 
+Sat-11:11:29 PM:	Player 1 pays $140 ($212 total).
+Sat-11:11:29 PM:	Player 1 now owns st. charles place
+Sat-11:11:29 PM:	--Starting turn 24--
+Sat-11:11:29 PM:	Rolled a 10. (5 + 5).
+Sat-11:11:29 PM:	Player 2's piece landed on [15]Pennsylvania_Railroad.
+Sat-11:11:29 PM:	Player 2 already owns Pennsylvania_Railroad. 
+Sat-11:11:29 PM:	--Starting turn 25--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 9. (5 + 4).
+Sat-11:11:29 PM:	Player 1's piece landed on [20]free parking.
+Sat-11:11:29 PM:	--Starting turn 26--
+Sat-11:11:29 PM:	Rolled a 7. (5 + 2).
+Sat-11:11:29 PM:	Player 2's piece landed on [22]chance 2.
+Sat-11:11:29 PM:	Player 2 draws "Your building and land matures. Collect $150.".
+Sat-11:11:29 PM:	Player 2 collects $150 ($643 total).
+Sat-11:11:29 PM:	--Starting turn 27--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 4. (3 + 1).
+Sat-11:11:29 PM:	Player 1's piece landed on [24]illinois avenue.
+Sat-11:11:29 PM:	Player 1 pays $20 ($192 total).
+Sat-11:11:29 PM:	Player 2 collects $20 ($663 total).
+Sat-11:11:29 PM:	--Starting turn 28--
+Sat-11:11:29 PM:	Rolled a 10. (4 + 6).
+Sat-11:11:29 PM:	Player 2's piece landed on [32]north carolina avenue.
+Sat-11:11:29 PM:	Player 2 decides to buy north carolina avenue for $300. 
+Sat-11:11:29 PM:	Player 2 pays $300 ($363 total).
+Sat-11:11:29 PM:	Player 2 now owns north carolina avenue
+Sat-11:11:29 PM:	--Starting turn 29--
+Sat-11:11:29 PM:	Decide whether to upgrade property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Player decided not to upgrade any property.
+Sat-11:11:29 PM:	Rolled a 8. (2 + 6).
+Sat-11:11:29 PM:	Player 1's piece landed on [32]north carolina avenue.
+Sat-11:11:29 PM:	Player 1 pays $26 ($166 total).
+Sat-11:11:29 PM:	Player 2 collects $26 ($389 total).
+Sat-11:11:29 PM:	--Starting turn 30--
+Sat-11:11:29 PM:	Rolled a 8. (4 + 4).
+Sat-11:11:29 PM:	Player 2's piece landed on [0]go.
+Sat-11:11:29 PM:	Player 2 passed go.
+Sat-11:11:2

@@ -28,6 +28,15 @@ Property::Property(int pr[],
 	color = c;
 	is_owned = false;
 }
+Property& Property::operator=(const Property& other)
+{
+	std::copy(std::begin(other.prices), std::end(other.prices), std::begin(prices));
+	std::copy(std::begin(other.rent_costs), std::end(other.rent_costs), std::begin(rent_costs));
+	current_level = other.current_level;
+	color = other.color;
+	is_owned = other.is_owned;
+	return *this;
+}
 Property::colors Property::get_color()
 {
 	return color;
@@ -63,6 +72,10 @@ int Property::get_rent()
 		break;
 	}
 	return rent;
+}
+int Property::get_upgrade_cost()
+{
+	return prices[posUpgradeCost];
 }
 std::string Property::getCurrentLevel()
 {
@@ -103,8 +116,10 @@ void Property::set_level(int setter)
 		level l = static_cast<level>(setter);
 		current_level = l;
 	}
+	else {
+		throw std::out_of_range("property level out of range");
+	}
 }
-
 void Property::set_level(Property::level level)
 {
 	current_level = level;
