@@ -202,3 +202,11 @@ TEST(CardCase, DoGeneralRepairs)
 	//todo:give properties
 	
 }
+TEST(CardCaseShuffle, Shuffling)
+{
+	Monopoly m;
+	Card cChance		= m.draw_chance();
+	Card cCommunity = m.draw_community();
+	m.reshuffle_chance();
+	m.reshuffle_community();
+}

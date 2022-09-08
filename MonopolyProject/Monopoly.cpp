@@ -102,7 +102,7 @@ void Monopoly::init_properties()
     //place properties in maps
     properties.push_back(the_property);
     //add to map of properties
-    //map_property[the_property.name] = the_property;
+    map_property[the_property->name] = the_property;
   }
 }
 
@@ -178,6 +178,8 @@ void Monopoly::init_cards()
   //shuffle deck here
   auto rng = std::default_random_engine{};
   std::shuffle(std::begin(cards), std::end(cards), rng);
+  shuffle(begin(chance_cards), end(chance_cards), rng);
+  shuffle(begin(community_cards), end(community_cards), rng);
 }
 
 void Monopoly::init_board()
@@ -241,16 +243,36 @@ void Monopoly::give_active_players_pieces()
   }
 }
 
-void Monopoly::make_next_player_active()
+void Monopoly::cycle_player_turn_tracker(int&  playerTurnTracker)
 {
-  //todo:test
-  if (turnCounter < numberOfPlayers - 1)
+ if (numberOfPlayers == 2)
   {
-    turnCounter++;
+    if (playerTurnTracker == 0)
+    {
+      playerTurnTracker++;
+    }
+    else if (playerTurnTracker == 1)
+    {
+      playerTurnTracker = 0;
+    }
   }
-  else {
-    turnCounter = 0;
+  else(throw std::invalid_argument("more than two players without way to handle..."));
+}
+
+Player* Monopoly::get_active_player(int& playerTurnTracker)
+{
+  if (numberOfPlayers == 2)
+  {
+    if (playerTurnTracker == 0)
+    {
+      return players[0];
+    }
+    else if (playerTurnTracker == 1)
+    {
+      return players[1];
+    }
   }
+  else(throw std::invalid_argument("more than two players without way to handle..."));
 }
 
 void Monopoly::print_results()
@@ -263,7 +285,7 @@ void Monopoly::print_results()
     CLogger::GetLogger()->Log(players[i]->name + " total payments made $" + std::to_string(players[i]->get_total_payments_made()));
     CLogger::GetLogger()->Log(players[i]->name + " total payments collected $" + std::to_string(players[i]->get_total_payments_collected()));
     CLogger::GetLogger()->Log(players[i]->name + " total times passed go: " + std::to_string(players[i]->total_passed_go));
-    CLogger::GetLogger()->Log("Properties owned: " + std::to_string(players[i]->properties_owned.size()));
+    /*CLogger::GetLogger()->Log("Properties owned: " + std::to_string(players[i]->properties_owned.size()));
     for (unsigned int j = 0; j < players[i]->properties_owned.size(); j++)
     {
       CLogger::GetLogger()->Log(players[i]->properties_owned[j]->name);
@@ -277,6 +299,7 @@ void Monopoly::print_results()
     {
       CLogger::GetLogger()->Log(players[i]->utilities_owned[l]->name);
     }
+    */
   }
 }
 
@@ -294,7 +317,7 @@ int Monopoly::pick_piece(Player& player)
   return answer;
 }
 
-int Monopoly::throw_die()
+int Monopoly::throw_die(Player player)
 {
   int first_roll = rand() % 6 + 1;
   int second_roll = rand() % 6 + 1;
@@ -302,7 +325,7 @@ int Monopoly::throw_die()
   dice.diceRoll = die_roll;
   dice.firstDieRoll = first_roll;
   dice.secondDieRoll = second_roll;
-  CLogger::GetLogger()->Log("Rolled a " + std::to_string(die_roll) + ". (" + std::to_string(first_roll) + " + " + 
+  CLogger::GetLogger()->Log(player.name + " rolled a " + std::to_string(die_roll) + ". (" + std::to_string(first_roll) + " + " + 
   std::to_string(second_roll) + ").");
   return die_roll;
 }
@@ -399,7 +422,7 @@ nrails::Railroad* Monopoly::advance_to_nearest_railroad(Piece* piece)
 {
   Player* player_ptr = get_player(*piece);
   nrails::Railroad* rail_ptr = get_nearest_railroad(*player_ptr);
-  move_piece(player_ptr, *rail_ptr);
+  move_piece(player_ptr, rail_ptr);
   return rail_ptr;
   //todo:test this
 }
@@ -493,6 +516,11 @@ Player* Monopoly::get_owner(std::string spot_name)
 
 Card Monopoly::draw_community()
 {
+  if (community_cards.empty())
+  {
+    CLogger::GetLogger()->Log("Chance card pile empty. Re-shuffling deck before drawing.");
+    reshuffle_community();
+  }
   try {
     Card the_card = community_cards.back();	//todo:getting out of range exception here when community_cards has capacity 19 but cant see each card
     community_cards.pop_back();
@@ -508,6 +536,11 @@ Card Monopoly::draw_community()
 
 Card Monopoly::draw_chance()
 {
+  if (chance_cards.empty())
+  {
+    CLogger::GetLogger()->Log("Chance card pile empty. Re-shuffling deck before drawing.");
+    reshuffle_chance();
+  }
   try {
     Card the_card = chance_cards.back();
     chance_cards.pop_back();
@@ -518,6 +551,46 @@ Card Monopoly::draw_chance()
     Card c;
     return c;
   }
+}
+
+void Monopoly::reshuffle_chance()
+{
+  //chance cards have been pop_backed() to empty, re-populate from cards, then shuffle
+  //if not already empty, make empty to start so we don't add duplicates
+  if (!chance_cards.empty())
+  {
+    chance_cards.clear();
+  }
+  for (uint32_t i = 0; i < cards.size(); i++)
+  {
+    if (cards[i].type == Card::card_type::Chance)
+    {
+      chance_cards.push_back(cards[i]);
+    }
+  }
+  //shuffle deck here
+  auto rng = std::default_random_engine{};
+  std::shuffle(std::begin(chance_cards), std::end(chance_cards), rng);
+}
+
+void Monopoly::reshuffle_community()
+{
+  //chance cards have been pop_backed() to empty, re-populate from cards, then shuffle
+  //if not already empty, make empty to start so we don't add duplicates
+  if (!community_cards.empty())
+  {
+    community_cards.clear();
+  }
+  for (uint32_t i = 0; i < cards.size(); i++)
+  {
+    if (cards[i].type == Card::card_type::Community_Chest)
+    {
+      community_cards.push_back(cards[i]);
+    }
+  }
+  //shuffle deck here
+  auto rng = std::default_random_engine{};
+  std::shuffle(std::begin(community_cards), std::end(community_cards), rng);
 }
 
 int Monopoly::get_railroad_rent(Player player)
@@ -540,20 +613,6 @@ int Monopoly::get_railroad_rent(Player player)
   return rent_owed;
 }
 
-Player* Monopoly::get_active_player()
-{
-  if (!players.empty()) {
-    try {
-      return players.at(turnCounter);
-    }
-    catch (const std::out_of_range& e)
-    {
-      return nullptr;
-    }
-  }
-  else return nullptr;//error
-}
-
 Player* Monopoly::get_player(Piece p)
 {
   for (unsigned int i = 0; i < players.size(); i++)
@@ -566,9 +625,13 @@ Player* Monopoly::get_player(Piece p)
   return nullptr;
 }
 
-bool Monopoly::check_game_over()
+bool Monopoly::check_game_over(unsigned int& turnCounter)
 {
-  if (turnCounter > 1000) return true;//todo:remove when done testing
+  if (turnCounter > 1000) {
+    CLogger::GetLogger()->Log("\n/***\nFalse win, turn 1000 reached!\n/***");
+    std::cout << "\n/***\nFalse win, turn 1000 reached!\n/***" << std::endl;
+    return true;
+  };//todo:remove when done testing
   //FOR NOW check if any player has 0 or less money. (TODO: this is not technically game over, the player can sell property etc.)
   for (unsigned int i = 0; i < players.size(); i++)
   {
@@ -830,7 +893,7 @@ void Monopoly::handle_jail_turn(Player* active_player)
     case 0:
       //roll for doubles
       CLogger::GetLogger()->Log(active_player->name + " rolls for doubles to try to get out of jail.");
-      throw_die();
+      throw_die(*active_player);
       active_player->tryRollDoublesCounter++;// roll for doubles counter up
       if (didRollDoubles())
       {
@@ -901,11 +964,10 @@ bool Monopoly::passes_go(Piece* piece, int n)
   else return false;
 }
 
-void Monopoly::play_game()
+void Monopoly::play_game(unsigned int turnCounter)
 {
   CLogger::GetLogger()->Log("Game started.");
   Player* activePlayer = nullptr;
-  unsigned int turnCounter = 0;
   
   //TEST
   //make player buy a compelte set for monopoly testing
@@ -928,13 +990,13 @@ void Monopoly::play_game()
     CLogger::GetLogger()->Log("--Starting turn " + std::to_string(turnCounter) + "--");
     
     //Get active player
-    activePlayer = get_active_player();
+    activePlayer = get_active_player(playerTurnTracker);
 
     //First, confirm player not in jail
     if (!activePlayer->in_jail)
     {
       //Get any properties that can be upgraded
-      std::vector<Property> potential_upgrades = get_active_player()->property_upgrades_available();
+      std::vector<Property> potential_upgrades = get_active_player(playerTurnTracker)->property_upgrades_available();
 
       //If any properties were returned
       if (!potential_upgrades.empty())
@@ -947,6 +1009,7 @@ void Monopoly::play_game()
           {
             //Decided no upgrade
             CLogger::GetLogger()->Log("Player decided not to upgrade any property.");
+            break;
           }
           else
           {
@@ -961,10 +1024,10 @@ void Monopoly::play_game()
       }
       //playern rolls 
       //throw_die(*get_active_player());
-      throw_die();
+      throw_die(*activePlayer);
       //playern moves based on roll
       //check if passed go here
-      move_piece(get_active_player(), dice.diceRoll);
+      move_piece(get_active_player(playerTurnTracker), dice.diceRoll);
       //check if passed go
       bool passedGo = passes_go(activePlayer->piece, dice.diceRoll);
       if (passedGo)
@@ -974,24 +1037,32 @@ void Monopoly::play_game()
         activePlayer->total_passed_go++;
       }
       //TODO:call move piece (figure out which ones to get rid of) 
-      Spot* the_spot = get_spot(get_active_player()->piece->getPosition());
-      do_spot_action(the_spot, get_active_player());
+      Spot* the_spot = get_spot(get_active_player(playerTurnTracker)->piece->getPosition());
+      do_spot_action(the_spot, get_active_player(playerTurnTracker));
     }
     else//player is in jail, offer a way out
     {
       handle_jail_turn(activePlayer);
     }
-    //turn over, increment turn counter to set next player active
-    make_next_player_active();
-    //check if game over
-    if (check_game_over()) {
+    //turn over, check if game over 
+    if (check_game_over(turnCounter)) {
       game_over = true;
       //get winner
-      activePlayer = get_winner();
+      Player* winner = nullptr;
+      winner = get_winner();
       CLogger::GetLogger()->Log("Game over.");
-      CLogger::GetLogger()->Log(activePlayer->name + " wins.");
+      if (winner != nullptr)
+      {
+        CLogger::GetLogger()->Log(winner->name + " wins.");
+      }
+      else//no winner, assuming 1000+ turns reached and false win declared for testing sake
+      {
+        CLogger::GetLogger()->Log("no winner, assuming 1000+ turns reached and false win declared for testing sake");
+      }
       print_results();
     }
+    //increment turn counter to set next player active
+    cycle_player_turn_tracker(playerTurnTracker);
   }
 }
 
@@ -1185,7 +1256,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
   Utility* util;
   //Utility tempUtil;//todo::removing pointer to util above, this partialy complete
   nrails::Railroad* railroad;	
-  Property theProperty;
+  Property* theProperty;
   Spot* s;
   switch (c.id) {
   case 1:
@@ -1320,7 +1391,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
   case 17:
     //Advance to GO. Collect $200.
     s = get_spot(0);
-    move_piece(player, *s);
+    move_piece(player, s);
     break;
   case 18:
     //Bank error in your favor. Collect $200.
@@ -1407,13 +1478,9 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 {
   if (theSpot->spot_type == Spot::SpotType::chance)
   {
-    if (!chance_cards.empty())
-    {
-      Card c = draw_chance();
-      //do card action
-      do_card_action(c, activePlayer);
-    }
-    else CLogger::GetLogger()->Log("Chance card pile empty.");
+    Card c = draw_chance();
+    //do card action
+    do_card_action(c, activePlayer);
   }
   else if (theSpot->spot_type == Spot::SpotType::community_chest)
   {
@@ -1568,7 +1635,7 @@ void Monopoly::player_throw_die_pay_owner(Player& p, Utility& the_utility)
   }
   CLogger::GetLogger()->Log(p.name + " throws die and pays owner (" + the_owner->name
     +") a total of (" + std::to_string(cost_multiplier) + ")  times.");
-  throw_die();
+  throw_die(p);
   int cost = dice.diceRoll * cost_multiplier;
   p.pay(cost);
   the_owner->collect(cost);
@@ -1606,12 +1673,12 @@ void Monopoly::move_piece(Player* player, int die_cast)
   CLogger::GetLogger()->Log(player->name + "'s piece landed on " + "[" + std::to_string(new_position) + "]" + the_spot->name + ".");
 }
 
-void Monopoly::move_piece(Player* player, Spot pSpot)
+void Monopoly::move_piece(Player* player, Spot* pSpot)
 {
   // capture current position of piece
   int old_position = player->piece->getPosition();
   // move piece to new property
-  int new_position = pSpot.position;
+  int new_position = pSpot->position;
   Spot* the_spot = get_spot(new_position);	//returns correct spot
   CLogger::GetLogger()->Log(player->name + "'s piece landed on " + "[" + std::to_string(new_position) + "]" + the_spot->name + ".");
   //check if pass go and pay.

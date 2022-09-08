@@ -9,6 +9,8 @@
 #include <ctime>
 #include <exception>
 #include <map>
+#include <algorithm>
+#include <random>
 #include "Property.h"
 #include "Railroad.h"
 #include "Utility.h"
@@ -18,8 +20,6 @@
 #include "Board.h"
 #include "Spot.h"
 #include "Piece.h"
-#include <algorithm>
-#include <random>
 #include "Logger.h"
 
 class Monopoly
@@ -33,7 +33,8 @@ private:
   void init_pieces();
   void init_players(int num);
   int numberOfPlayers;
-  int turnCounter = 0;
+  unsigned int turnCounter = 0;
+  int playerTurnTracker = 0;
   bool test = true;
   struct PropertyColorMaxNumbers
   {
@@ -59,7 +60,7 @@ public:
   }dice;
 
   int pick_piece(Player& player);
-  int throw_die();
+  int throw_die(Player player);
   int get_railroad_rent(Player player);
   int get_utility_cost_multiplier(Player& owner);
   
@@ -67,10 +68,11 @@ public:
   Spot*     get_spot(int position);
   Player*   get_player(Piece p);
   Player*   get_owner(std::string spot_name);
-  Player*   get_active_player();
+  Player*   get_active_player(int& playerTurnTracker);
   Utility*  advance_to_nearest_utility(Piece* piece);
   Utility*  get_utility(int position);
   Property* get_property(int pos);
+  //Get winner
   Player*   get_winner();
   
 
@@ -82,12 +84,14 @@ public:
   //receive cards
   Card draw_community();
   Card draw_chance();
+  void reshuffle_chance();
+  void reshuffle_community();
 
   //pass go, n is die roll
   bool passes_go(Piece* p, int n);
   //game over
   bool game_over = false;
-  bool check_game_over();
+  bool check_game_over(unsigned int& turnCounter);
   //decide buy or pass
   bool decide_buy_or_pass(Property prop, Player player);
   bool decide_buy_or_pass(Utility util, Player player);
@@ -123,11 +127,11 @@ public:
   //
   //play game
   //
-  void play_game();
+  void play_game(unsigned int turnCounter = 0);
 
   //move
   void move_piece(Player* player, int die_cast);
-  void move_piece(Player* player, Spot pSpot);
+  void move_piece(Player* player, Spot* pSpot);
 
   //pay rent
   void pay_rent(Player& player, Property property);
@@ -158,7 +162,7 @@ public:
   void give_active_players_pieces();
 
   //make next player active player
-  void make_next_player_active();
+  void cycle_player_turn_tracker(int& playerTurnTracker);
 
   //print results
   void print_results();
@@ -175,7 +179,7 @@ public:
   std::vector<Spot>				      spots;
 
   //maps for properties and utilities
-  std::map<std::string, Property> map_property;	//do need, used
+  std::map<std::string, Property*> map_property;	//do need, used
   std::map<std::string, Utility> map_utility;		//may not need, no references to date
   
   //constants
