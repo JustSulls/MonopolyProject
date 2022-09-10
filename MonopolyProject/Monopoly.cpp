@@ -108,9 +108,9 @@ void Monopoly::init_properties()
 
 void Monopoly::init_railroads()
 {
-  for (unsigned int i = 0; i < railroad_names.size(); i++)
+  for (unsigned int i = 0; i < nrails::railroad_names.size(); i++)
   {
-    std::string rn = railroad_names.at(i);
+    std::string rn = nrails::railroad_names.at(i);
     nrails::Railroad r(rn);
     railroads.push_back(r);
   }

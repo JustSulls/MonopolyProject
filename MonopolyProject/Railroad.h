@@ -5,6 +5,13 @@
 
 namespace nrails
 {
+	//constants
+	const std::vector<std::string> railroad_names = {
+		"Reading_Railroad",
+		"Pennsylvania_Railroad",
+		"B_0_Railroad",
+		"Short_Line"
+	};
 	const int railroad_positions[4] = { 5, 15, 25, 35 };
 	const enum class railroad_types {
 		Reading_Railroad,

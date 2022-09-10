@@ -186,13 +186,7 @@ public:
   std::map<std::string, Property*> map_property;	//do need, used
   std::map<std::string, Utility> map_utility;		//may not need, no references to date
   
-  //constants
-  const std::vector<std::string> railroad_names = {
-    "Reading_Railroad",
-    "Pennsylvania_Railroad",
-    "B_0_Railroad",
-    "Short_Line"
-  };
+
   const std::string utility_names[2] = { "Electric_Company",
     "Water_Works" };
   const int utility_positions[2] = { 12, 28 };
