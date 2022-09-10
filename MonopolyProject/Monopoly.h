@@ -35,7 +35,6 @@ private:
   int numberOfPlayers;
   unsigned int turnCounter = 0;
   int playerTurnTracker = 0;
-  bool test = true;
   struct PropertyColorMaxNumbers
   {
     int brown = 2;
@@ -49,6 +48,11 @@ private:
   }theMaxNumberPropertyColors;
 
 public:
+  //TEST 
+  bool test = true;
+  bool jailTest = true;
+  //temporary var for testing
+  //---
   Monopoly(int number_players = 2);
   Board board;
   

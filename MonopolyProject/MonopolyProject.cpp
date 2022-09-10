@@ -9,8 +9,8 @@
 using namespace std;
 int main()
 {
-    Monopoly monopoly;
-    monopoly.play_game();
+    Monopoly m;
+    m.play_game();
     return 0;
 }
 

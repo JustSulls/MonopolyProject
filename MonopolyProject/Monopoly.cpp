@@ -739,7 +739,6 @@ bool Monopoly::decide_buy_or_pass(nrails::Railroad rail, Player player)
   else
   {
     int answer = -1;
-    std::cin >> answer;
     while (answer > 1 || answer < 0)
     {
       CLogger::GetLogger()->Log(player.name + " decide to buy or pass " + rail.name + " for $" +
@@ -805,7 +804,7 @@ void Monopoly::do_manual_upgrade(Property* prop, Player* owner)
 
 bool* Monopoly::get_valid_jail_choices(Player activePlayer)
 {
-  static bool validChoices[3]{true, true, true};
+  bool validChoices[3]{true, true, true};
   //--
   //--Pseudo code English
   //----
@@ -827,7 +826,7 @@ bool* Monopoly::get_valid_jail_choices(Player activePlayer)
 unsigned int Monopoly::decide_jail_turn_choice(Player player)
 {
   unsigned int answer = -1;
-  if (test)
+  if (jailTest)
   {
     //always choose roll for doubles
     answer = 0;
@@ -837,7 +836,6 @@ unsigned int Monopoly::decide_jail_turn_choice(Player player)
     //find and eliminate invalid choices
     bool* validChoices = get_valid_jail_choices(player);
     bool answerValid = false;
-    std::cin >> answer;
     while (!answerValid)
     {
       CLogger::GetLogger()->Log(player.name + " decides what to do in jail.");
@@ -856,15 +854,15 @@ unsigned int Monopoly::decide_jail_turn_choice(Player player)
       //if player chose option 0 and its an invalid choice answer is invalid
       if (validChoices[0] && answer == 0)
       {
-        answerValid = false;
+        answerValid = true;
       }
       if (validChoices[1] && answer == 1)
       {
-        answerValid = false;
+        answerValid = true;
       }
       if (validChoices[2] && answer == 2)
       {
-        answerValid = false;
+        answerValid = true;
       }
     }
   }
@@ -887,20 +885,28 @@ void Monopoly::handle_jail_turn(Player* active_player)
   if (active_player->in_jail)
   {
     active_player->jailTurnCounter++;
+    std::string jailTurnCounterString;
+    if (active_player->jailTurnCounter == 1) jailTurnCounterString = "1st";
+    else if (active_player->jailTurnCounter == 2) jailTurnCounterString = "2nd";
+    else if (active_player->jailTurnCounter == 3) jailTurnCounterString = "3rd";
+    CLogger::GetLogger()->Log(active_player->name + "'s [" + jailTurnCounterString + "] turn in jail.");
     unsigned int answer = decide_jail_turn_choice(*active_player);
     switch (answer)
     {
     case 0:
       //roll for doubles
-      CLogger::GetLogger()->Log(active_player->name + " rolls for doubles to try to get out of jail.");
-      throw_die(*active_player);
       active_player->tryRollDoublesCounter++;// roll for doubles counter up
+      CLogger::GetLogger()->Log(active_player->name + " attempts [" + to_string(active_player->tryRollDoublesCounter) + 
+        "] roll for doubles to get out of jail.");
+      throw_die(*active_player);
       if (didRollDoubles())
       {
         //Leave jail
         //move forward roll
-        CLogger::GetLogger()->Log(active_player->name + " fails to roll doubles.");//TODO: say what was rolled.
+        CLogger::GetLogger()->Log(active_player->name + " successfully rolled doubles.");
         release_player_from_jail(*active_player);
+        CLogger::GetLogger()->Log(active_player->name + " released from jail.");
+        CLogger::GetLogger()->Log("Moving piece amount rolled.");
         move_piece(active_player, dice.diceRoll);
         do_spot_action(get_spot(active_player->piece->getPosition()), active_player);
       }
@@ -917,7 +923,9 @@ void Monopoly::handle_jail_turn(Player* active_player)
           move_piece(active_player, dice.diceRoll);
           do_spot_action(get_spot(active_player->piece->getPosition()), active_player);
         }
-        CLogger::GetLogger()->Log(active_player->name + " fails to roll doubles.");//TODO: say what was rolled.
+        else {
+          CLogger::GetLogger()->Log(active_player->name + " fails to roll doubles.");
+        }
       }
       break;
     case 1:
@@ -972,17 +980,17 @@ void Monopoly::play_game(unsigned int turnCounter)
   //TEST
   //make player buy a compelte set for monopoly testing
   //
-  if (test)
-  {
-    for (int i = 0; i < properties.size(); i++)
-    {
-      if (properties[i]->color == Property::colors::light_blue)
-      {
-        //players[0]->buy_property(&properties[i]);
-        buy_property(players[0], properties[i]);//TODO:test this
-      }
-    }
-  }
+  //if (test)
+  //{
+  //  for (int i = 0; i < properties.size(); i++)
+  //  {
+  //    if (properties[i]->color == Property::colors::light_blue)
+  //    {
+  //      //players[0]->buy_property(&properties[i]);
+  //      buy_property(players[0], properties[i]);//TODO:test this
+  //    }
+  //  }
+  //}
   while (!game_over)
   {
     //Turn counter

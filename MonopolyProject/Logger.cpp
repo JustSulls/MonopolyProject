@@ -31,6 +31,7 @@ void CLogger::Log(const char* format, ...)
     //vsprintf(sMessage, format, args);
     m_Logfile << Util::CurrentDateTime() << ":\t";
     m_Logfile << sMessage << "\n";
+    std::cout << sMessage << "\n";
     va_end(args);
 
     delete[] sMessage;
@@ -40,11 +41,13 @@ void CLogger::Log(const string& sMessage)
 {
     m_Logfile << Util::CurrentDateTime() << ":\t";
     m_Logfile << sMessage << "\n";
+    std::cout << sMessage << "\n";
 }
 
 CLogger& CLogger::operator<<(const string& sMessage)
 {
     m_Logfile << "\n" << Util::CurrentDateTime() << ":\t";
     m_Logfile << sMessage << "\n";
+    std::cout << sMessage << "\n";
     return *this;
 }
