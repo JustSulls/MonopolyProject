@@ -121,7 +121,7 @@ void Monopoly::init_utilities()
   for (int i = 0; i < 2; i++)
   {
     int pos = utility_positions[i];
-    Utility the_utility(pos, utility_names[i]);
+    utility::Utility the_utility(pos, utility_names[i]);
     utilities.push_back(the_utility);
     map_utility[utility_names[i]] = the_utility;
   }
@@ -363,7 +363,7 @@ Spot* Monopoly::get_spot(int position)
   }
 }
 
-Utility* Monopoly::get_utility(int position)
+utility::Utility* Monopoly::get_utility(int position)
 {
   for (unsigned int i = 0; i < utilities.size(); i++)
   {
@@ -375,7 +375,7 @@ Utility* Monopoly::get_utility(int position)
   return nullptr;
 }
 
-Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
+utility::Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
 {
   // get piece position
   int piece_position = piece->getPosition();
@@ -681,7 +681,7 @@ bool Monopoly::decide_buy_or_pass(Property prop, Player player)
   }
 }
 
-bool Monopoly::decide_buy_or_pass(Utility util, Player player)
+bool Monopoly::decide_buy_or_pass(utility::Utility util, Player player)
 {
   if (test)
   {
@@ -1205,7 +1205,7 @@ void Monopoly::assign_property_monopoly(Property* prop)
   //}
 }
 
-void Monopoly::pay_utilities(Player& player, Utility& utility)
+void Monopoly::pay_utilities(Player& player, utility::Utility& utility)
 {
   try {
     player_throw_die_pay_owner(player, utility);
@@ -1261,7 +1261,7 @@ void Monopoly::upgrade_property_color_set_to_monopoly(std::vector<Property*> set
 void Monopoly::do_card_action(Card c, Player* player, bool testing)
 {
   CLogger::GetLogger()->Log(player->name + " draws \"" + c.text + "\".");
-  Utility* util;
+  utility::Utility* util;
   //Utility tempUtil;//todo::removing pointer to util above, this partialy complete
   nrails::Railroad* railroad;	
   Property* theProperty;
@@ -1587,7 +1587,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
     //taxes utilities handle
     //if utility owned, pay owner
     //if utility unowned present option to buy utility
-    Utility* utility = get_utility(theSpot->position);
+    utility::Utility* utility = get_utility(theSpot->position);
     if (utility->is_owned)
     {
       Player* owner = get_owner(utility->name);
@@ -1626,7 +1626,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
   }
 }
 
-void Monopoly::player_throw_die_pay_owner(Player& p, Utility& the_utility)
+void Monopoly::player_throw_die_pay_owner(Player& p, utility::Utility& the_utility)
 {
   int cost_multiplier = 0;
   //get utility owner

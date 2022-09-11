@@ -165,7 +165,7 @@ bool Player::buy_railroad(nrails::Railroad* rail)
 	}
 	return false;
 }
-bool Player::buy_utility(Utility* utility)
+bool Player::buy_utility(utility::Utility* utility)
 {
 	try {
 		if (utility->is_owned)
