@@ -5,18 +5,18 @@
 namespace utility
 {
 	const std::string utility_names[2] = { "Electric_Company", "Water_Works" };
+	enum class utility_type {
+		Electric_Company,
+		Water_Works
+	};
 
 	class Utility : public Spot
 	{
 	public:
-		enum class utility_type {
-			Electric_Company,
-			Water_Works
-		};
+
 		Utility();
 		Utility(int pos, std::string un);
 
-		//
 		//member variables
 		utility_type utility_type;
 		int position;
@@ -24,7 +24,5 @@ namespace utility
 		bool is_owned;
 		//todo: make sure two players can't have the same name
 		std::string owner_name;
-		//
-		//member functions
 	};
 }

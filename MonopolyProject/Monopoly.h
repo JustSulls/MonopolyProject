@@ -186,9 +186,6 @@ public:
   std::map<std::string, Property*> map_property;	//do need, used
   std::map<std::string, utility::Utility> map_utility;		//may not need, no references to date
   
-
-  const std::string utility_names[2] = { "Electric_Company",
-    "Water_Works" };
   const int utility_positions[2] = { 12, 28 };
   const int position_jail = 10;
 };

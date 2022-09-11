@@ -121,9 +121,9 @@ void Monopoly::init_utilities()
   for (int i = 0; i < 2; i++)
   {
     int pos = utility_positions[i];
-    utility::Utility the_utility(pos, utility_names[i]);
+    utility::Utility the_utility(pos, utility::utility_names[i]);
     utilities.push_back(the_utility);
-    map_utility[utility_names[i]] = the_utility;
+    map_utility[utility::utility_names[i]] = the_utility;
   }
 }
 
