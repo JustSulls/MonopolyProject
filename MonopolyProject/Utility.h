@@ -22,7 +22,6 @@ namespace utility
 		int position;
 		const static short cost = 150;
 		bool is_owned;
-		//todo: make sure two players can't have the same name
 		std::string owner_name;
 	};
 }

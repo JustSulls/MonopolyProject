@@ -225,9 +225,7 @@ void Monopoly::init_pieces()
 
 void Monopoly::init_players(int num)
 {
-  //todo:this array isn't being used atm
   numberOfPlayers = num;
-  Player** array = new Player * [num];
   for (int i = 0; i < num; i++)
   {
     std::string playerName = "Player " + std::to_string(i + 1);
