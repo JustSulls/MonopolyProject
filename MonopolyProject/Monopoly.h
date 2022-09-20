@@ -91,8 +91,8 @@ public:
   void reshuffle_chance();
   void reshuffle_community();
 
-  //pass go, n is die roll
-  bool passes_go(Piece* p, int n);
+  //pass go, die_roll is die roll
+  bool passes_go(Piece* p, int die_roll);
   //game over
   bool game_over = false;
   bool check_game_over(unsigned int& turnCounter);
@@ -134,8 +134,9 @@ public:
   void play_game(unsigned int turnCounter = 0);
 
   //move
-  void move_piece(Player* player, int die_cast);
-  void move_piece(Player* player, Spot* pSpot);
+  void move_piece(Player* player, int die_cast, bool collectGo = true);
+  void move_piece(Player* player, Spot* pSpot, bool collectGo = true);
+  int get_reg_distance(int old_position, int new_position);
 
   //pay rent
   void pay_rent(Player& player, Property property);

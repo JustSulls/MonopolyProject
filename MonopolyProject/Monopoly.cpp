@@ -957,13 +957,12 @@ bool Monopoly::didRollDoubles()
   else return false;
 }
 
-bool Monopoly::passes_go(Piece* piece, int n)
+bool Monopoly::passes_go(Piece* piece, int die_roll)
 {
-  //n is die roll
   //piece has already moved
-  int fromPosition = piece->getPosition() - n;
+  int fromPosition = piece->getPosition() - die_roll;
   int toPosition = piece->getPosition();
-  if (fromPosition < 0)
+  if (toPosition - fromPosition < 0)
   {
     return true;
   }
@@ -1275,6 +1274,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
     move_piece(player, theProperty);
     break;
   case 3:
+    //Advance to St. Charles Place. If you pass GO  collect $200.
     theProperty = map_property["st. charles place"];
     move_piece(player, theProperty);
     break;
@@ -1661,13 +1661,21 @@ int Monopoly::get_utility_cost_multiplier(Player& owner)
   return cost_multiplier;
 }
 
-void Monopoly::move_piece(Player* player, int die_cast)
+void Monopoly::move_piece(Player* player, int die_cast, bool collectGo)
 {
   int old_position = player->piece->getPosition();
   int new_position = player->piece->getPosition() + die_cast;
   if (new_position > 39)
   {
     new_position = new_position - 40;		//wrap around to 0 then continue
+    CLogger::GetLogger()->Log(player->name + " passed go.");
+    //TODO: put pass go check here because it seems like this is the best place to capture when player passes go reliably
+    if (collectGo)
+    {
+      player->collect(200);
+      player->total_passed_go++;
+      CLogger::GetLogger()->Log(player->name + " collects $200.");
+    }
   }
   //get position type (board/railroad etc.)
   //use board position to return spot
@@ -1679,16 +1687,31 @@ void Monopoly::move_piece(Player* player, int die_cast)
   CLogger::GetLogger()->Log(player->name + "'s piece landed on " + "[" + std::to_string(new_position) + "]" + the_spot->name + ".");
 }
 
-void Monopoly::move_piece(Player* player, Spot* pSpot)
+void Monopoly::move_piece(Player* player, Spot* pSpot, bool collectGo)
 {
-  // capture current position of piece
-  int old_position = player->piece->getPosition();
-  // move piece to new property
-  int new_position = pSpot->position;
-  Spot* the_spot = get_spot(new_position);	//returns correct spot
-  CLogger::GetLogger()->Log(player->name + "'s piece landed on " + "[" + std::to_string(new_position) + "]" + the_spot->name + ".");
-  //check if pass go and pay.
-  player->piece->movePosition(new_position);
+  //Get distance between spots, as if it were a dice roll ie. 5, 20, any positive number 
+  //(hopefully less than board size 40)
+  int fake_dice_roll = get_reg_distance(player->piece->getPosition(), pSpot->position);
+  //Call other normal move piece which checks for collect go
+  move_piece(player, fake_dice_roll, true);
+}
+
+int Monopoly::get_reg_distance(int old_position, int new_position)
+{
+  //gets fake dice roll or number of spots traversed
+  //will use in move with spot param
+  int counter = 0;
+  int increment = old_position;
+  while (increment != new_position)
+  {
+    increment++;
+    counter++;
+    if (increment == 40)//last position on board is 39 so 40 rolls over to 0 (go)
+    {
+      increment = 0;
+    }
+  }
+  return counter;//distance traveled
 }
 
 Property* Monopoly::get_property(int pos) 
