@@ -4,7 +4,7 @@ utility::Utility::Utility() : Spot()
 	utility_type = utility_type::Electric_Company;
 	position = 0; //bad
 	is_owned = false;
-	this->spot_type = Spot::SpotType::utilities;
+	this->spot_type = SpotType::utilities;
 }
 utility::Utility::Utility(int pos, std::string un) : Spot()
 {

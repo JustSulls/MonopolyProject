@@ -70,35 +70,35 @@ void Monopoly::init_properties()
     rent_costs[6] = with_hotel;
     rent_costs[7] = with_skyscraper;
     //stupid color transformer replace this
-    Property::colors the_color = Property::colors::brown;
+    colors the_color = colors::brown;
     switch (color.at(0)) {
     case ('b'):
-      the_color = Property::colors::brown;
+      the_color = colors::brown;
       break;
     case('l'):
-      the_color = Property::colors::light_blue;
+      the_color = colors::light_blue;
       break;
     case('p'):
-      the_color = Property::colors::pink;
+      the_color = colors::pink;
       break;
     case('o'):
-      the_color = Property::colors::orange;
+      the_color = colors::orange;
       break;
     case('r'):
-      the_color = Property::colors::red;
+      the_color = colors::red;
       break;
     case('y'):
-      the_color = Property::colors::yellow;
+      the_color = colors::yellow;
       break;
     case('g'):
-      the_color = Property::colors::green;
+      the_color = colors::green;
       break;
     case('d'):
-      the_color = Property::colors::dark_blue;
+      the_color = colors::dark_blue;
       break;
     }
     //create the property
-    Property* the_property = new Property(prices, rent_costs, the_color, property_name, location, Spot::SpotType::property);
+    Property* the_property = new Property(prices, rent_costs, the_color, property_name, location, SpotType::property);
     //place properties in maps
     properties.push_back(the_property);
     //add to map of properties
@@ -185,33 +185,33 @@ void Monopoly::init_cards()
 void Monopoly::init_board()
 {
   //put properties railroads utilities etc. in board as spots
-  Spot spot_go(Spot::SpotType::go, 0, "go");
+  Spot spot_go(SpotType::go, 0, "go");
   spots.push_back(spot_go);
-  Spot spot_cChest1(Spot::SpotType::community_chest, 2, "community chest 1");
+  Spot spot_cChest1(SpotType::community_chest, 2, "community chest 1");
   spots.push_back(spot_cChest1);
-  Spot spot_cChest2(Spot::SpotType::community_chest, 17, "community chest 2");
+  Spot spot_cChest2(SpotType::community_chest, 17, "community chest 2");
   spots.push_back(spot_cChest2);
-  Spot spot_cChest3(Spot::SpotType::community_chest, 33, "community chest 3");
+  Spot spot_cChest3(SpotType::community_chest, 33, "community chest 3");
   spots.push_back(spot_cChest3);
-  Spot spot_chance1(Spot::SpotType::chance, 7, "chance 1");
+  Spot spot_chance1(SpotType::chance, 7, "chance 1");
   spots.push_back(spot_chance1);
-  Spot spot_chance2(Spot::SpotType::chance, 22, "chance 2");
+  Spot spot_chance2(SpotType::chance, 22, "chance 2");
   spots.push_back(spot_chance2);
-  Spot spot_chance3(Spot::SpotType::chance, 36, "chance 3");
+  Spot spot_chance3(SpotType::chance, 36, "chance 3");
   spots.push_back(spot_chance3);
-  Spot spot_jail(Spot::SpotType::jail, 10, "jail or just visiting");
+  Spot spot_jail(SpotType::jail, 10, "jail or just visiting");
   spots.push_back(spot_jail);
-  Spot spot_free_parking(Spot::SpotType::free_parking, 20, "free parking");
+  Spot spot_free_parking(SpotType::free_parking, 20, "free parking");
   spots.push_back(spot_free_parking);
-  Spot spot_go_to_jail(Spot::SpotType::go_to_jail, 30, "go to jail");
+  Spot spot_go_to_jail(SpotType::go_to_jail, 30, "go to jail");
   spots.push_back(spot_go_to_jail);
-  Spot tax_income(Spot::SpotType::taxes, 4, "income tax");
+  Spot tax_income(SpotType::taxes, 4, "income tax");
   spots.push_back(tax_income);
-  //Spot utility_electric(Spot::SpotType::utilities, 12, "electic company");
+  //Spot utility_electric(SpotType::utilities, 12, "electic company");
   //spots.push_back(utility_electric);
-  //Spot utility_water(Spot::SpotType::utilities, 28, "water works");
+  //Spot utility_water(SpotType::utilities, 28, "water works");
   //spots.push_back(utility_water);
-  Spot tax_luxury(Spot::SpotType::taxes, 38, "luxury tax");
+  Spot tax_luxury(SpotType::taxes, 38, "luxury tax");
   spots.push_back(tax_luxury);
 }
 
@@ -323,6 +323,9 @@ int Monopoly::throw_die(Player player)
   dice.diceRoll = die_roll;
   dice.firstDieRoll = first_roll;
   dice.secondDieRoll = second_roll;
+  dice_roll_log.push_back(
+    { die_roll, first_roll, second_roll }
+  );
   CLogger::GetLogger()->Log(player.name + " rolled a " + std::to_string(die_roll) + ". (" + std::to_string(first_roll) + " + " + 
   std::to_string(second_roll) + ").");
   return die_roll;
@@ -469,7 +472,7 @@ nrails::Railroad* Monopoly::get_nearest_railroad(Player& player)
   return rail_ptr;
 }
 
-std::vector<Property*> Monopoly::get_all_properties_in_color(Property::colors c)
+std::vector<Property*> Monopoly::get_all_properties_in_color(colors c)
 {
   std::vector<Property*> return_properties;
   for (unsigned int i = 0; i < properties.size(); ++i)
@@ -626,8 +629,6 @@ Player* Monopoly::get_player(Piece p)
 bool Monopoly::check_game_over(unsigned int& turnCounter)
 {
   if (turnCounter > 1000) {
-    CLogger::GetLogger()->Log("\n/***\nFalse win, turn 1000 reached!\n/***");
-    std::cout << "\n/***\nFalse win, turn 1000 reached!\n/***" << std::endl;
     return true;
   };//todo:remove when done testing
   //FOR NOW check if any player has 0 or less money. (TODO: this is not technically game over, the player can sell property etc.)
@@ -778,19 +779,38 @@ void Monopoly::buy_property(Player* player, Property* prop)
   }
 }
 
-bool Monopoly::decide_upgrade(Property prop, Player player)
+void Monopoly::upgrade_property(Property* property)
+{
+  //TODO: make sure a player owns this first
+  Player* owner = get_owner(property->name);
+  int price = property->prices[0];
+  //owner pays upgrade price
+  owner->pay(price);
+  //upgrade property
+  //todo:fix this, overload operator??
+  int current_l = static_cast<int>(property->current_level);
+  int next_l = 0;
+  if (current_l < 7)
+  {
+    next_l += current_l + 1;
+  }
+  property->set_level(next_l);
+  CLogger::GetLogger()->Log(owner->name + " upgrades " + property->name + " to " + property->getCurrentLevel());
+}
+
+Property* Monopoly::decide_upgrade(Property* prop, Player* player)
 {
   //TODO:
   //present options
-  int answer = player.decide_upgrade(prop);
+  int answer = player->decide_upgrade(*prop);
   //decide what to return
-  return false;
+  return nullptr;
 }
 
 void Monopoly::do_manual_upgrade(Property* prop, Player* owner)
 {
   //Get current level
-  Property::level itsLevel = prop->current_level;//TODO: make getter function to return level
+  level itsLevel = prop->current_level;//TODO: make getter function to return level
   //Get price to upgrade
   int cost = prop->get_upgrade_cost();
   //Get owner to pay upgrade price
@@ -969,25 +989,12 @@ bool Monopoly::passes_go(Piece* piece, int die_roll)
   else return false;
 }
 
-void Monopoly::play_game(unsigned int turnCounter)
+void Monopoly::play_game(unsigned int turnCounter, bool simulate_dice_rolls)
 {
   CLogger::GetLogger()->Log("Game started.");
   Player* activePlayer = nullptr;
+  Property* activeProperty = nullptr;
   
-  //TEST
-  //make player buy a compelte set for monopoly testing
-  //
-  //if (test)
-  //{
-  //  for (int i = 0; i < properties.size(); i++)
-  //  {
-  //    if (properties[i]->color == Property::colors::light_blue)
-  //    {
-  //      //players[0]->buy_property(&properties[i]);
-  //      buy_property(players[0], properties[i]);//TODO:test this
-  //    }
-  //  }
-  //}
   while (!game_over)
   {
     //Turn counter
@@ -1001,7 +1008,7 @@ void Monopoly::play_game(unsigned int turnCounter)
     if (!activePlayer->in_jail)
     {
       //Get any properties that can be upgraded
-      std::vector<Property> potential_upgrades = get_active_player(playerTurnTracker)->property_upgrades_available();
+      std::vector<Property*> potential_upgrades = get_active_player(playerTurnTracker)->property_upgrades_available();
 
       //If any properties were returned
       if (!potential_upgrades.empty())
@@ -1009,38 +1016,52 @@ void Monopoly::play_game(unsigned int turnCounter)
         CLogger::GetLogger()->Log("Decide whether to upgrade property.");
         for (unsigned int i = 0; i < potential_upgrades.size(); i++)
         {
-          int answer = activePlayer->decide_upgrade(potential_upgrades[i]);//TODO: start here
+          int answer = activePlayer->decide_upgrade(*potential_upgrades[i]);//TODO: start here
           if (answer == 0)
           {
             //Decided no upgrade
-            CLogger::GetLogger()->Log("Player decided not to upgrade any property.");
+            CLogger::GetLogger()->Log(activePlayer->name + " decides not to upgrade any property.");
             break;
           }
-          else
+          else//answer == 1
           {
-            CLogger::GetLogger()->Log("Player decided to upgrade property.");
+            CLogger::GetLogger()->Log(activePlayer->name + " decides to upgrade property.");
             //Decided yes upgrade
             //Already validated that we can do upgrade during player.propertyupgradesavailable()
             //Do upgrade (except monopoly that should be one automatically)
             //TODO: make answer the selection of which property to upgrade not just a yes or no
-            //do_manual_upgrade(potential_upgrade[i]);
+            upgrade_property(potential_upgrades[i]);
           }
         }
       }
-      //playern rolls 
-      //throw_die(*get_active_player());
-      throw_die(*activePlayer);
-      //playern moves based on roll
+      //playern rolls
+      if (simulate_dice_rolls)//use dice log to simulate dice rolls
+      {
+        dice.diceRoll = dice_roll_log[turnCounter - 1][0];
+        dice.firstDieRoll = dice_roll_log[turnCounter - 1][1];
+        dice.secondDieRoll = dice_roll_log[turnCounter - 1][1];
+
+        CLogger::GetLogger()->Log(activePlayer->name + " simulates a roll of " + std::to_string(dice.diceRoll) + ". (" + std::to_string(dice.firstDieRoll) + " + " +
+          std::to_string(dice.secondDieRoll) + ").");
+
+        move_piece(get_active_player(playerTurnTracker), dice_roll_log[turnCounter - 1][0]);
+      }
+      else//throw dice normally
+      {
+        throw_die(*activePlayer);
+        //playern moves based on roll
       //check if passed go here
-      move_piece(get_active_player(playerTurnTracker), dice.diceRoll);
+        move_piece(get_active_player(playerTurnTracker), dice.diceRoll);
+      }
+      //TODO: believe pass go check is done inside move_piece()... confirm that
       //check if passed go
-      bool passedGo = passes_go(activePlayer->piece, dice.diceRoll);
+      /*bool passedGo = passes_go(activePlayer->piece, dice.diceRoll);
       if (passedGo)
       {
         CLogger::GetLogger()->Log(activePlayer->name + " passed go.");
         activePlayer->collect(200);
         activePlayer->total_passed_go++;
-      }
+      }*/
       //TODO:call move piece (figure out which ones to get rid of) 
       Spot* the_spot = get_spot(get_active_player(playerTurnTracker)->piece->getPosition());
       do_spot_action(the_spot, get_active_player(playerTurnTracker));
@@ -1069,6 +1090,8 @@ void Monopoly::play_game(unsigned int turnCounter)
     //increment turn counter to set next player active
     cycle_player_turn_tracker(playerTurnTracker);
   }
+  //Throw logged dice rolls into a txt file to save after program execution completes
+
 }
 
 void Monopoly::pay_rent(Player& player, Property property)
@@ -1104,7 +1127,7 @@ bool Monopoly::property_monopoly(Property prop)
   bool answer = false;
   //get owner
   Player* owner = get_owner(prop.name);
-  Property::colors theColor = prop.color;
+  colors theColor = prop.color;
   int colorNumber = 0;
   int maxColorNeeded = 0;
   for (int i = 0; i < owner->properties_owned.size(); i++)
@@ -1117,49 +1140,49 @@ bool Monopoly::property_monopoly(Property prop)
   //figure out if this color number is correct for max color number
   switch (theColor)
   {
-  case Property::colors::brown:
+  case colors::brown:
     if (colorNumber == theMaxNumberPropertyColors.brown)
     {
       answer = true;
     }
     break;
-  case Property::colors::light_blue:
+  case colors::light_blue:
     if (colorNumber == theMaxNumberPropertyColors.lightblue)
     {
       answer = true;
     }
     break;
-  case Property::colors::pink:
+  case colors::pink:
     if (colorNumber == theMaxNumberPropertyColors.pink)
     {
       answer = true;
     }
     break;
-  case Property::colors::orange:
+  case colors::orange:
     if (colorNumber == theMaxNumberPropertyColors.orange)
     {
       answer = true;
     }
     break;
-  case Property::colors::red:
+  case colors::red:
     if (colorNumber == theMaxNumberPropertyColors.red)
     {
       answer = true;
     }
     break;
-  case Property::colors::yellow:
+  case colors::yellow:
     if (colorNumber == theMaxNumberPropertyColors.yellow)
     {
       answer = true;
     }
     break;
-  case Property::colors::green:
+  case colors::green:
     if (colorNumber == theMaxNumberPropertyColors.green)
     {
       answer = true;
     }
     break;
-  case Property::colors::dark_blue:
+  case colors::dark_blue:
     if (colorNumber == theMaxNumberPropertyColors.darkblue)
     {
       answer = true;
@@ -1177,9 +1200,9 @@ void Monopoly::assign_property_monopoly(Property* prop)
   upgrade_property_color_set_to_monopoly(the_set);
   ////TODO: test this
   ////upgrade all properties of this color in player's properties to level monopoly
-  //if (prop->current_level == Property::level::alone)
+  //if (prop->current_level == level::alone)
   //{
-  //  prop->set_level(Property::level::monopoly);
+  //  prop->set_level(level::monopoly);
   //  CLogger::GetLogger()->Log("Upgraded " + prop->name + " to Monopoly.");
   //}
   ////already did validity check outside this function
@@ -1192,10 +1215,10 @@ void Monopoly::assign_property_monopoly(Property* prop)
   //  if (owner->properties_owned[i]->color == prop->color)
   //  {
   //    //If property level is alone
-  //    if (owner->properties_owned[i]->current_level == Property::level::alone)
+  //    if (owner->properties_owned[i]->current_level == level::alone)
   //    {
   //      //Set property level to monopoly
-  //      owner->properties_owned[i]->current_level = Property::level::monopoly;
+  //      owner->properties_owned[i]->current_level = level::monopoly;
   //      CLogger::GetLogger()->Log("Upgraded " + owner->properties_owned[i]->name + " to Monopoly.");
   //    }
   //  }
@@ -1225,24 +1248,6 @@ void Monopoly::release_player_from_jail(Player& p)
   p.in_jail = false;
   p.jailTurnCounter = 0;
   p.tryRollDoublesCounter = 0;
-}
-
-void Monopoly::upgrade_property(Property& property)
-{
-  //TODO: make sure a player owns this first
-  Player* owner = get_owner(property.name);
-  int price = property.prices[0];
-  //owner pays upgrade price
-  owner->pay(price);
-  //upgrade property
-  //todo:fix this, overload operator??
-  int current_l = static_cast<int>(property.current_level);
-  int next_l = 0;
-  if (current_l < 7)
-  {
-    next_l += current_l + 1;
-  }
-  property.set_level(next_l);
 }
 
 void Monopoly::upgrade_property_color_set_to_monopoly(std::vector<Property*> set)
@@ -1482,13 +1487,13 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
 
 void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 {
-  if (theSpot->spot_type == Spot::SpotType::chance)
+  if (theSpot->spot_type == SpotType::chance)
   {
     Card c = draw_chance();
     //do card action
     do_card_action(c, activePlayer);
   }
-  else if (theSpot->spot_type == Spot::SpotType::community_chest)
+  else if (theSpot->spot_type == SpotType::community_chest)
   {
     if (!community_cards.empty())
     {
@@ -1498,27 +1503,27 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
     }
     else CLogger::GetLogger()->Log("Community chest card pile empty.");
   }
-  else if (theSpot->spot_type == Spot::SpotType::free_parking)
+  else if (theSpot->spot_type == SpotType::free_parking)
   {
     //do nothing 
     //free parking
   }
-  else if (theSpot->spot_type == Spot::SpotType::go)
+  else if (theSpot->spot_type == SpotType::go)
   {
     // do nothing
     // go collect money handled at move function
     // todo:confirm this is best
   }
-  else if (theSpot->spot_type == Spot::SpotType::go_to_jail)
+  else if (theSpot->spot_type == SpotType::go_to_jail)
   {
     send_player_to_jail(*activePlayer);
   }
-  else if (theSpot->spot_type == Spot::SpotType::jail)
+  else if (theSpot->spot_type == SpotType::jail)
   {
     //do nothing
     //just visiting
   }
-  else if (theSpot->spot_type == Spot::SpotType::property)
+  else if (theSpot->spot_type == SpotType::property)
   {
     //property handle
     //if owned, pay owner
@@ -1551,7 +1556,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
       //TODO:else auction off property, currently nothing
     }
   }
-  else if (theSpot->spot_type == Spot::SpotType::railroad)
+  else if (theSpot->spot_type == SpotType::railroad)
   {
     //railroad handle
     //if owned, pay owner
@@ -1580,7 +1585,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
       //else pass because railroad
     }
   }
-  else if (theSpot->spot_type == Spot::SpotType::utilities)
+  else if (theSpot->spot_type == SpotType::utilities)
   {
     //taxes utilities handle
     //if utility owned, pay owner
@@ -1609,7 +1614,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
       //else pass because railroad
     }
   }
-  else if (theSpot->spot_type == Spot::SpotType::taxes)
+  else if (theSpot->spot_type == SpotType::taxes)
   {
     if (theSpot->position == 4)
     {
@@ -1674,7 +1679,6 @@ void Monopoly::move_piece(Player* player, int die_cast, bool collectGo)
     {
       player->collect(200);
       player->total_passed_go++;
-      CLogger::GetLogger()->Log(player->name + " collects $200.");
     }
   }
   //get position type (board/railroad etc.)

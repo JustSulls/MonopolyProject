@@ -62,6 +62,7 @@ public:
     int firstDieRoll;
     int secondDieRoll;
   }dice;
+  std::vector<std::vector<int>>dice_roll_log;
 
   int pick_piece(Player& player);
   int throw_die(Player player);
@@ -102,9 +103,7 @@ public:
   bool decide_buy_or_pass(nrails::Railroad rail, Player player);
   //buy property
   void buy_property(Player* player, Property* prop);
-  //decide upgrade
-  bool decide_upgrade(Property prop, Player player);
-  void do_manual_upgrade(Property* prop, Player* owner);
+  
 
   //
   // JAIL
@@ -126,12 +125,12 @@ public:
   void assign_property_monopoly(Property* prop);
   //upgrade all property of same color to monopoly level
   void upgrade_property_color_set_to_monopoly(std::vector<Property*> set);
-  std::vector<Property*> get_all_properties_in_color(Property::colors c);
+  std::vector<Property*> get_all_properties_in_color(colors c);
   
   //
   //play game
   //
-  void play_game(unsigned int turnCounter = 0);
+  void play_game(unsigned int turnCounter = 0, bool simulate_dice_rolls = false);
 
   //move
   void move_piece(Player* player, int die_cast, bool collectGo = true);
@@ -146,7 +145,10 @@ public:
   void pay_utilities(Player& player, utility::Utility& utility);
 
   //upgrade property
-  void upgrade_property(Property& property);
+  void upgrade_property(Property* property);
+  //decide upgrade
+  Property* decide_upgrade(Property* prop, Player* player);
+  void do_manual_upgrade(Property* prop, Player* owner);
 
   //do card action
   void do_card_action(Card c, Player* p, bool testing=false);

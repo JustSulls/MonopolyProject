@@ -17,6 +17,11 @@ CLogger* CLogger::GetLogger() {
     return m_pThis;
 }
 
+void CLogger::LogDiceRolls()
+{
+
+}
+
 void CLogger::Log(const char* format, ...)
 {
     char* sMessage = NULL;

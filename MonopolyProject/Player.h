@@ -37,7 +37,7 @@ public:
 	
 	//Sets in_jail to false
 	bool has_get_out_of_jail_card();
-	std::vector<Property>property_upgrades_available();
+	std::vector<Property*>property_upgrades_available();
 	//void assign_ownership(Property property);
 	int decide_upgrade(Property prop);
 	void get_piece(Piece* p);

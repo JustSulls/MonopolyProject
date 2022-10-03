@@ -183,19 +183,19 @@ bool Player::buy_utility(utility::Utility* utility)
 	}
 	return false;
 }
-std::vector<Property> Player::property_upgrades_available()
+std::vector<Property*> Player::property_upgrades_available()
 {
-	std::vector<Property>return_properties;
+	std::vector<Property*>return_properties;
 	if (!properties_owned.empty())
 	{
-		std::vector<Property::colors> vColorHolder;
+		std::vector<colors> vColorHolder;
 		for (unsigned int i = 0; i < properties_owned.size(); i++)
 		{
 			//If property current level is less than skyscraper (max)
 			//and greater than alone (min, because level monopoly is set automatically
 			//not through player choice)
-			if (properties_owned[i]->current_level < Property::level::with_skyscraper
-				&& properties_owned[i]->current_level >= Property::level::monopoly)	//if not already maxxed
+			if (properties_owned[i]->current_level < level::with_skyscraper
+				&& properties_owned[i]->current_level >= level::monopoly)	//if not already maxxed
 			{
 				vColorHolder.push_back(properties_owned[i]->color);
 			}
@@ -212,22 +212,22 @@ std::vector<Property> Player::property_upgrades_available()
 			int darkblue = 0;
 			for (unsigned int i = 0; i < vColorHolder.size(); i++)
 			{
-				if (vColorHolder[i] == Property::colors::brown) brown++;
-				else if (vColorHolder[i] == Property::colors::light_blue) lightblue++;
-				else if (vColorHolder[i] == Property::colors::pink) pink++;
-				else if (vColorHolder[i] == Property::colors::orange) orange++;
-				else if (vColorHolder[i] == Property::colors::red) red++;
-				else if (vColorHolder[i] == Property::colors::yellow) yellow++;
-				else if (vColorHolder[i] == Property::colors::green) green++;
-				else if (vColorHolder[i] == Property::colors::dark_blue) darkblue++;
+				if (vColorHolder[i] == colors::brown) brown++;
+				else if (vColorHolder[i] == colors::light_blue) lightblue++;
+				else if (vColorHolder[i] == colors::pink) pink++;
+				else if (vColorHolder[i] == colors::orange) orange++;
+				else if (vColorHolder[i] == colors::red) red++;
+				else if (vColorHolder[i] == colors::yellow) yellow++;
+				else if (vColorHolder[i] == colors::green) green++;
+				else if (vColorHolder[i] == colors::dark_blue) darkblue++;
 			}
 			if (brown == ColorCount.maxBrown)
 			{
 				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
-					if (properties_owned[i]->color == Property::colors::brown)	//if not already maxxed
+					if (properties_owned[i]->color == colors::brown)	//if not already maxxed
 					{
-						return_properties.push_back(*properties_owned[i]);
+						return_properties.push_back(properties_owned[i]);
 					}
 				}
 			}
@@ -235,9 +235,9 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
-					if (properties_owned[i]->color == Property::colors::light_blue)	//if not already maxxed
+					if (properties_owned[i]->color == colors::light_blue)	//if not already maxxed
 					{
-						return_properties.push_back(*properties_owned[i]);
+						return_properties.push_back(properties_owned[i]);
 					}
 				}
 			}
@@ -245,9 +245,9 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
-					if (properties_owned[i]->color == Property::colors::pink)	//if not already maxxed
+					if (properties_owned[i]->color == colors::pink)	//if not already maxxed
 					{
-						return_properties.push_back(*properties_owned[i]);
+						return_properties.push_back(properties_owned[i]);
 					}
 				}
 			}
@@ -255,9 +255,9 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
-					if (properties_owned[i]->color == Property::colors::orange)	//if not already maxxed
+					if (properties_owned[i]->color == colors::orange)	//if not already maxxed
 					{
-						return_properties.push_back(*properties_owned[i]);
+						return_properties.push_back(properties_owned[i]);
 					}
 				}
 			}
@@ -265,9 +265,9 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
-					if (properties_owned[i]->color == Property::colors::red)	//if not already maxxed
+					if (properties_owned[i]->color == colors::red)	//if not already maxxed
 					{
-						return_properties.push_back(*properties_owned[i]);
+						return_properties.push_back(properties_owned[i]);
 					}
 				}
 			}
@@ -275,9 +275,9 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
-					if (properties_owned[i]->color == Property::colors::yellow)	//if not already maxxed
+					if (properties_owned[i]->color == colors::yellow)	//if not already maxxed
 					{
-						return_properties.push_back(*properties_owned[i]);
+						return_properties.push_back(properties_owned[i]);
 					}
 				}
 			}
@@ -285,9 +285,9 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
-					if (properties_owned[i]->color == Property::colors::green)	//if not already maxxed
+					if (properties_owned[i]->color == colors::green)	//if not already maxxed
 					{
-						return_properties.push_back(*properties_owned[i]);
+						return_properties.push_back(properties_owned[i]);
 					}
 				}
 			}
@@ -295,9 +295,9 @@ std::vector<Property> Player::property_upgrades_available()
 			{
 				for (unsigned int i = 0; i < properties_owned.size(); i++)
 				{
-					if (properties_owned[i]->color == Property::colors::dark_blue)	//if not already maxxed
+					if (properties_owned[i]->color == colors::dark_blue)	//if not already maxxed
 					{
-						return_properties.push_back(*properties_owned[i]);
+						return_properties.push_back(properties_owned[i]);
 					}
 				}
 			}
@@ -321,7 +321,7 @@ int Player::decide_upgrade(Property prop)
 {
 	//present options to player, bounds check answer, return it
 	int i = -1;
-	if (in_test) i = 0;//in test always answer 0 (no) upgrade
+	if (in_test) i = 1;//in test always answer 
 	while (i > 1 || i < 0)
 	{
 		CLogger::GetLogger()->Log("Decide upgrade " + prop.name + ": [0] no, [1] yes?");

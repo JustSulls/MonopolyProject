@@ -2,9 +2,9 @@
 Property::Property() : Spot()
 {
 	position = -1;
-	color = Property::colors::brown;
+	color = colors::brown;
 	Spot::name = "";
-	this->spot_type = Spot::SpotType::property;
+	this->spot_type = SpotType::property;
 	is_owned = false;
 }
 Property::Property(int pr[], 
@@ -12,7 +12,7 @@ Property::Property(int pr[],
 	colors c, 
 	std::string n, 
 	int l, 
-	SpotType type= Spot::SpotType::property) : Spot()
+	SpotType type= SpotType::property) : Spot()
 {
 	Spot::name = n;
 	Spot::position = l;
@@ -37,7 +37,7 @@ Property& Property::operator=(const Property& other)
 	is_owned = other.is_owned;
 	return *this;
 }
-Property::colors Property::get_color()
+colors Property::get_color()
 {
 	return color;
 }
@@ -120,7 +120,7 @@ void Property::set_level(int setter)
 		throw std::out_of_range("property level out of range");
 	}
 }
-void Property::set_level(Property::level level)
+void Property::set_level(level level)
 {
 	current_level = level;
 }

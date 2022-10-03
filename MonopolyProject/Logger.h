@@ -31,6 +31,10 @@ public:
     *   @return singleton object of Clogger class..
     */
     static CLogger* GetLogger();
+    //
+    //  Procedure to prints logged dice roll info to second log txt
+    //
+    void LogDiceRolls();
 private:
     /**
     *    Default constructor for the Logger class.
