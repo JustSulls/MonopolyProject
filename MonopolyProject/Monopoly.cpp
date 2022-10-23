@@ -448,7 +448,7 @@ Player* Monopoly::get_winner()
 {
   for (int i = 0; i < numberOfPlayers; i++)
   {
-    if (players[i]->money <= 0)
+    if (players[i]->money > 0)
     {
       return players[i];
     }

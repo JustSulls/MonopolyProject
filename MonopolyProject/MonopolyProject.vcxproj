@@ -175,6 +175,10 @@
     <Text Include="DiceLog.txt" />
     <Text Include="Log.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CSV\monopoly_cards.csv" />
+    <None Include="CSV\monopoly_properties.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

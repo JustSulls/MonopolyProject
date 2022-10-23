@@ -99,4 +99,8 @@
     <Text Include="Log.txt" />
     <Text Include="DiceLog.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CSV\monopoly_cards.csv" />
+    <None Include="CSV\monopoly_properties.csv" />
+  </ItemGroup>
 </Project>
