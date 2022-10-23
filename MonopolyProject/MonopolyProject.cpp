@@ -9,9 +9,9 @@
 using namespace std;
 int main()
 {
-    Monopoly m;
-    m.play_game();
-    return 0;
+ Monopoly m;
+ m.play_game(true);
+ return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

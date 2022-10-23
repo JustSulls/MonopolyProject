@@ -315,20 +315,36 @@ int Monopoly::pick_piece(Player& player)
   return answer;
 }
 
-int Monopoly::throw_die(Player player)
+int Monopoly::throw_dice(Player player)
 {
-  int first_roll = rand() % 6 + 1;
-  int second_roll = rand() % 6 + 1;
-  int die_roll = first_roll + second_roll;
-  dice.diceRoll = die_roll;
-  dice.firstDieRoll = first_roll;
-  dice.secondDieRoll = second_roll;
-  dice_roll_log.push_back(
-    { die_roll, first_roll, second_roll }
-  );
-  CLogger::GetLogger()->Log(player.name + " rolled a " + std::to_string(die_roll) + ". (" + std::to_string(first_roll) + " + " + 
-  std::to_string(second_roll) + ").");
-  return die_roll;
+  if (simulatingDiceRolls)
+  {
+    dice.diceRoll = dice_roll_log[turnCounter - 1][0];
+    dice.firstDieRoll = dice_roll_log[turnCounter - 1][1];
+    dice.secondDieRoll = dice_roll_log[turnCounter - 1][2];
+
+    CLogger::GetLogger()->Log(player.name + " rolled a " + std::to_string(dice.diceRoll) +
+      ". (" + std::to_string(dice.firstDieRoll) + " + " +
+      std::to_string(dice.secondDieRoll) + ").");
+  }
+  else//normal dice roll, no simulate
+  {
+    int first_roll = rand() % 6 + 1;
+    int second_roll = rand() % 6 + 1;
+    int die_roll = first_roll + second_roll;
+    dice.diceRoll = die_roll;
+    dice.firstDieRoll = first_roll;
+    dice.secondDieRoll = second_roll;
+
+    //Log the dice roll in DiceLog.txt
+    CLogger::GetDLogger()->LogDiceRolls(to_string(die_roll));
+    CLogger::GetDLogger()->LogDiceRolls(std::to_string(first_roll));
+    CLogger::GetDLogger()->LogDiceRolls(std::to_string(second_roll));
+    CLogger::GetLogger()->Log(player.name + " rolled a " + std::to_string(die_roll) +
+      ". (" + std::to_string(first_roll) + " + "
+      + std::to_string(second_roll) + ").");
+  }
+  return dice.diceRoll;
 }
 
 Spot* Monopoly::get_spot(int position)
@@ -916,7 +932,7 @@ void Monopoly::handle_jail_turn(Player* active_player)
       active_player->tryRollDoublesCounter++;// roll for doubles counter up
       CLogger::GetLogger()->Log(active_player->name + " attempts [" + to_string(active_player->tryRollDoublesCounter) + 
         "] roll for doubles to get out of jail.");
-      throw_die(*active_player);
+      throw_dice(*active_player);
       if (didRollDoubles())
       {
         //Leave jail
@@ -989,19 +1005,21 @@ bool Monopoly::passes_go(Piece* piece, int die_roll)
   else return false;
 }
 
-void Monopoly::play_game(unsigned int turnCounter, bool simulate_dice_rolls)
+void Monopoly::play_game(bool simulate_dice_rolls)
 {
+  simulatingDiceRolls = simulate_dice_rolls;
   CLogger::GetLogger()->Log("Game started.");
+  //if (simulate_dice_rolls)CLogger::GetLogger()->Log("Simulating dice rolls.");
   Player* activePlayer = nullptr;
   Property* activeProperty = nullptr;
   
   while (!game_over)
   {
-    //Turn counter
+    //Turn counter increment
     turnCounter++;
     CLogger::GetLogger()->Log("--Starting turn " + std::to_string(turnCounter) + "--");
     
-    //Get active player
+    //Get active player (based on player turn tracker)
     activePlayer = get_active_player(playerTurnTracker);
 
     //First, confirm player not in jail
@@ -1010,12 +1028,13 @@ void Monopoly::play_game(unsigned int turnCounter, bool simulate_dice_rolls)
       //Get any properties that can be upgraded
       std::vector<Property*> potential_upgrades = get_active_player(playerTurnTracker)->property_upgrades_available();
 
-      //If any properties were returned
+      //If any properties with potential upgrades were returned
       if (!potential_upgrades.empty())
       {
         CLogger::GetLogger()->Log("Decide whether to upgrade property.");
         for (unsigned int i = 0; i < potential_upgrades.size(); i++)
         {
+          //Player decides whether to upgrade properties
           int answer = activePlayer->decide_upgrade(*potential_upgrades[i]);//TODO: start here
           if (answer == 0)
           {
@@ -1034,35 +1053,13 @@ void Monopoly::play_game(unsigned int turnCounter, bool simulate_dice_rolls)
           }
         }
       }
-      //playern rolls
-      if (simulate_dice_rolls)//use dice log to simulate dice rolls
-      {
-        dice.diceRoll = dice_roll_log[turnCounter - 1][0];
-        dice.firstDieRoll = dice_roll_log[turnCounter - 1][1];
-        dice.secondDieRoll = dice_roll_log[turnCounter - 1][1];
+      
+      //Player rolls
+      throw_dice(*activePlayer);
 
-        CLogger::GetLogger()->Log(activePlayer->name + " simulates a roll of " + std::to_string(dice.diceRoll) + ". (" + std::to_string(dice.firstDieRoll) + " + " +
-          std::to_string(dice.secondDieRoll) + ").");
-
-        move_piece(get_active_player(playerTurnTracker), dice_roll_log[turnCounter - 1][0]);
-      }
-      else//throw dice normally
-      {
-        throw_die(*activePlayer);
-        //playern moves based on roll
-      //check if passed go here
-        move_piece(get_active_player(playerTurnTracker), dice.diceRoll);
-      }
-      //TODO: believe pass go check is done inside move_piece()... confirm that
-      //check if passed go
-      /*bool passedGo = passes_go(activePlayer->piece, dice.diceRoll);
-      if (passedGo)
-      {
-        CLogger::GetLogger()->Log(activePlayer->name + " passed go.");
-        activePlayer->collect(200);
-        activePlayer->total_passed_go++;
-      }*/
-      //TODO:call move piece (figure out which ones to get rid of) 
+      //check if passed go done inside move_piece()
+      move_piece(get_active_player(playerTurnTracker), dice.diceRoll);
+      
       Spot* the_spot = get_spot(get_active_player(playerTurnTracker)->piece->getPosition());
       do_spot_action(the_spot, get_active_player(playerTurnTracker));
     }
@@ -1646,7 +1643,7 @@ void Monopoly::player_throw_die_pay_owner(Player& p, utility::Utility& the_utili
   }
   CLogger::GetLogger()->Log(p.name + " throws die and pays owner (" + the_owner->name
     +") a total of (" + std::to_string(cost_multiplier) + ")  times.");
-  throw_die(p);
+  throw_dice(p);
   int cost = dice.diceRoll * cost_multiplier;
   p.pay(cost);
   the_owner->collect(cost);
@@ -1776,4 +1773,31 @@ Monopoly::Monopoly(int number_players)
   init_pieces();
   init_players(number_players);
   give_active_players_pieces();//TODO:remove when giving players choice of piece
+  simulatingDiceRolls = false;
+  
+  //Populate dice roll log vector with dice rolls from DiceLog.txt
+  string line;
+  ifstream myfile("DiceLog.txt");
+  int counter = 0;
+  if (myfile.is_open())
+  {
+    cout << "Reading from DiceLog.txt";
+    vector<int> tempDice;
+    while (getline(myfile, line))
+    {
+      cout << line << '\n';
+      int i{ std::stoi(line) };
+      tempDice.push_back(i);
+      if (counter == 2)
+      {
+        dice_roll_log.push_back(tempDice);
+        tempDice.clear();
+        counter = 0;
+      }
+      else counter++;
+    }
+    cout << "Finished reading from DiceLog.txt";
+    myfile.close();
+  }
+  else cout << "Unable to open file.";
 }

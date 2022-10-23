@@ -172,6 +172,7 @@
     <Image Include="Pictures\monopoly board.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="DiceLog.txt" />
     <Text Include="Log.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

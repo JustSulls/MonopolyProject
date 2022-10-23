@@ -16,11 +16,16 @@ public:
     *   @param sMessage message to be logged.
     */
     void Log(const std::string& sMessage);
+    //
+    //  Procedure to prints logged dice roll info to second log txt
+    //
+    void LogDiceRolls(const string& sMessage);
     /**
     *   Variable Length Logger function
     *   @param format string for the message to be logged.
     */
     void Log(const char* format, ...);
+    void DLog(const char* format, ...);
     /**
     *   << overloaded function to Logs a message
     *   @param sMessage message to be logged.
@@ -31,10 +36,8 @@ public:
     *   @return singleton object of Clogger class..
     */
     static CLogger* GetLogger();
-    //
-    //  Procedure to prints logged dice roll info to second log txt
-    //
-    void LogDiceRolls();
+    static CLogger* GetDLogger();
+
 private:
     /**
     *    Default constructor for the Logger class.
@@ -52,12 +55,15 @@ private:
     *   Log file name.
     **/
     static const std::string m_sFileName;
+    static const std::string m_sFileNameDiceLog;
     /**
     *   Singleton logger class object pointer.
     **/
     static CLogger* m_pThis;
+    static CLogger* m_pDThis;
     /**
     *   Log file stream object.
     **/
     static ofstream m_Logfile;
+    static ofstream m_DLogfile;
 };

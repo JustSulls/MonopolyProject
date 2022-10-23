@@ -46,6 +46,7 @@ private:
     int green = 3;
     int darkblue = 2;
   }theMaxNumberPropertyColors;
+  bool simulatingDiceRolls;
 
 public:
   //TEST 
@@ -54,6 +55,12 @@ public:
   //temporary var for testing
   //---
   Monopoly(int number_players = 2);
+  
+  //
+  //play game
+  //
+  void play_game(bool simulate_dice_rolls = false);
+
   Board board;
   
   struct Dice
@@ -65,7 +72,7 @@ public:
   std::vector<std::vector<int>>dice_roll_log;
 
   int pick_piece(Player& player);
-  int throw_die(Player player);
+  int throw_dice(Player player);
   int get_railroad_rent(Player player);
   int get_utility_cost_multiplier(Player& owner);
   
@@ -126,11 +133,6 @@ public:
   //upgrade all property of same color to monopoly level
   void upgrade_property_color_set_to_monopoly(std::vector<Property*> set);
   std::vector<Property*> get_all_properties_in_color(colors c);
-  
-  //
-  //play game
-  //
-  void play_game(unsigned int turnCounter = 0, bool simulate_dice_rolls = false);
 
   //move
   void move_piece(Player* player, int die_cast, bool collectGo = true);
