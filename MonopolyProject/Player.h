@@ -51,13 +51,13 @@ private:
   //temp
   struct maxColorCounts {
     int maxDarkBlue	=	2;
-    int maxGreen	=	3;
-    int maxYellow	=	3;
-    int maxRed		=	3;
-    int maxOrange	=	3;
-    int maxPink		=	3;
+    int maxGreen	  =	3;
+    int maxYellow	  =	3;
+    int maxRed		  =	3;
+    int maxOrange	  =	3;
+    int maxPink		  =	3;
     int maxLightBlue=	3;
-    int maxBrown	=	2;
+    int maxBrown	  =	2;
   }ColorCount;
   int total_payments_collected;
   int total_payments_made;
