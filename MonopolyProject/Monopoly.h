@@ -81,8 +81,8 @@ public:
   Player*   get_player(Piece p);
   Player*   get_owner(std::string spot_name);
   Player*   get_active_player(int& playerTurnTracker);
-  utility::Utility*  advance_to_nearest_utility(Piece* piece);
-  utility::Utility*  get_utility(int position);
+  util::Utility*  advance_to_nearest_utility(Piece* piece);
+  util::Utility*  get_utility(int position);
   Property* get_property(int pos);
   //Get winner
   Player*   get_winner();
@@ -106,7 +106,7 @@ public:
   bool check_game_over(unsigned int& turnCounter);
   //decide buy or pass
   bool decide_buy_or_pass(Property prop, Player player);
-  bool decide_buy_or_pass(utility::Utility util, Player player);
+  bool decide_buy_or_pass(util::Utility util, Player player);
   bool decide_buy_or_pass(nrails::Railroad rail, Player player);
   //buy property
   void buy_property(Player* player, Property* prop);
@@ -144,13 +144,10 @@ public:
   void pay_rent(Player& player, nrails::Railroad railroad);
 
   //pay utilities
-  void pay_utilities(Player& player, utility::Utility& utility);
+  void pay_utilities(Player& player, util::Utility& utility);
 
   //upgrade property
   void upgrade_property(Property* property);
-  //decide upgrade
-  Property* decide_upgrade(Property* prop, Player* player);
-  void do_manual_upgrade(Property* prop, Player* owner);
 
   //do card action
   void do_card_action(Card c, Player* p, bool testing=false);
@@ -165,7 +162,7 @@ public:
   void release_player_from_jail(Player& p);
 
   //player throws die and pays owner of utility based on roll and utilities
-  void player_throw_die_pay_owner(Player& p, utility::Utility& the_utility);
+  void player_throw_die_pay_owner(Player& p, util::Utility& the_utility);
 
   //give all players a piece
   void give_active_players_pieces();
@@ -178,7 +175,7 @@ public:
 
   //vectors
   std::vector<nrails::Railroad>	railroads;
-  std::vector<utility::Utility>	utilities;
+  std::vector<util::Utility>	utilities;
   std::vector<Card>				      cards;
   std::vector<Card>				      chance_cards;
   std::vector<Card>				      community_cards;
@@ -189,7 +186,7 @@ public:
 
   //maps for properties and utilities
   std::map<std::string, Property*> map_property;	//do need, used
-  std::map<std::string, utility::Utility> map_utility;		//may not need, no references to date
+  std::map<std::string, util::Utility> map_utility;		//may not need, no references to date
   
   const int utility_positions[2] = { 12, 28 };
   const int position_jail = 10;

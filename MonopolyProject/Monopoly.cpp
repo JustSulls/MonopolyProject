@@ -121,9 +121,9 @@ void Monopoly::init_utilities()
   for (int i = 0; i < 2; i++)
   {
     int pos = utility_positions[i];
-    utility::Utility the_utility(pos, utility::utility_names[i]);
+    util::Utility the_utility(pos, util::utility_names[i]);
     utilities.push_back(the_utility);
-    map_utility[utility::utility_names[i]] = the_utility;
+    map_utility[util::utility_names[i]] = the_utility;
   }
 }
 
@@ -349,7 +349,6 @@ int Monopoly::throw_dice(Player player)
 
 Spot* Monopoly::get_spot(int position)
 {
-  //TODO:something wrong with first return spots for loop here
   for (unsigned int i = 0; i < spots.size(); i++)
   {
     if (spots[i].position == position)
@@ -380,7 +379,7 @@ Spot* Monopoly::get_spot(int position)
   }
 }
 
-utility::Utility* Monopoly::get_utility(int position)
+util::Utility* Monopoly::get_utility(int position)
 {
   for (unsigned int i = 0; i < utilities.size(); i++)
   {
@@ -392,7 +391,7 @@ utility::Utility* Monopoly::get_utility(int position)
   return nullptr;
 }
 
-utility::Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
+util::Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
 {
   // get piece position
   int piece_position = piece->getPosition();
@@ -441,7 +440,6 @@ nrails::Railroad* Monopoly::advance_to_nearest_railroad(Piece* piece)
   nrails::Railroad* rail_ptr = get_nearest_railroad(*player_ptr);
   move_piece(player_ptr, rail_ptr);
   return rail_ptr;
-  //todo:test this
 }
 
 Player* Monopoly::get_winner()
@@ -466,7 +464,7 @@ nrails::Railroad* Monopoly::get_nearest_railroad(Player& player)
   //get railroad positions
   for (int i = 0; i < num_railroads; i++)
   {
-    differences[i] = railroads.at(i).position - piece_position;
+    differences[i] = get_reg_distance(piece_position, railroads.at(i).position);
   }
   //find shortest positive distance (railroad - piece) && (delta >=1 )
   int which_pos_was_shortest;
@@ -503,32 +501,32 @@ std::vector<Property*> Monopoly::get_all_properties_in_color(colors c)
 
 Player* Monopoly::get_owner(std::string spot_name)
 {
+  Player* returnPlayer = nullptr;
   for (unsigned int i = 0; i < players.size(); i++)
   {
     for (unsigned int j = 0; j < players[i]->properties_owned.size(); j++)
     {
       if (players[i]->properties_owned[j]->name == spot_name)
       {
-        return players[i];
+        returnPlayer = players[i];
       }
     }
     for (unsigned int j = 0; j < players[i]->railroads_owned.size(); j++)
     {
       if (players[i]->railroads_owned[j]->name == spot_name)
       {
-        return players[i];
+        returnPlayer = players[i];
       }
     }
     for (unsigned int j = 0; j < players[i]->utilities_owned.size(); j++)
     {
       if (players[i]->utilities_owned[j]->name == spot_name)
       {
-        return players[i];
+        returnPlayer = players[i];
       }
     }
   }
-  //todo:get rid of this shou ld never happen
-  return nullptr;
+  return returnPlayer;
 }
 
 Card Monopoly::draw_community()
@@ -696,7 +694,7 @@ bool Monopoly::decide_buy_or_pass(Property prop, Player player)
   }
 }
 
-bool Monopoly::decide_buy_or_pass(utility::Utility util, Player player)
+bool Monopoly::decide_buy_or_pass(util::Utility util, Player player)
 {
   if (test)
   {
@@ -812,28 +810,6 @@ void Monopoly::upgrade_property(Property* property)
   }
   property->set_level(next_l);
   CLogger::GetLogger()->Log(owner->name + " upgrades " + property->name + " to " + property->getCurrentLevel());
-}
-
-Property* Monopoly::decide_upgrade(Property* prop, Player* player)
-{
-  //TODO:
-  //present options
-  int answer = player->decide_upgrade(*prop);
-  //decide what to return
-  return nullptr;
-}
-
-void Monopoly::do_manual_upgrade(Property* prop, Player* owner)
-{
-  //Get current level
-  level itsLevel = prop->current_level;//TODO: make getter function to return level
-  //Get price to upgrade
-  int cost = prop->get_upgrade_cost();
-  //Get owner to pay upgrade price
-  owner->pay(cost);
-  //Set new level on property
-  int newLevel = static_cast<int>(itsLevel)+ 1;//TODO: limit return new level if already max
-  prop->set_level(newLevel);
 }
 
 bool* Monopoly::get_valid_jail_choices(Player activePlayer)
@@ -1009,7 +985,7 @@ void Monopoly::play_game(bool simulate_dice_rolls)
 {
   simulatingDiceRolls = simulate_dice_rolls;
   CLogger::GetLogger()->Log("Game started.");
-  //if (simulate_dice_rolls)CLogger::GetLogger()->Log("Simulating dice rolls.");
+  if (simulate_dice_rolls)CLogger::GetLogger()->Log("Simulating dice rolls.");
   Player* activePlayer = nullptr;
   Property* activeProperty = nullptr;
   
@@ -1222,7 +1198,7 @@ void Monopoly::assign_property_monopoly(Property* prop)
   //}
 }
 
-void Monopoly::pay_utilities(Player& player, utility::Utility& utility)
+void Monopoly::pay_utilities(Player& player, util::Utility& utility)
 {
   try {
     player_throw_die_pay_owner(player, utility);
@@ -1260,7 +1236,7 @@ void Monopoly::upgrade_property_color_set_to_monopoly(std::vector<Property*> set
 void Monopoly::do_card_action(Card c, Player* player, bool testing)
 {
   CLogger::GetLogger()->Log(player->name + " draws \"" + c.text + "\".");
-  utility::Utility* util;
+  util::Utility* util;
   //Utility tempUtil;//todo::removing pointer to util above, this partialy complete
   nrails::Railroad* railroad;	
   Property* theProperty;
@@ -1587,7 +1563,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
     //taxes utilities handle
     //if utility owned, pay owner
     //if utility unowned present option to buy utility
-    utility::Utility* utility = get_utility(theSpot->position);
+    util::Utility* utility = get_utility(theSpot->position);
     if (utility->is_owned)
     {
       Player* owner = get_owner(utility->name);
@@ -1626,7 +1602,7 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
   }
 }
 
-void Monopoly::player_throw_die_pay_owner(Player& p, utility::Utility& the_utility)
+void Monopoly::player_throw_die_pay_owner(Player& p, util::Utility& the_utility)
 {
   int cost_multiplier = 0;
   //get utility owner

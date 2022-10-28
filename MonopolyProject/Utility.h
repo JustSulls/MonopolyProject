@@ -2,7 +2,7 @@
 #include<string>
 #include "Spot.h"
 
-namespace utility
+namespace util
 {
 	const std::string utility_names[2] = { "Electric_Company", "Water_Works" };
 	enum class utility_type {

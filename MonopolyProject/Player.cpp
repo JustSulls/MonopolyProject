@@ -124,28 +124,6 @@ void Player::use_get_out_of_jail_card()
 	}
 	else throw std::range_error("Get out of jail cards vector empty.");
 }
-bool Player::buy_property(Property* prop)
-{
-	try {
-		if (prop->is_owned)
-		{
-			CLogger::GetLogger()->Log(prop->name + " already owned. Cannot purchase.");
-			return false;
-		}
-		pay(prop->prices[0]);//printed price is prices[0]
-		prop->is_owned = true;
-		properties_owned.push_back(prop);
-		//if player now has the correct number of same colored properties
-		//TODO: move all this to Monopoly
-		//upgrade property level from alone to monopoly
-		CLogger::GetLogger()->Log(name + " now owns " + prop->name);
-		return true;
-	}
-	catch (const std::invalid_argument& ia) {
-		std::cerr << "Invalid argument error: " << ia.what() << '\n';
-	}
-	return false;
-}
 bool Player::buy_railroad(nrails::Railroad* rail)
 {
 	try {
@@ -165,7 +143,7 @@ bool Player::buy_railroad(nrails::Railroad* rail)
 	}
 	return false;
 }
-bool Player::buy_utility(utility::Utility* utility)
+bool Player::buy_utility(util::Utility* utility)
 {
 	try {
 		if (utility->is_owned)
@@ -189,11 +167,12 @@ std::vector<Property*> Player::property_upgrades_available()
 	if (!properties_owned.empty())
 	{
 		std::vector<colors> vColorHolder;
+		//For all properties owned
 		for (unsigned int i = 0; i < properties_owned.size(); i++)
 		{
 			//If property current level is less than skyscraper (max)
-			//and greater than alone (min, because level monopoly is set automatically
-			//not through player choice)
+			//and greater than alone (because level monopoly is set automatically
+			//not through player choice) add property color to VvColorHolder 
 			if (properties_owned[i]->current_level < level::with_skyscraper
 				&& properties_owned[i]->current_level >= level::monopoly)	//if not already maxxed
 			{

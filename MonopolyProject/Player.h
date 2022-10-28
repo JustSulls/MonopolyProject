@@ -23,7 +23,7 @@ public:
 	int tryRollDoublesCounter;
 
 	std::vector<Property*>properties_owned;
-	std::vector<utility::Utility*>utilities_owned;
+	std::vector<util::Utility*>utilities_owned;
 	std::vector<nrails::Railroad*>railroads_owned;
 
 	void collect(int amount);
@@ -31,14 +31,12 @@ public:
 	void do_street_repairs(); 
 	void do_general_repairs();
 	void use_get_out_of_jail_card();
-	bool buy_property(Property* prop);
 	bool buy_railroad(nrails::Railroad* rail);
-	bool buy_utility(utility::Utility* utility);
+	bool buy_utility(util::Utility* utility);
 	
 	//Sets in_jail to false
 	bool has_get_out_of_jail_card();
 	std::vector<Property*>property_upgrades_available();
-	//void assign_ownership(Property property);
 	int decide_upgrade(Property prop);
 	void get_piece(Piece* p);
 	int get_num_houses();

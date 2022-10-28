@@ -38,7 +38,7 @@ namespace testNamespace
 	TEST(PlayerTestCase, PlayerBuyUtility)
 	{
 		Monopoly m;
-		utility::Utility* u = &m.utilities[0];
+		util::Utility* u = &m.utilities[0];
 		m.players[0]->buy_utility(u);
 		EXPECT_EQ("Electric_Company", m.players[0]->utilities_owned[0]->name);
 		EXPECT_FALSE(m.players[1]->buy_utility(u));
