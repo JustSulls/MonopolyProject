@@ -283,11 +283,11 @@ void Monopoly::print_results()
     CLogger::GetLogger()->Log(players[i]->name + " total payments made $" + std::to_string(players[i]->get_total_payments_made()));
     CLogger::GetLogger()->Log(players[i]->name + " total payments collected $" + std::to_string(players[i]->get_total_payments_collected()));
     CLogger::GetLogger()->Log(players[i]->name + " total times passed go: " + std::to_string(players[i]->total_passed_go));
-    /*CLogger::GetLogger()->Log("Properties owned: " + std::to_string(players[i]->properties_owned.size()));
+    CLogger::GetLogger()->Log("Properties owned: " + std::to_string(players[i]->properties_owned.size()));
     for (unsigned int j = 0; j < players[i]->properties_owned.size(); j++)
     {
-      CLogger::GetLogger()->Log(players[i]->properties_owned[j]->name);
-      //CLogger::GetLogger()->Log(players[i]->properties_owned[j]->getCurrentLevel());
+      CLogger::GetLogger()->Log(players[i]->properties_owned[j]->name + " : " + 
+        players[i]->properties_owned[j]->getCurrentLevel());
     }
     for (unsigned int k = 0; k < players[i]->railroads_owned.size(); k++)
     {
@@ -297,7 +297,6 @@ void Monopoly::print_results()
     {
       CLogger::GetLogger()->Log(players[i]->utilities_owned[l]->name);
     }
-    */
   }
 }
 
@@ -536,17 +535,9 @@ Card Monopoly::draw_community()
     CLogger::GetLogger()->Log("Chance card pile empty. Re-shuffling deck before drawing.");
     reshuffle_community();
   }
-  try {
-    Card the_card = community_cards.back();	//todo:getting out of range exception here when community_cards has capacity 19 but cant see each card
-    community_cards.pop_back();
-    return the_card;
-  }
-  catch ([[maybe_unused]]const std::exception& e) {
-    //todo: get rid of blank card
-    Card c;
-    return c;
-  }
-  
+  Card the_card = community_cards.back();	//todo:getting out of range exception here when community_cards has capacity 19 but cant see each card
+  community_cards.pop_back();
+  return the_card; 
 }
 
 Card Monopoly::draw_chance()
@@ -556,16 +547,9 @@ Card Monopoly::draw_chance()
     CLogger::GetLogger()->Log("Chance card pile empty. Re-shuffling deck before drawing.");
     reshuffle_chance();
   }
-  try {
-    Card the_card = chance_cards.back();
-    chance_cards.pop_back();
-    return the_card;
-  }
-  catch ([[maybe_unused]]const std::exception& e) {
-    //todo: get rid of blank card
-    Card c;
-    return c;
-  }
+  Card the_card = chance_cards.back();
+  chance_cards.pop_back();
+  return the_card;
 }
 
 void Monopoly::reshuffle_chance()
@@ -781,6 +765,7 @@ void Monopoly::buy_property(Player* player, Property* prop)
       //if player now has the correct number of same colored properties
       if (property_monopoly(*prop))
       {
+        CLogger::GetLogger()->Log("Property monopoly achieved in " + prop->get_color() + "!");
         //assign property monopoly
         assign_property_monopoly(prop);
       }
@@ -1069,17 +1054,50 @@ void Monopoly::play_game(bool simulate_dice_rolls)
 
 void Monopoly::pay_rent(Player& player, Property property)
 {
-  try {
-    //TODO: get real rent to pay from property
-    int payment = property.rent_costs[0];
-    player.pay(payment);
-    //TODO: make sure a player owns this first
-    Player* owner = get_owner(property.name);
-    owner->collect(payment);
+  //No need to assert payment >= 0 here, need that to confirm game over elsewhere
+  //TODO: get real rent to pay from property
+  //Check which rent is owed.
+  //rent_costs[0] = alone;
+  //rent_costs[1] = monopoly;
+  //rent_costs[2] = with_1_house;
+  //rent_costs[3] = with_2_house;
+  //rent_costs[4] = with_3_house;
+  //rent_costs[5] = with_4_house;
+  //rent_costs[6] = with_hotel;
+  //rent_costs[7] = with_skyscraper;
+  //Check property level
+  int payment_owed = 0;
+  switch (property.current_level)
+  {
+  case level::alone:
+    payment_owed = property.rent_costs[0];
+    break;
+  case level::monopoly:
+    payment_owed = property.rent_costs[1];
+    break;
+  case level::with_1_house:
+    payment_owed = property.rent_costs[2];
+    break;
+  case level::with_2_houses:
+    payment_owed = property.rent_costs[3];
+    break;
+  case level::with_3_houses:
+    payment_owed = property.rent_costs[4];
+    break;
+  case level::with_4_houses:
+    payment_owed = property.rent_costs[5];
+    break;
+  case level::with_hotel:
+    payment_owed = property.rent_costs[6];
+    break;
+  case level::with_skyscraper:
+    payment_owed = property.rent_costs[7];
+    break;
   }
-  catch (const std::invalid_argument& ia) {
-    std::cerr << "Invalid argument error: " << ia.what() << '\n';
-  }
+  player.pay(payment_owed);
+  //TODO: make sure a player owns this first
+  Player* owner = get_owner(property.name);
+  owner->collect(payment_owed);
 }
 
 void Monopoly::pay_rent(Player& player, nrails::Railroad railroad)
@@ -1169,33 +1187,8 @@ bool Monopoly::property_monopoly(Property prop)
 
 void Monopoly::assign_property_monopoly(Property* prop)
 {
-  std::vector<Property*> the_set = get_all_properties_in_color(prop->get_color());
+  std::vector<Property*> the_set = get_all_properties_in_color(prop->color);
   upgrade_property_color_set_to_monopoly(the_set);
-  ////TODO: test this
-  ////upgrade all properties of this color in player's properties to level monopoly
-  //if (prop->current_level == level::alone)
-  //{
-  //  prop->set_level(level::monopoly);
-  //  CLogger::GetLogger()->Log("Upgraded " + prop->name + " to Monopoly.");
-  //}
-  ////already did validity check outside this function
-  //
-  //Player* owner = get_owner(prop->name);
-  ////For all owner's properties
-  //for (int i = 0; i < owner->properties_owned.size(); i++)
-  //{
-  //  //If property has same color as param property
-  //  if (owner->properties_owned[i]->color == prop->color)
-  //  {
-  //    //If property level is alone
-  //    if (owner->properties_owned[i]->current_level == level::alone)
-  //    {
-  //      //Set property level to monopoly
-  //      owner->properties_owned[i]->current_level = level::monopoly;
-  //      CLogger::GetLogger()->Log("Upgraded " + owner->properties_owned[i]->name + " to Monopoly.");
-  //    }
-  //  }
-  //}
 }
 
 void Monopoly::pay_utilities(Player& player, util::Utility& utility)
@@ -1248,12 +1241,12 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
     break;
   case 2:
     //Advance to Illinois Avenue. If you pass GO  collect $200.
-    theProperty = map_property["illinois avenue"];
+    theProperty = map_property["Illinois Avenue"];
     move_piece(player, theProperty);
     break;
   case 3:
     //Advance to St. Charles Place. If you pass GO  collect $200.
-    theProperty = map_property["st. charles place"];
+    theProperty = map_property["St. Charles Place"];
     move_piece(player, theProperty);
     break;
   case 4:
@@ -1350,7 +1343,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
   case 13:
     //take a walk on the boardwalk. advance token to boardwalk.
     //TODO: this causes failure, fix
-    theProperty = map_property["boardwalk"];
+    theProperty = map_property["Boardwalk"];
     move_piece(player, theProperty);
     break;
   case 14:

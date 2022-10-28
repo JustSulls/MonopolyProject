@@ -282,6 +282,9 @@ std::vector<Property*> Player::property_upgrades_available()
 			}
 		}
 	}
+	//TODO: 
+	//Also need to ensure that all properties in monopoly have the upgrade before
+	//allowing purchases for the next level upgrade
 	return return_properties;
 }
 bool Player::operator==(const Player& other)
@@ -300,7 +303,18 @@ int Player::decide_upgrade(Property prop)
 {
 	//present options to player, bounds check answer, return it
 	int i = -1;
-	if (in_test) i = 1;//in test always answer 
+	if (in_test)
+	{
+		//unless player has too little money? arbitrarily selecting min amount now
+		if (money < 300)
+		{
+			i = 0;
+		}
+		else
+		{
+			i = 1;//in test always answer 
+		}
+	}
 	while (i > 1 || i < 0)
 	{
 		CLogger::GetLogger()->Log("Decide upgrade " + prop.name + ": [0] no, [1] yes?");

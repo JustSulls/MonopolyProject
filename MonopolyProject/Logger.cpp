@@ -31,7 +31,6 @@ CLogger* CLogger::GetDLogger()
 void CLogger::LogDiceRolls(const string& sMessage)
 {
   m_DLogfile << sMessage << "\n";
-  std::cout << sMessage << "\n";
 }
 
 void CLogger::Log(const char* format, ...)
@@ -67,7 +66,6 @@ void CLogger::DLog(const char* format, ...)
   vsprintf_s(sMessage, nLength, format, args);
   //vsprintf(sMessage, format, args);
   m_DLogfile << sMessage << "\n";
-  std::cout << sMessage << "\n";
   va_end(args);
 
   delete[] sMessage;

@@ -37,9 +37,37 @@ Property& Property::operator=(const Property& other)
 	is_owned = other.is_owned;
 	return *this;
 }
-colors Property::get_color()
+std::string Property::get_color()
 {
-	return color;
+	std::string theColor = "";
+	switch (color)
+	{
+	case colors::brown:
+		theColor = "brown";
+		break;
+	case colors::light_blue:
+		theColor = "light blue";
+		break;
+	case colors::pink:
+		theColor = "light pink";
+		break;
+	case colors::orange:
+		theColor = "orange";
+		break;
+	case colors::red:
+		theColor = "red";
+		break;
+	case colors::yellow:
+		theColor = "yellow";
+		break;
+	case colors::green:
+		theColor = "green";
+		break;
+	case colors::dark_blue:
+		theColor = "dark blue";
+		break;
+	}
+	return theColor;
 }
 int Property::get_rent()
 {

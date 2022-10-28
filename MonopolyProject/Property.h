@@ -39,7 +39,7 @@ public:
 	const static int number_prices = 3;
 	const static int number_rent_costs = 8;
 	colors color;
-	colors get_color();
+	std::string get_color();
 	const int posUpgradeCost = 2;
 	int prices[number_prices] = { 0,0,0 };//{cost to purchase and own property, 
 																				//	mortgage value, 
