@@ -14,6 +14,18 @@ enum class colors {
 	green,
 	dark_blue
 };
+const colors ALL_COLORS[] =
+{
+	colors::brown,
+	colors::light_blue,
+	colors::pink,
+	colors::orange,
+	colors::red,
+	colors::yellow,
+	colors::green,
+	colors::dark_blue
+};
+
 enum class level {
 	alone,
 	monopoly,

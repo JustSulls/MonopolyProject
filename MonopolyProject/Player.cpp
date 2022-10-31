@@ -282,9 +282,18 @@ std::vector<Property*> Player::property_upgrades_available()
 			}
 		}
 	}
-	//TODO: 
 	//Also need to ensure that all properties in monopoly have the upgrade before
 	//allowing purchases for the next level upgrade
+	for (int n1 = 0; n1 < return_properties.size(); ++n1)
+	{
+		for (int n2 = 0; n2 < return_properties.size(); ++n2)
+		{
+			if (return_properties[n1]->current_level > return_properties[n2]->current_level)
+			{
+				return_properties.erase(return_properties.begin() + n1);
+			}
+		}
+	}
 	return return_properties;
 }
 bool Player::operator==(const Player& other)
@@ -296,7 +305,7 @@ bool Player::operator==(const Player& other)
 bool Player::operator!=(const Player& other)
 {
 	std::string n = other.name;
-	if (n != other.name) return true;	//todo:elaborate
+	if (n != other.name) return true;
 	return false;
 }
 int Player::decide_upgrade(Property prop)

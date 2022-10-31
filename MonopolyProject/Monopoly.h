@@ -49,11 +49,9 @@ private:
   bool simulatingDiceRolls;
 
 public:
-  //TEST 
   bool test = true;
   bool jailTest = true;
-  //temporary var for testing
-  //---
+  //temporary var for testin
   Monopoly(int number_players = 2);
   
   //

@@ -284,10 +284,18 @@ void Monopoly::print_results()
     CLogger::GetLogger()->Log(players[i]->name + " total payments collected $" + std::to_string(players[i]->get_total_payments_collected()));
     CLogger::GetLogger()->Log(players[i]->name + " total times passed go: " + std::to_string(players[i]->total_passed_go));
     CLogger::GetLogger()->Log("Properties owned: " + std::to_string(players[i]->properties_owned.size()));
-    for (unsigned int j = 0; j < players[i]->properties_owned.size(); j++)
+    for (const auto the_color : ALL_COLORS)
     {
-      CLogger::GetLogger()->Log(players[i]->properties_owned[j]->name + " : " + 
-        players[i]->properties_owned[j]->getCurrentLevel());
+      for (int j = 0; j < players[i]->properties_owned.size(); j++)
+      {
+        Property the_property = *players[i]->properties_owned[j];
+         if (the_property.color == the_color)
+        {
+          CLogger::GetLogger()->Log(the_property.name + " : " 
+            + the_property.getCurrentLevel() + " : " 
+            + the_property.get_color());
+        }
+      }
     }
     for (unsigned int k = 0; k < players[i]->railroads_owned.size(); k++)
     {
@@ -530,23 +538,13 @@ Player* Monopoly::get_owner(std::string spot_name)
 
 Card Monopoly::draw_community()
 {
-  if (community_cards.empty())
-  {
-    CLogger::GetLogger()->Log("Chance card pile empty. Re-shuffling deck before drawing.");
-    reshuffle_community();
-  }
-  Card the_card = community_cards.back();	//todo:getting out of range exception here when community_cards has capacity 19 but cant see each card
+  Card the_card = community_cards.back();
   community_cards.pop_back();
   return the_card; 
 }
 
 Card Monopoly::draw_chance()
 {
-  if (chance_cards.empty())
-  {
-    CLogger::GetLogger()->Log("Chance card pile empty. Re-shuffling deck before drawing.");
-    reshuffle_chance();
-  }
   Card the_card = chance_cards.back();
   chance_cards.pop_back();
   return the_card;
@@ -996,7 +994,7 @@ void Monopoly::play_game(bool simulate_dice_rolls)
         for (unsigned int i = 0; i < potential_upgrades.size(); i++)
         {
           //Player decides whether to upgrade properties
-          int answer = activePlayer->decide_upgrade(*potential_upgrades[i]);//TODO: start here
+          int answer = activePlayer->decide_upgrade(*potential_upgrades[i]);
           if (answer == 0)
           {
             //Decided no upgrade
@@ -1055,7 +1053,6 @@ void Monopoly::play_game(bool simulate_dice_rolls)
 void Monopoly::pay_rent(Player& player, Property property)
 {
   //No need to assert payment >= 0 here, need that to confirm game over elsewhere
-  //TODO: get real rent to pay from property
   //Check which rent is owed.
   //rent_costs[0] = alone;
   //rent_costs[1] = monopoly;
@@ -1095,7 +1092,6 @@ void Monopoly::pay_rent(Player& player, Property property)
     break;
   }
   player.pay(payment_owed);
-  //TODO: make sure a player owns this first
   Player* owner = get_owner(property.name);
   owner->collect(payment_owed);
 }
@@ -1229,8 +1225,6 @@ void Monopoly::upgrade_property_color_set_to_monopoly(std::vector<Property*> set
 void Monopoly::do_card_action(Card c, Player* player, bool testing)
 {
   CLogger::GetLogger()->Log(player->name + " draws \"" + c.text + "\".");
-  util::Utility* util;
-  //Utility tempUtil;//todo::removing pointer to util above, this partialy complete
   nrails::Railroad* railroad;	
   Property* theProperty;
   Spot* s;
@@ -1253,6 +1247,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
     //Advance token to nearest Utility. If unowned 
     //you may buy it from the Bank. If owned throw 
     //dice and pay owner a total 10 times the amount thrown.
+    util::Utility * util;
     util = advance_to_nearest_utility(player->piece);
     //check if owned
     if (util->is_owned)//todo: this should trigger but isn't
@@ -1455,19 +1450,29 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
 {
   if (theSpot->spot_type == SpotType::chance)
   {
+    if (chance_cards.empty())
+    {
+      //Reshuffle
+      CLogger::GetLogger()->Log("Chance card pile empty. Reshuffling.");
+      reshuffle_chance();
+      //Then proceed to draw as normal
+    }
     Card c = draw_chance();
     //do card action
     do_card_action(c, activePlayer);
   }
   else if (theSpot->spot_type == SpotType::community_chest)
   {
-    if (!community_cards.empty())
+    if (community_cards.empty())
     {
-      Card c = draw_community();
-      //do card action
-      do_card_action(c, activePlayer);
+      //Reshuffle
+      CLogger::GetLogger()->Log("Community chest card pile empty. Reshuffling.");
+      reshuffle_community();
+      //Then proceed to draw as normal
     }
-    else CLogger::GetLogger()->Log("Community chest card pile empty.");
+    Card c = draw_community();
+    //do card action
+    do_card_action(c, activePlayer);
   }
   else if (theSpot->spot_type == SpotType::free_parking)
   {
