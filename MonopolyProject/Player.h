@@ -48,7 +48,6 @@ public:
   bool operator!=(const Player& other);
 
 private:
-  //temp
   struct maxColorCounts {
     int maxDarkBlue	=	2;
     int maxGreen	  =	3;

@@ -1,6 +1,7 @@
 #pragma once
 #include<string>
 #include "Spot.h"
+//#include "Player.h"
 
 namespace util
 {
@@ -23,5 +24,6 @@ namespace util
 		const static short cost = 150;
 		bool is_owned;
 		std::string owner_name;
+		//Player* owner = nullptr;
 	};
 }

@@ -395,7 +395,7 @@ util::Utility* Monopoly::get_utility(int position)
       return &utilities[i];
     }
   }
-  return nullptr;
+  return nullptr;//todo: remove this
 }
 
 util::Utility* Monopoly::advance_to_nearest_utility(Piece* piece)
@@ -533,6 +533,7 @@ Player* Monopoly::get_owner(std::string spot_name)
       }
     }
   }
+  assert(returnPlayer != nullptr);
   return returnPlayer;
 }
 
@@ -596,7 +597,6 @@ int Monopoly::get_railroad_rent(Player player)
   2 Railroads Owned : $50
   3 Railroads Owned : $100
   4 Railroads Owned : $200.*/
-  //TODO: fix
   int rails_owned = 0;
   for (unsigned int i = 0; i < player.railroads_owned.size(); i++)
   {
@@ -778,13 +778,11 @@ void Monopoly::buy_property(Player* player, Property* prop)
 
 void Monopoly::upgrade_property(Property* property)
 {
-  //TODO: make sure a player owns this first
   Player* owner = get_owner(property->name);
   int price = property->prices[0];
   //owner pays upgrade price
   owner->pay(price);
   //upgrade property
-  //todo:fix this, overload operator??
   int current_l = static_cast<int>(property->current_level);
   int next_l = 0;
   if (current_l < 7)
@@ -795,25 +793,25 @@ void Monopoly::upgrade_property(Property* property)
   CLogger::GetLogger()->Log(owner->name + " upgrades " + property->name + " to " + property->getCurrentLevel());
 }
 
-bool* Monopoly::get_valid_jail_choices(Player activePlayer)
+Monopoly::JailChoices Monopoly::get_valid_jail_choices(Player activePlayer)
 {
-  bool validChoices[3]{true, true, true};
   //--
   //--Pseudo code English
   //----
   //if jail_turn_counter >= 3
+  JailChoices returnChoices;
   if (activePlayer.jailTurnCounter > 2)
   {
-    //elminate options 2 & 3
-    validChoices[1] = false;
-    validChoices[2] = false;
+    //elminate options 2 (use card) & 3 (pay)
+    returnChoices.useCard = false;
+    returnChoices.pay = false;
   }
   if (!activePlayer.has_get_out_of_jail_card())
   {
     //no get out of jail card, eliminate option 2
-    validChoices[1] = false;
+    returnChoices.useCard = false;
   }
-  return validChoices;
+  return returnChoices;
 }
 
 unsigned int Monopoly::decide_jail_turn_choice(Player player)
@@ -827,33 +825,33 @@ unsigned int Monopoly::decide_jail_turn_choice(Player player)
   else
   {
     //find and eliminate invalid choices
-    bool* validChoices = get_valid_jail_choices(player);
+    JailChoices validChoices = get_valid_jail_choices(player);
     bool answerValid = false;
     while (!answerValid)
     {
       CLogger::GetLogger()->Log(player.name + " decides what to do in jail.");
-      if (validChoices[0])
+      if (validChoices.rollDoubles)
       {
         CLogger::GetLogger()->Log("choice [0]: Roll for doubles, if hit move forward roll.");
       }
-      if (validChoices[1]) {
+      if (validChoices.useCard) {
         CLogger::GetLogger()->Log("choice [1]: Use get out of jail card.");
       }
-      if (validChoices[2])
+      if (validChoices.pay)
       {
         CLogger::GetLogger()->Log("choice [2]: Pay $50 before 1st or 2nd jail turn.");
       }
       std::cin >> answer;
       //if player chose option 0 and its an invalid choice answer is invalid
-      if (validChoices[0] && answer == 0)
+      if (validChoices.rollDoubles && answer == 0)
       {
         answerValid = true;
       }
-      if (validChoices[1] && answer == 1)
+      if (validChoices.useCard && answer == 1)
       {
         answerValid = true;
       }
-      if (validChoices[2] && answer == 2)
+      if (validChoices.pay && answer == 2)
       {
         answerValid = true;
       }
@@ -911,7 +909,8 @@ void Monopoly::handle_jail_turn(Player* active_player)
         if (active_player->jailTurnCounter >= 3)
         {
           CLogger::GetLogger()->Log(active_player->name + "'s time in jail is up, pays to get out of jail. Roll's to move.");
-          active_player->pay(50);//TODO: handle if can't pay
+          //TODO: handle if can't pay //if (active_player.cant_pay(amount)offer_alternative();
+          active_player->pay(50);
           release_player_from_jail(*active_player);
           move_piece(active_player, dice.diceRoll);
           do_spot_action(get_spot(active_player->piece->getPosition()), active_player);
@@ -1228,6 +1227,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
   nrails::Railroad* railroad;	
   Property* theProperty;
   Spot* s;
+  //todo: is card id always 14?
   switch (c.id) {
   case 1:
     //Advance to GO. (Collect $200)
@@ -1250,10 +1250,19 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
     util::Utility * util;
     util = advance_to_nearest_utility(player->piece);
     //check if owned
-    if (util->is_owned)//todo: this should trigger but isn't
-    {
-      //?yes player throw dice and pay owner total 10 times.
-      player_throw_die_pay_owner(*player, *util);
+    if (util->is_owned)
+    {        
+      if (util->owner_name != player->name)
+      {
+        //player throw dice and pay owner cost multiplier.
+        player_throw_die_pay_owner(*player, *util);
+      }
+      else
+      {
+        //do nothing, player owns it already
+        CLogger::GetLogger()->Log(player->name + " already owns " + util->name +
+        ". No further action. ");
+      }
     }
     else
     {
@@ -1333,7 +1342,8 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
     break;
   case 12:
     //go to reading railroad, if pass go collect 200
-    move_piece(player, 5);	//reading railroad position
+    s = get_spot(5);
+    move_piece(player, s);	//reading railroad position
     break;
   case 13:
     //take a walk on the boardwalk. advance token to boardwalk.
@@ -1483,7 +1493,6 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
   {
     // do nothing
     // go collect money handled at move function
-    // todo:confirm this is best
   }
   else if (theSpot->spot_type == SpotType::go_to_jail)
   {
@@ -1499,7 +1508,6 @@ void Monopoly::do_spot_action(Spot* theSpot, Player* activePlayer)
     //property handle
     //if owned, pay owner
     //if unowned present option to buy property
-    //TODO:handle/throw exception if get_property() returns nullptr;
     Property* prop = get_property(theSpot->position);
     if (prop->is_owned)
     {
@@ -1615,8 +1623,10 @@ void Monopoly::player_throw_die_pay_owner(Player& p, util::Utility& the_utility)
   {
     cost_multiplier = 4;
   }
+  CLogger::GetLogger()->Log(p.name + " owns one utility, cost multiplier is " + 
+    std::to_string(cost_multiplier) + ". ");
   CLogger::GetLogger()->Log(p.name + " throws die and pays owner (" + the_owner->name
-    +") a total of (" + std::to_string(cost_multiplier) + ")  times.");
+    +") a total of (" + std::to_string(cost_multiplier) + ") times the amount rolled.");
   throw_dice(p);
   int cost = dice.diceRoll * cost_multiplier;
   p.pay(cost);
@@ -1693,17 +1703,12 @@ Property* Monopoly::get_property(int pos)
 {
   for (unsigned int i = 0; i < properties.size(); i++)
   {
-    try {
-      if (properties[i]->position == pos)
-      {
-        return properties[i];
-      }
-    }
-    catch (const std::out_of_range& oor) {
-      std::cerr << "Out of range error: " << oor.what() << '\n';
+    if (properties[i]->position == pos)
+    {
+      assert(properties[i] != nullptr);
+      return properties[i];
     }
   }
-  return nullptr;
 }
 
 nrails::Railroad* Monopoly::get_railroad(int pos)

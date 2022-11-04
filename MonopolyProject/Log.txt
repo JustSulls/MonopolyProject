@@ -1,332 +1,76 @@
-Sun-10:38:06 PM:	Game started.
-Sun-10:38:06 PM:	--Starting turn 1--
-Sun-10:38:06 PM:	Player 1 rolled a 4. (3 + 1).
-Sun-10:38:06 PM:	Player 1's piece landed on [4]income tax.
-Sun-10:38:06 PM:	Player 1 pays $200 ($1300 total).
-Sun-10:38:06 PM:	--Starting turn 2--
-Sun-10:38:06 PM:	Player 2 rolled a 5. (3 + 2).
-Sun-10:38:06 PM:	Player 2's piece landed on [5]Reading_Railroad.
-Sun-10:38:06 PM:	Player 2 decides to buy Reading_Railroad for $200. 
-Sun-10:38:06 PM:	Player 2 pays $200 ($1300 total).
-Sun-10:38:06 PM:	Player 2 now owns Reading_Railroad
-Sun-10:38:06 PM:	--Starting turn 3--
-Sun-10:38:06 PM:	Player 1 rolled a 9. (3 + 6).
-Sun-10:38:06 PM:	Player 1's piece landed on [13]States Avenue.
-Sun-10:38:06 PM:	Player 1 decides to buy States Avenue for $140. 
-Sun-10:38:06 PM:	Player 1 pays $140 ($1160 total).
-Sun-10:38:06 PM:	Player 1 now owns States Avenue
-Sun-10:38:06 PM:	--Starting turn 4--
-Sun-10:38:06 PM:	Player 2 rolled a 3. (1 + 2).
-Sun-10:38:06 PM:	Player 2's piece landed on [8]Vermont Avenue.
-Sun-10:38:06 PM:	Player 2 decides to buy Vermont Avenue for $100. 
-Sun-10:38:06 PM:	Player 2 pays $100 ($1200 total).
-Sun-10:38:06 PM:	Player 2 now owns Vermont Avenue
-Sun-10:38:06 PM:	--Starting turn 5--
-Sun-10:38:06 PM:	Player 1 rolled a 11. (5 + 6).
-Sun-10:38:06 PM:	Player 1's piece landed on [24]Illinois Avenue.
-Sun-10:38:06 PM:	Player 1 decides to buy Illinois Avenue for $240. 
-Sun-10:38:06 PM:	Player 1 pays $240 ($920 total).
-Sun-10:38:06 PM:	Player 1 now owns Illinois Avenue
-Sun-10:38:06 PM:	--Starting turn 6--
-Sun-10:38:06 PM:	Player 2 rolled a 9. (5 + 4).
-Sun-10:38:06 PM:	Player 2's piece landed on [17]community chest 2.
-Sun-10:38:06 PM:	Player 2 draws "Go to Jail. Go directly to jail. Do not pass GO. Do not collect $200.".
-Sun-10:38:06 PM:	Player 2 is now in jail.
-Sun-10:38:06 PM:	--Starting turn 7--
-Sun-10:38:06 PM:	Player 1 rolled a 9. (6 + 3).
-Sun-10:38:06 PM:	Player 1's piece landed on [33]community chest 3.
-Sun-10:38:06 PM:	Player 1 draws "Income tax refund. Collect $20.".
-Sun-10:38:06 PM:	Player 1 collects $20 ($940 total).
-Sun-10:38:06 PM:	--Starting turn 8--
-Sun-10:38:06 PM:	Player 2's [1st] turn in jail.
-Sun-10:38:06 PM:	Player 2 attempts [1] roll for doubles to get out of jail.
-Sun-10:38:06 PM:	Player 2 rolled a 5. (1 + 4).
-Sun-10:38:06 PM:	Player 2 fails to roll doubles.
-Sun-10:38:06 PM:	--Starting turn 9--
-Sun-10:38:06 PM:	Player 1 rolled a 11. (5 + 6).
-Sun-10:38:06 PM:	Player 1 passed go.
-Sun-10:38:06 PM:	Player 1 collects $200 ($1140 total).
-Sun-10:38:06 PM:	Player 1's piece landed on [4]income tax.
-Sun-10:38:06 PM:	Player 1 pays $200 ($940 total).
-Sun-10:38:06 PM:	--Starting turn 10--
-Sun-10:38:06 PM:	Player 2's [2nd] turn in jail.
-Sun-10:38:06 PM:	Player 2 attempts [2] roll for doubles to get out of jail.
-Sun-10:38:06 PM:	Player 2 rolled a 8. (6 + 2).
-Sun-10:38:06 PM:	Player 2 fails to roll doubles.
-Sun-10:38:06 PM:	--Starting turn 11--
-Sun-10:38:06 PM:	Player 1 rolled a 5. (4 + 1).
-Sun-10:38:06 PM:	Player 1's piece landed on [9]Connecticut Avenue.
-Sun-10:38:06 PM:	Player 1 decides to buy Connecticut Avenue for $120. 
-Sun-10:38:06 PM:	Player 1 pays $120 ($820 total).
-Sun-10:38:06 PM:	Player 1 now owns Connecticut Avenue
-Sun-10:38:06 PM:	--Starting turn 12--
-Sun-10:38:06 PM:	Player 2's [3rd] turn in jail.
-Sun-10:38:06 PM:	Player 2 attempts [3] roll for doubles to get out of jail.
-Sun-10:38:06 PM:	Player 2 rolled a 6. (1 + 5).
-Sun-10:38:06 PM:	Player 2's time in jail is up, pays to get out of jail. Roll's to move.
-Sun-10:38:06 PM:	Player 2 pays $50 ($1150 total).
-Sun-10:38:06 PM:	Player 2's piece landed on [16]St. James Place.
-Sun-10:38:06 PM:	Player 2 decides to buy St. James Place for $180. 
-Sun-10:38:06 PM:	Player 2 pays $180 ($970 total).
-Sun-10:38:06 PM:	Player 2 now owns St. James Place
-Sun-10:38:06 PM:	--Starting turn 13--
-Sun-10:38:06 PM:	Player 1 rolled a 4. (1 + 3).
-Sun-10:38:06 PM:	Player 1's piece landed on [13]States Avenue.
-Sun-10:38:06 PM:	Player 1 already owns States Avenue. 
-Sun-10:38:06 PM:	--Starting turn 14--
-Sun-10:38:06 PM:	Player 2 rolled a 6. (5 + 1).
-Sun-10:38:06 PM:	Player 2's piece landed on [22]chance 2.
-Sun-10:38:06 PM:	Player 2 draws "You have been elected Chairman of the Board. Pay each player $50.".
-Sun-10:38:06 PM:	Player 2 pays $50 ($920 total).
-Sun-10:38:06 PM:	Player 1 collects $50 ($870 total).
-Sun-10:38:06 PM:	--Starting turn 15--
-Sun-10:38:06 PM:	Player 1 rolled a 8. (3 + 5).
-Sun-10:38:06 PM:	Player 1's piece landed on [21]Kentucky Avenue.
-Sun-10:38:06 PM:	Player 1 decides to buy Kentucky Avenue for $220. 
-Sun-10:38:06 PM:	Player 1 pays $220 ($650 total).
-Sun-10:38:06 PM:	Player 1 now owns Kentucky Avenue
-Sun-10:38:06 PM:	--Starting turn 16--
-Sun-10:38:06 PM:	Player 2 rolled a 9. (4 + 5).
-Sun-10:38:06 PM:	Player 2's piece landed on [31]Pacific Avenue.
-Sun-10:38:06 PM:	Player 2 decides to buy Pacific Avenue for $300. 
-Sun-10:38:06 PM:	Player 2 pays $300 ($620 total).
-Sun-10:38:06 PM:	Player 2 now owns Pacific Avenue
-Sun-10:38:06 PM:	--Starting turn 17--
-Sun-10:38:06 PM:	Player 1 rolled a 4. (3 + 1).
-Sun-10:38:06 PM:	Player 1's piece landed on [25]B_0_Railroad.
-Sun-10:38:06 PM:	Player 1 decides to buy B_0_Railroad for $200. 
-Sun-10:38:06 PM:	Player 1 pays $200 ($450 total).
-Sun-10:38:06 PM:	Player 1 now owns B_0_Railroad
-Sun-10:38:06 PM:	--Starting turn 18--
-Sun-10:38:06 PM:	Player 2 rolled a 7. (3 + 4).
-Sun-10:38:06 PM:	Player 2's piece landed on [38]luxury tax.
-Sun-10:38:06 PM:	Player 2 pays $150 ($470 total).
-Sun-10:38:06 PM:	--Starting turn 19--
-Sun-10:38:06 PM:	Player 1 rolled a 8. (2 + 6).
-Sun-10:38:06 PM:	Player 1's piece landed on [33]community chest 3.
-Sun-10:38:06 PM:	Player 1 draws "Advance to GO. Collect $200.".
-Sun-10:38:06 PM:	Player 1 passed go.
-Sun-10:38:06 PM:	Player 1 collects $200 ($650 total).
-Sun-10:38:06 PM:	Player 1's piece landed on [0]go.
-Sun-10:38:06 PM:	--Starting turn 20--
-Sun-10:38:06 PM:	Player 2 rolled a 8. (2 + 6).
-Sun-10:38:06 PM:	Player 2 passed go.
-Sun-10:38:06 PM:	Player 2 collects $200 ($670 total).
-Sun-10:38:06 PM:	Player 2's piece landed on [6]Oriental Avenue.
-Sun-10:38:06 PM:	Player 2 decides to buy Oriental Avenue for $100. 
-Sun-10:38:06 PM:	Player 2 pays $100 ($570 total).
-Sun-10:38:06 PM:	Player 2 now owns Oriental Avenue
-Sun-10:38:06 PM:	--Starting turn 21--
-Sun-10:38:06 PM:	Player 1 rolled a 10. (6 + 4).
-Sun-10:38:06 PM:	Player 1's piece landed on [10]jail or just visiting.
-Sun-10:38:06 PM:	--Starting turn 22--
-Sun-10:38:06 PM:	Player 2 rolled a 6. (4 + 2).
-Sun-10:38:06 PM:	Player 2's piece landed on [12]Electric_Company.
-Sun-10:38:06 PM:	Player 2 decides to buy Electric_Company for $150. 
-Sun-10:38:06 PM:	Player 2 pays $150 ($420 total).
-Sun-10:38:06 PM:	--Starting turn 23--
-Sun-10:38:06 PM:	Player 1 rolled a 7. (6 + 1).
-Sun-10:38:06 PM:	Player 1's piece landed on [17]community chest 2.
-Sun-10:38:06 PM:	Player 1 draws "School fees. Pay $50.".
-Sun-10:38:06 PM:	Player 1 pays $50 ($600 total).
-Sun-10:38:06 PM:	--Starting turn 24--
-Sun-10:38:06 PM:	Player 2 rolled a 5. (2 + 3).
-Sun-10:38:06 PM:	Player 2's piece landed on [17]community chest 2.
-Sun-10:38:06 PM:	Player 2 draws "Grand Opera Night. Collect $50 from every player for opening night seats.".
-Sun-10:38:06 PM:	Player 1 pays $50 ($550 total).
-Sun-10:38:06 PM:	Player 2 collects $50 ($470 total).
-Sun-10:38:06 PM:	--Starting turn 25--
-Sun-10:38:06 PM:	Player 1 rolled a 6. (3 + 3).
-Sun-10:38:06 PM:	Player 1's piece landed on [23]Indiana Avenue.
-Sun-10:38:06 PM:	Player 1 decides to buy Indiana Avenue for $220. 
-Sun-10:38:06 PM:	Player 1 pays $220 ($330 total).
-Sun-10:38:06 PM:	Property monopoly achieved in red!
-Sun-10:38:06 PM:	Kentucky Avenue upgraded to a Monopoly.
-Sun-10:38:06 PM:	Indiana Avenue upgraded to a Monopoly.
-Sun-10:38:06 PM:	Illinois Avenue upgraded to a Monopoly.
-Sun-10:38:06 PM:	Player 1 now owns Indiana Avenue
-Sun-10:38:06 PM:	--Starting turn 26--
-Sun-10:38:06 PM:	Player 2 rolled a 8. (3 + 5).
-Sun-10:38:06 PM:	Player 2's piece landed on [25]B_0_Railroad.
-Sun-10:38:06 PM:	Player 2 pays $25 ($445 total).
-Sun-10:38:06 PM:	Player 1 collects $25 ($355 total).
-Sun-10:38:06 PM:	--Starting turn 27--
-Sun-10:38:06 PM:	Decide whether to upgrade property.
-Sun-10:38:06 PM:	Player 1 decides to upgrade property.
-Sun-10:38:06 PM:	Player 1 pays $240 ($115 total).
-Sun-10:38:06 PM:	Player 1 upgrades Illinois Avenue to with_1_house
-Sun-10:38:06 PM:	Player 1 decides not to upgrade any property.
-Sun-10:38:06 PM:	Player 1 rolled a 5. (2 + 3).
-Sun-10:38:06 PM:	Player 1's piece landed on [28]Water_Works.
-Sun-10:38:06 PM:	Player 1 can't afford to buy Water_Works for $150(has only $115). 
-Sun-10:38:06 PM:	--Starting turn 28--
-Sun-10:38:06 PM:	Player 2 rolled a 7. (2 + 5).
-Sun-10:38:06 PM:	Player 2's piece landed on [32]North Carolina Avenue.
-Sun-10:38:06 PM:	Player 2 decides to buy North Carolina Avenue for $300. 
-Sun-10:38:06 PM:	Player 2 pays $300 ($145 total).
-Sun-10:38:06 PM:	Player 2 now owns North Carolina Avenue
-Sun-10:38:06 PM:	--Starting turn 29--
-Sun-10:38:06 PM:	Decide whether to upgrade property.
-Sun-10:38:06 PM:	Player 1 decides not to upgrade any property.
-Sun-10:38:06 PM:	Player 1 rolled a 6. (3 + 3).
-Sun-10:38:06 PM:	Player 1's piece landed on [34]Pennyslvania Avenue.
-Sun-10:38:06 PM:	Player 1 can't afford to buy Pennyslvania Avenue for $320(has only $115). 
-Sun-10:38:06 PM:	--Starting turn 30--
-Sun-10:38:06 PM:	Player 2 rolled a 7. (6 + 1).
-Sun-10:38:06 PM:	Player 2's piece landed on [39]Boardwalk.
-Sun-10:38:06 PM:	Player 2 can't afford to buy Boardwalk for $400(has only $145). 
-Sun-10:38:06 PM:	--Starting turn 31--
-Sun-10:38:06 PM:	Decide whether to upgrade property.
-Sun-10:38:06 PM:	Player 1 decides not to upgrade any property.
-Sun-10:38:06 PM:	Player 1 rolled a 6. (1 + 5).
-Sun-10:38:06 PM:	Player 1 passed go.
-Sun-10:38:06 PM:	Player 1 collects $200 ($315 total).
-Sun-10:38:06 PM:	Player 1's piece landed on [0]go.
-Sun-10:38:06 PM:	--Starting turn 32--
-Sun-10:38:06 PM:	Player 2 rolled a 9. (5 + 4).
-Sun-10:38:06 PM:	Player 2 passed go.
-Sun-10:38:06 PM:	Player 2 collects $200 ($345 total).
-Sun-10:38:06 PM:	Player 2's piece landed on [8]Vermont Avenue.
-Sun-10:38:06 PM:	Player 2 already owns Vermont Avenue. 
-Sun-10:38:06 PM:	--Starting turn 33--
-Sun-10:38:06 PM:	Decide whether to upgrade property.
-Sun-10:38:06 PM:	Player 1 decides to upgrade property.
-Sun-10:38:06 PM:	Player 1 pays $220 ($95 total).
-Sun-10:38:06 PM:	Player 1 upgrades Kentucky Avenue to with_1_house
-Sun-10:38:06 PM:	Player 1 decides not to upgrade any property.
-Sun-10:38:06 PM:	Player 1 rolled a 6. (1 + 5).
-Sun-10:38:06 PM:	Player 1's piece landed on [6]Oriental Avenue.
-Sun-10:38:06 PM:	Player 1 pays $6 ($89 total).
-Sun-10:38:06 PM:	Player 2 collects $6 ($351 total).
-Sun-10:38:06 PM:	--Starting turn 34--
-Sun-10:38:06 PM:	Player 2 rolled a 11. (6 + 5).
-Sun-10:38:06 PM:	Player 2's piece landed on [19]New York Avenue.
-Sun-10:38:06 PM:	Player 2 decides to buy New York Avenue for $200. 
-Sun-10:38:06 PM:	Player 2 pays $200 ($151 total).
-Sun-10:38:06 PM:	Player 2 now owns New York Avenue
-Sun-10:38:06 PM:	--Starting turn 35--
-Sun-10:38:06 PM:	Decide whether to upgrade property.
-Sun-10:38:06 PM:	Player 1 decides not to upgrade any property.
-Sun-10:38:06 PM:	Player 1 rolled a 6. (3 + 3).
-Sun-10:38:06 PM:	Player 1's piece landed on [12]Electric_Company.
-Sun-10:38:06 PM:	Player 1 throws die and pays owner (Player 2) a total of (4)  times.
-Sun-10:38:06 PM:	Player 1 rolled a 2. (1 + 1).
-Sun-10:38:06 PM:	Player 1 pays $8 ($81 total).
-Sun-10:38:06 PM:	Player 2 collects $8 ($159 total).
-Sun-10:38:06 PM:	--Starting turn 36--
-Sun-10:38:06 PM:	Player 2 rolled a 4. (3 + 1).
-Sun-10:38:06 PM:	Player 2's piece landed on [23]Indiana Avenue.
-Sun-10:38:06 PM:	Player 2 pays $36 ($123 total).
-Sun-10:38:06 PM:	Player 1 collects $36 ($117 total).
-Sun-10:38:06 PM:	--Starting turn 37--
-Sun-10:38:06 PM:	Decide whether to upgrade property.
-Sun-10:38:06 PM:	Player 1 decides not to upgrade any property.
-Sun-10:38:06 PM:	Player 1 rolled a 8. (5 + 3).
-Sun-10:38:06 PM:	Player 1's piece landed on [20]free parking.
-Sun-10:38:06 PM:	--Starting turn 38--
-Sun-10:38:06 PM:	Player 2 rolled a 10. (5 + 5).
-Sun-10:38:06 PM:	Player 2's piece landed on [33]community chest 3.
-Sun-10:38:06 PM:	Player 2 draws "Hospital Fees. Pay $50.".
-Sun-10:38:06 PM:	Player 2 pays $50 ($73 total).
-Sun-10:38:06 PM:	--Starting turn 39--
-Sun-10:38:06 PM:	Decide whether to upgrade property.
-Sun-10:38:06 PM:	Player 1 decides not to upgrade any property.
-Sun-10:38:06 PM:	Player 1 rolled a 10. (6 + 4).
-Sun-10:38:06 PM:	Player 1's piece landed on [30]go to jail.
-Sun-10:38:06 PM:	Player 1 is now in jail.
-Sun-10:38:06 PM:	--Starting turn 40--
-Sun-10:38:06 PM:	Player 2 rolled a 8. (5 + 3).
-Sun-10:38:06 PM:	Player 2 passed go.
-Sun-10:38:06 PM:	Player 2 collects $200 ($273 total).
-Sun-10:38:06 PM:	Player 2's piece landed on [1]Mediterranean Avenue.
-Sun-10:38:06 PM:	Player 2 decides to buy Mediterranean Avenue for $60. 
-Sun-10:38:06 PM:	Player 2 pays $60 ($213 total).
-Sun-10:38:06 PM:	Player 2 now owns Mediterranean Avenue
-Sun-10:38:06 PM:	--Starting turn 41--
-Sun-10:38:06 PM:	Player 1's [1st] turn in jail.
-Sun-10:38:06 PM:	Player 1 attempts [1] roll for doubles to get out of jail.
-Sun-10:38:06 PM:	Player 1 rolled a 5. (1 + 4).
-Sun-10:38:06 PM:	Player 1 fails to roll doubles.
-Sun-10:38:06 PM:	--Starting turn 42--
-Sun-10:38:06 PM:	Player 2 rolled a 7. (2 + 5).
-Sun-10:38:06 PM:	Player 2's piece landed on [8]Vermont Avenue.
-Sun-10:38:06 PM:	Player 2 already owns Vermont Avenue. 
-Sun-10:38:06 PM:	--Starting turn 43--
-Sun-10:38:06 PM:	Player 1's [2nd] turn in jail.
-Sun-10:38:06 PM:	Player 1 attempts [2] roll for doubles to get out of jail.
-Sun-10:38:06 PM:	Player 1 rolled a 10. (6 + 4).
-Sun-10:38:06 PM:	Player 1 fails to roll doubles.
-Sun-10:38:06 PM:	--Starting turn 44--
-Sun-10:38:06 PM:	Player 2 rolled a 4. (3 + 1).
-Sun-10:38:06 PM:	Player 2's piece landed on [12]Electric_Company.
-Sun-10:38:06 PM:	Player 2 already owns Electric_Company. 
-Sun-10:38:06 PM:	--Starting turn 45--
-Sun-10:38:06 PM:	Player 1's [3rd] turn in jail.
-Sun-10:38:06 PM:	Player 1 attempts [3] roll for doubles to get out of jail.
-Sun-10:38:06 PM:	Player 1 rolled a 10. (5 + 5).
-Sun-10:38:06 PM:	Player 1 successfully rolled doubles.
-Sun-10:38:06 PM:	Player 1 released from jail.
-Sun-10:38:06 PM:	Moving piece amount rolled.
-Sun-10:38:06 PM:	Player 1's piece landed on [20]free parking.
-Sun-10:38:06 PM:	--Starting turn 46--
-Sun-10:38:06 PM:	Player 2 rolled a 11. (6 + 5).
-Sun-10:38:06 PM:	Player 2's piece landed on [23]Indiana Avenue.
-Sun-10:38:06 PM:	Player 2 pays $36 ($177 total).
-Sun-10:38:06 PM:	Player 1 collects $36 ($153 total).
-Sun-10:38:06 PM:	--Starting turn 47--
-Sun-10:38:06 PM:	Decide whether to upgrade property.
-Sun-10:38:06 PM:	Player 1 decides not to upgrade any property.
-Sun-10:38:06 PM:	Player 1 rolled a 7. (5 + 2).
-Sun-10:38:06 PM:	Player 1's piece landed on [27]Ventnor Avenue.
-Sun-10:38:06 PM:	Player 1 can't afford to buy Ventnor Avenue for $260(has only $153). 
-Sun-10:38:06 PM:	--Starting turn 48--
-Sun-10:38:06 PM:	Player 2 rolled a 7. (1 + 6).
-Sun-10:38:06 PM:	Player 2's piece landed on [30]go to jail.
-Sun-10:38:06 PM:	Player 2 is now in jail.
-Sun-10:38:06 PM:	--Starting turn 49--
-Sun-10:38:06 PM:	Decide whether to upgrade property.
-Sun-10:38:06 PM:	Player 1 decides not to upgrade any property.
-Sun-10:38:06 PM:	Player 1 rolled a 5. (4 + 1).
-Sun-10:38:06 PM:	Player 1's piece landed on [32]North Carolina Avenue.
-Sun-10:38:06 PM:	Player 1 pays $26 ($127 total).
-Sun-10:38:06 PM:	Player 2 collects $26 ($203 total).
-Sun-10:38:06 PM:	--Starting turn 50--
-Sun-10:38:06 PM:	Player 2's [1st] turn in jail.
-Sun-10:38:06 PM:	Player 2 attempts [1] roll for doubles to get out of jail.
-Sun-10:38:06 PM:	Player 2 rolled a 9. (4 + 5).
-Sun-10:38:06 PM:	Player 2 fails to roll doubles.
-Sun-10:38:06 PM:	--Starting turn 51--
-Sun-10:38:06 PM:	Decide whether to upgrade property.
-Sun-10:38:06 PM:	Player 1 decides not to upgrade any property.
-Sun-10:38:06 PM:	Player 1 rolled a 6. (1 + 5).
-Sun-10:38:06 PM:	Player 1's piece landed on [38]luxury tax.
-Sun-10:38:06 PM:	Player 1 pays $150 ($-23 total).
-Sun-10:38:06 PM:	Game over.
-Sun-10:38:06 PM:	Player 2 wins.
-Sun-10:38:06 PM:	------------
-Sun-10:38:06 PM:	Printing results...
-Sun-10:38:06 PM:	Player 1 $-23
-Sun-10:38:06 PM:	Player 1 total payments made $2290
-Sun-10:38:06 PM:	Player 1 total payments collected $767
-Sun-10:38:06 PM:	Player 1 total times passed go: 3
-Sun-10:38:06 PM:	Properties owned: 5
-Sun-10:38:06 PM:	Connecticut Avenue : alone : light blue
-Sun-10:38:06 PM:	States Avenue : alone : light pink
-Sun-10:38:06 PM:	Illinois Avenue : with_1_house : red
-Sun-10:38:06 PM:	Kentucky Avenue : with_1_house : red
-Sun-10:38:06 PM:	Indiana Avenue : monopoly : red
-Sun-10:38:06 PM:	B_0_Railroad
-Sun-10:38:06 PM:	Player 2 $203
-Sun-10:38:06 PM:	Player 2 total payments made $1987
-Sun-10:38:06 PM:	Player 2 total payments collected $690
-Sun-10:38:06 PM:	Player 2 total times passed go: 3
-Sun-10:38:06 PM:	Properties owned: 7
-Sun-10:38:06 PM:	Mediterranean Avenue : alone : brown
-Sun-10:38:06 PM:	Vermont Avenue : alone : light blue
-Sun-10:38:06 PM:	Oriental Avenue : alone : light blue
-Sun-10:38:06 PM:	St. James Place : alone : orange
-Sun-10:38:06 PM:	New York Avenue : alone : orange
-Sun-10:38:06 PM:	Pacific Avenue : alone : green
-Sun-10:38:06 PM:	North Carolina Avenue : alone : green
-Sun-10:38:06 PM:	Reading_Railroad
-Sun-10:38:06 PM:	Electric_Company
+Fri-02:47:11 PM:	Game started.
+Fri-02:47:11 PM:	--Starting turn 1--
+Fri-02:47:11 PM:	Player 1 rolled a 10. (5 + 5).
+Fri-02:47:11 PM:	Player 1's piece landed on [10]jail or just visiting.
+Fri-02:47:11 PM:	--Starting turn 2--
+Fri-02:47:11 PM:	Player 2 rolled a 8. (4 + 4).
+Fri-02:47:11 PM:	Player 2's piece landed on [8]Vermont Avenue.
+Fri-02:47:11 PM:	Player 2 decides to buy Vermont Avenue for $100. 
+Fri-02:47:11 PM:	Player 2 pays $100 ($1400 total).
+Fri-02:47:11 PM:	Player 2 now owns Vermont Avenue
+Fri-02:47:11 PM:	--Starting turn 3--
+Fri-02:47:11 PM:	Player 1 rolled a 4. (3 + 1).
+Fri-02:47:11 PM:	Player 1's piece landed on [14]Virginia Avenue.
+Fri-02:47:11 PM:	Player 1 decides to buy Virginia Avenue for $160. 
+Fri-02:47:11 PM:	Player 1 pays $160 ($1340 total).
+Fri-02:47:11 PM:	Player 1 now owns Virginia Avenue
+Fri-02:47:11 PM:	--Starting turn 4--
+Fri-02:47:11 PM:	Player 2 rolled a 9. (3 + 6).
+Fri-02:47:11 PM:	Player 2's piece landed on [17]community chest 2.
+Fri-02:47:11 PM:	Player 2 draws "Go to Jail. Go directly to jail. Do not pass GO. Do not collect $200.".
+Fri-02:47:11 PM:	Player 2 is now in jail.
+Fri-02:47:11 PM:	--Starting turn 5--
+Fri-02:47:11 PM:	Player 1 rolled a 8. (5 + 3).
+Fri-02:47:11 PM:	Player 1's piece landed on [22]chance 2.
+Fri-02:47:11 PM:	Player 1 draws "You have been elected Chairman of the Board. Pay each player $50.".
+Fri-02:47:11 PM:	--Starting turn 6--
+Fri-02:47:11 PM:	Player 2's [1st] turn in jail.
+Fri-02:51:37 PM:	Player 2 decides what to do in jail.
+Fri-02:51:38 PM:	choice [0]: Roll for doubles, if hit move forward roll.
+Fri-02:51:39 PM:	choice [2]: Pay $50 before 1st or 2nd jail turn.
+Fri-02:51:56 PM:	Player 2 decides what to do in jail.
+Fri-02:51:56 PM:	choice [0]: Roll for doubles, if hit move forward roll.
+Fri-02:51:57 PM:	choice [2]: Pay $50 before 1st or 2nd jail turn.
+Fri-02:52:26 PM:	Player 2 decides what to do in jail.
+Fri-02:52:27 PM:	choice [0]: Roll for doubles, if hit move forward roll.
+Fri-02:52:27 PM:	choice [2]: Pay $50 before 1st or 2nd jail turn.
+Fri-02:53:20 PM:	Player 2 pays to get out of jail.
+Fri-02:53:21 PM:	Player 2 pays $50 ($1350 total).
+Fri-02:58:49 PM:	--Starting turn 7--
+Fri-02:58:53 PM:	Player 1 rolled a 4. (3 + 1).
+Fri-02:58:53 PM:	Player 1's piece landed on [26]Atlantic Avenue.
+Fri-02:58:54 PM:	Player 1 decides to buy Atlantic Avenue for $260. 
+Fri-02:58:54 PM:	Player 1 pays $260 ($1080 total).
+Fri-02:58:54 PM:	Player 1 now owns Atlantic Avenue
+Fri-02:58:57 PM:	--Starting turn 8--
+Fri-02:58:57 PM:	Player 2 rolled a 5. (2 + 3).
+Fri-02:58:57 PM:	Player 2's piece landed on [15]Pennsylvania_Railroad.
+Fri-02:58:57 PM:	Player 2 decides to buy Pennsylvania_Railroad for $200. 
+Fri-02:58:57 PM:	Player 2 pays $200 ($1150 total).
+Fri-02:58:57 PM:	Player 2 now owns Pennsylvania_Railroad
+Fri-02:58:57 PM:	--Starting turn 9--
+Fri-02:58:57 PM:	Player 1 rolled a 2. (1 + 1).
+Fri-02:58:57 PM:	Player 1's piece landed on [28]Water_Works.
+Fri-02:58:57 PM:	Player 1 decides to buy Water_Works for $150. 
+Fri-02:58:57 PM:	Player 1 pays $150 ($930 total).
+Fri-02:58:57 PM:	--Starting turn 10--
+Fri-02:58:57 PM:	Player 2 rolled a 8. (5 + 3).
+Fri-02:58:57 PM:	Player 2's piece landed on [23]Indiana Avenue.
+Fri-02:58:57 PM:	Player 2 decides to buy Indiana Avenue for $220. 
+Fri-02:58:57 PM:	Player 2 pays $220 ($930 total).
+Fri-02:58:57 PM:	Player 2 now owns Indiana Avenue
+Fri-02:58:57 PM:	--Starting turn 11--
+Fri-02:58:57 PM:	Player 1 rolled a 4. (2 + 2).
+Fri-02:58:57 PM:	Player 1's piece landed on [32]North Carolina Avenue.
+Fri-02:58:57 PM:	Player 1 decides to buy North Carolina Avenue for $300. 
+Fri-02:58:57 PM:	Player 1 pays $300 ($630 total).
+Fri-02:58:57 PM:	Player 1 now owns North Carolina Avenue
+Fri-02:58:57 PM:	--Starting turn 12--
+Fri-02:58:57 PM:	Player 2 rolled a 7. (5 + 2).
+Fri-02:58:57 PM:	Player 2's piece landed on [30]go to jail.
+Fri-02:58:57 PM:	Player 2 is now in jail.
+Fri-02:58:57 PM:	--Starting turn 13--
+Fri-02:58:57 PM:	Player 1 rolled a 6. (5 + 1).
+Fri-02:58:57 PM:	Player 1's piece landed on [38]luxury tax.
+Fri-02:58:57 PM:	Player 1 pays $150 ($480 total).
+Fri-02:58:57 PM:	--

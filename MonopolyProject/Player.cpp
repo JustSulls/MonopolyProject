@@ -154,6 +154,7 @@ bool Player::buy_utility(util::Utility* utility)
 		pay(utility->cost);//printed price is prices[0]
 		utilities_owned.push_back(utility);
 		utility->is_owned = true;
+		utility->owner_name = this->name;
 		return true;
 	}
 	catch (const std::invalid_argument& ia) {

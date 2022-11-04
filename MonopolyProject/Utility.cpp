@@ -5,6 +5,7 @@ util::Utility::Utility() : Spot()
 	position = 0; //bad
 	is_owned = false;
 	this->spot_type = SpotType::utilities;
+	//owner = nullptr;
 }
 util::Utility::Utility(int pos, std::string un) : Spot()
 {
@@ -21,4 +22,5 @@ util::Utility::Utility(int pos, std::string un) : Spot()
 	Spot::spot_type = SpotType::utilities;
 	Spot::name = un;
 	Spot::position = pos;
+	//owner = nullptr;
 }

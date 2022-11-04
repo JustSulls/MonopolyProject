@@ -50,7 +50,7 @@ private:
 
 public:
   bool test = true;
-  bool jailTest = true;
+  bool jailTest = false;
   //temporary var for testin
   Monopoly(int number_players = 2);
   
@@ -71,19 +71,21 @@ public:
 
   int pick_piece(Player& player);
   int throw_dice(Player player);
-  int get_railroad_rent(Player player);
-  int get_utility_cost_multiplier(Player& owner);
   
   //Getters
-  Spot*     get_spot(int position);
-  Player*   get_player(Piece p);
-  Player*   get_owner(std::string spot_name);
-  Player*   get_active_player(int& playerTurnTracker);
+  Spot*           get_spot(int position);
+  Player*         get_player(Piece p);
+  Player*         get_owner(std::string spot_name);
+  Player*         get_active_player(int& playerTurnTracker);
   util::Utility*  advance_to_nearest_utility(Piece* piece);
   util::Utility*  get_utility(int position);
-  Property* get_property(int pos);
+  Property*       get_property(int pos);
+  
   //Get winner
-  Player*   get_winner();
+  Player*         get_winner();
+
+  int get_railroad_rent(Player player);
+  int get_utility_cost_multiplier(Player& owner);
   
 
   //railroads
@@ -114,7 +116,13 @@ public:
   // JAIL
   // 
   //get valid jail turn choices based on jail counter turn
-  bool* get_valid_jail_choices(Player activePlayer);
+  struct JailChoices
+  {
+    bool rollDoubles = true;//1
+    bool useCard = false;   //2
+    bool pay = true;        //3
+  };
+  JailChoices get_valid_jail_choices(Player activePlayer);
   //decide what to do in jail
   unsigned int decide_jail_turn_choice(Player player);
   //handle jail turn
@@ -162,7 +170,7 @@ public:
   //player throws die and pays owner of utility based on roll and utilities
   void player_throw_die_pay_owner(Player& p, util::Utility& the_utility);
 
-  //give all players a piece
+  //give all players a piece without player choice
   void give_active_players_pieces();
 
   //make next player active player
