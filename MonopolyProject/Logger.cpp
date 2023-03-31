@@ -7,7 +7,7 @@
 
 const string CLogger::m_sFileName = "Log.txt";
 const string CLogger::m_sFileNameDiceLog = "DiceLog.txt";
-const uint32_t SLEEP_TIME = 100;
+const uint32_t SLEEP_TIME = 0;
 CLogger* CLogger::m_pThis = NULL;
 CLogger* CLogger::m_pDThis = NULL;
 ofstream CLogger::m_Logfile;
