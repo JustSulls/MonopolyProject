@@ -2,8 +2,12 @@
 #include "Logger.h"
 #include"Utilities.h"
 #include <stdio.h>
+#include <chrono>
+#include <thread>
+
 const string CLogger::m_sFileName = "Log.txt";
 const string CLogger::m_sFileNameDiceLog = "DiceLog.txt";
+const uint32_t SLEEP_TIME = 100;
 CLogger* CLogger::m_pThis = NULL;
 CLogger* CLogger::m_pDThis = NULL;
 ofstream CLogger::m_Logfile;
@@ -51,6 +55,7 @@ void CLogger::Log(const char* format, ...)
     va_end(args);
 
     delete[] sMessage;
+    std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME));
 }
 
 void CLogger::DLog(const char* format, ...)
@@ -76,6 +81,7 @@ void CLogger::Log(const string& sMessage)
     m_Logfile << Util::CurrentDateTime() << ":\t";
     m_Logfile << sMessage << "\n";
     std::cout << sMessage << "\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME));
 }
 
 CLogger& CLogger::operator<<(const string& sMessage)

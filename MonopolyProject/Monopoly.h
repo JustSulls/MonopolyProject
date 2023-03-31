@@ -11,6 +11,9 @@
 #include <map>
 #include <algorithm>
 #include <random>
+#include <chrono>
+#include <thread>
+
 #include "Property.h"
 #include "Railroad.h"
 #include "Utility.h"
@@ -49,13 +52,14 @@ private:
   bool simulatingDiceRolls;
 
 public:
-  bool test = true;
+  //temporary var for testin, only one true at a time PLZ
+  bool allAutomated = true;
   bool jailTest = false;
-  //temporary var for testin
+  bool manualInputPlayer1 = false;
   Monopoly(int number_players = 2);
   
   //
-  //play game
+  // --- play game
   //
   void play_game(bool simulate_dice_rolls = false);
 
@@ -69,7 +73,10 @@ public:
   }dice;
   std::vector<std::vector<int>>dice_roll_log;
 
+  // Pick piece
   int pick_piece(Player& player);
+  
+  // Dice
   int throw_dice(Player player);
   
   //Getters
@@ -105,6 +112,7 @@ public:
   bool game_over = false;
   bool check_game_over(unsigned int& turnCounter);
   //decide buy or pass
+  //template <class Pr, class Pl>
   bool decide_buy_or_pass(Property prop, Player player);
   bool decide_buy_or_pass(util::Utility util, Player player);
   bool decide_buy_or_pass(nrails::Railroad rail, Player player);

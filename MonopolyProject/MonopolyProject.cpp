@@ -11,5 +11,6 @@ int main()
 {
  Monopoly m;
  m.play_game();
+ system("pause");
  return 0;
 }

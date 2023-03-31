@@ -313,7 +313,7 @@ int Player::decide_upgrade(Property prop)
 {
 	//present options to player, bounds check answer, return it
 	int i = -1;
-	if (in_test)
+	if (all_automated)
 	{
 		//unless player has too little money? arbitrarily selecting min amount now
 		if (money < 300)
@@ -325,10 +325,36 @@ int Player::decide_upgrade(Property prop)
 			i = 1;//in test always answer 
 		}
 	}
-	while (i > 1 || i < 0)
+	else if (player1manualInput)
 	{
-		CLogger::GetLogger()->Log("Decide upgrade " + prop.name + ": [0] no, [1] yes?");
-		std::cin >> i;
+		if (name == "Player 1")
+		{
+			while (i > 1 || i < 0)
+			{
+				CLogger::GetLogger()->Log("Decide to upgrade " + prop.name + 
+					"?\nCost to upgrade: $"
+					+ std::to_string(prop.prices[2]) + "($"+ to_string(money) + "):\n[0] no\n[1]");
+				std::cin >> i;
+			}
+		}
+		else {
+			if (money < 300)
+			{
+				i = 0;
+			}
+			else {
+				i = 1;//player 2 always answer 
+			}
+		}
+
+	}
+	else
+	{
+		while (i > 1 || i < 0)
+		{
+			CLogger::GetLogger()->Log("Decide upgrade " + prop.name + ": [0] no, [1] yes?");
+			std::cin >> i;
+		}
 	}
 	return i;
 }

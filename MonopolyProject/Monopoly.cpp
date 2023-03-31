@@ -612,43 +612,48 @@ int Monopoly::get_railroad_rent(Player player)
 
 Player* Monopoly::get_player(Piece p)
 {
+  Player* thePlayer = nullptr;
   for (unsigned int i = 0; i < players.size(); i++)
   {
     if (*players.at(i)->piece == p)
     {
-      return players.at(i);
+      thePlayer = players.at(i);
     }
   }
-  return nullptr;
+  assert(thePlayer != nullptr);
+  return thePlayer;
 }
 
 bool Monopoly::check_game_over(unsigned int& turnCounter)
 {
+  bool gameIsOver = false;
   if (turnCounter > 1000) {
-    return true;
+    gameIsOver = true;
   };//todo:remove when done testing
   //FOR NOW check if any player has 0 or less money. (TODO: this is not technically game over, the player can sell property etc.)
   for (unsigned int i = 0; i < players.size(); i++)
   {
     if (players.at(i)->money <= 0)
     {
-      return true;
+      gameIsOver = true;
     }
   }
-  return false;
+  return gameIsOver;
 }
 
 bool Monopoly::decide_buy_or_pass(Property prop, Player player)
 {
+  CLogger::GetLogger()->Log(player.name + " decide to buy or pass " + prop.name + " for $" +
+    std::to_string(prop.prices[0]) + ":\n($" + std::to_string(player.money) + " in bank)" + 
+    ":\n[0] no [1] yes");
+  bool decidedYes = false;
   //present options to player(unless testing), bounds check answer, return it	
-  if (test)//TEST
+  if (allAutomated)//TEST
   {
     //Make sure player has enough money to buy
     if (player.money >= prop.prices[0])
     {
-      CLogger::GetLogger()->Log(player.name + " decides to buy " + prop.name + 
-        " for $" + std::to_string(prop.prices[0]) + ". ");
-      return true;
+      decidedYes = true;
     }
     else
     {
@@ -656,35 +661,87 @@ bool Monopoly::decide_buy_or_pass(Property prop, Player player)
       CLogger::GetLogger()->Log(player.name + " can't afford to buy " + prop.name + 
         " for $" + std::to_string(prop.prices[0]) + "(has only $" + 
         std::to_string(player.money) +  "). ");
-      return false;
+        decidedYes = false;
     }
   }
-  else
+  else if (manualInputPlayer1)
+  {
+    //if player one manual input
+    if (player.name == "Player 1")
+    {
+      int answer = -1;
+      while (answer > 1 || answer < 0)
+      {
+        std::cin >> answer;
+      }
+      if (answer == 0)
+      {
+        decidedYes = false;
+      }
+      else
+      {
+        decidedYes = true;
+      }
+    }
+    else//Automate for player 2
+    {
+      //Make sure player has enough money to buy
+      if (player.money >= prop.prices[0])
+      {
+        decidedYes = true;
+      }
+      else
+      {
+        //Player not enough money to buy property
+        CLogger::GetLogger()->Log(player.name + " can't afford to buy " + prop.name +
+          " for $" + std::to_string(prop.prices[0]) + "(has only $" +
+          std::to_string(player.money) + "). ");
+        decidedYes = false;
+      }
+    }
+  }
+  else//Neither testing bool is true
   {
     int answer = -1;
     while (answer > 1 || answer < 0)
     {
-      CLogger::GetLogger()->Log(player.name + " decide to buy or pass " + prop.name + " for $" +
-        std::to_string(prop.prices[0]) + " [0] no, [1] yes?");
+      
       std::cin >> answer;
     }
     if (answer == 0)
     {
-      return false;
+      decidedYes = false;
     }
-    else return true;
+    else
+    {
+      decidedYes = true;
+    }
   }
+
+  if (decidedYes)
+  {
+    CLogger::GetLogger()->Log(player.name + " decides to buy " + prop.name +
+      " for $" + std::to_string(prop.prices[0]) + ". ");
+  }
+  else
+  {
+    CLogger::GetLogger()->Log(player.name + " decides not to buy " + prop.name +
+      " for $" + std::to_string(prop.prices[0]) + ". ");
+  }
+  return decidedYes;
 }
 
 bool Monopoly::decide_buy_or_pass(util::Utility util, Player player)
 {
-  if (test)
+  CLogger::GetLogger()->Log(player.name + " decide to buy or pass " + util.name + " for $" +
+    std::to_string(util.cost) + ":\n($" + to_string(player.money) + " in bank)" +
+    ":\n[0] no [1] yes");
+  bool decidedYes = false;
+  if (allAutomated)
   {
     if (player.money >= util.cost)
     {
-      CLogger::GetLogger()->Log(player.name + " decides to buy " + util.name + 
-        " for $" + std::to_string(util.cost) + ". ");
-      return true;
+      decidedYes = true;
     }
     else
     {
@@ -692,7 +749,43 @@ bool Monopoly::decide_buy_or_pass(util::Utility util, Player player)
       CLogger::GetLogger()->Log(player.name + " can't afford to buy " + util.name +
         " for $" + std::to_string(util.cost) + "(has only $" +
         std::to_string(player.money) + "). ");
-      return false;
+      decidedYes = false;
+    }
+  }
+  else if (manualInputPlayer1)
+  {
+    //if player one manual input
+    if (player.name == "Player 1")
+    {
+      int answer = -1;
+      while (answer > 1 || answer < 0)
+      {
+        std::cin >> answer;
+      }
+      if (answer == 0)
+      {
+        decidedYes = false;
+      }
+      else
+      {
+        decidedYes = true;
+      }
+    }
+    else//Automate for player 2
+    {
+      //Make sure player has enough money to buy
+      if (player.money >= util.cost)
+      {
+        decidedYes = true;
+      }
+      else
+      {
+        //Player not enough money to buy property
+        CLogger::GetLogger()->Log(player.name + " can't afford to buy " + util.name +
+          " for $" + std::to_string(util.cost) + "(has only $" +
+          std::to_string(player.money) + "). ");
+        decidedYes = false;
+      }
     }
   }
   else {
@@ -700,27 +793,42 @@ bool Monopoly::decide_buy_or_pass(util::Utility util, Player player)
     std::cin >> answer;
     while (answer > 1 || answer < 0)
     {
-      CLogger::GetLogger()->Log(player.name + " decide to buy or pass " + util.name + " for $" +
-        std::to_string(util.cost) + " [0] no, [1] yes?\n");
       std::cin >> answer;
     }
     if (answer == 0)
     {
-      return false;
+      decidedYes = false;
     }
-    else return true;
+    else
+    {
+      decidedYes = true;
+    }
   }
+
+  if (decidedYes)
+  {
+    CLogger::GetLogger()->Log(player.name + " decides to buy " + util.name +
+      " for $" + std::to_string(util.cost) + ". ");
+  }
+  else
+  {
+    CLogger::GetLogger()->Log(player.name + " decides not to buy " + util.name +
+      " for $" + std::to_string(util.cost) + ". ");
+  }
+  return decidedYes;
 }
 
 bool Monopoly::decide_buy_or_pass(nrails::Railroad rail, Player player)
 {
-  if (test)
+  CLogger::GetLogger()->Log(player.name + " decide to buy or pass " + rail.name + " for $" +
+    std::to_string(rail.cost) + ":\n($" + to_string(player.money) + " in bank)" + 
+    ":\n[0] no [1] yes");
+  bool decidedYes = false;
+  if (allAutomated)
   {
     if (player.money >= rail.cost)
     {
-      CLogger::GetLogger()->Log(player.name + " decides to buy " + rail.name + 
-        " for $" + std::to_string(rail.cost) + ". ");
-      return true;
+      decidedYes = true;
     }
     else
     {
@@ -728,7 +836,43 @@ bool Monopoly::decide_buy_or_pass(nrails::Railroad rail, Player player)
       CLogger::GetLogger()->Log(player.name + " can't afford to buy " + rail.name + 
         " for $" + std::to_string(rail.cost) +"(has only $" +
         std::to_string(player.money) + "). ");
-      return false;
+      decidedYes = false;
+    }
+  }
+  else if (manualInputPlayer1)
+  {
+    //if player one manual input
+    if (player.name == "Player 1")
+    {
+      int answer = -1;
+      while (answer > 1 || answer < 0)
+      {
+        std::cin >> answer;
+      }
+      if (answer == 0)
+      {
+        decidedYes = false;
+      }
+      else
+      {
+        decidedYes = true;
+      }
+    }
+    else//Automate for player 2
+    {
+      //Make sure player has enough money to buy
+      if (player.money >= rail.cost)
+      {
+        decidedYes = true;
+      }
+      else
+      {
+        //Player not enough money to buy property
+        CLogger::GetLogger()->Log(player.name + " can't afford to buy " + rail.name +
+          " for $" + std::to_string(rail.cost) + "(has only $" +
+          std::to_string(player.money) + "). ");
+        decidedYes = false;
+      }
     }
   }
   else
@@ -736,43 +880,50 @@ bool Monopoly::decide_buy_or_pass(nrails::Railroad rail, Player player)
     int answer = -1;
     while (answer > 1 || answer < 0)
     {
-      CLogger::GetLogger()->Log(player.name + " decide to buy or pass " + rail.name + " for $" +
-        std::to_string(rail.cost) + " [0] no, [1] yes?");
       std::cin >> answer;
     }
     if (answer == 0)
     {
-      return false;
+      decidedYes = false;
     }
-    else return true;
+    else
+    {
+      decidedYes = true;
+    }
   }
+  if (decidedYes)
+  {
+    CLogger::GetLogger()->Log(player.name + " decides to buy " + rail.name +
+    " for $" + std::to_string(rail.cost) + ". ");
+  }
+  else
+  {
+    CLogger::GetLogger()->Log(player.name + " decides not to buy " + rail.name +
+      " for $" + std::to_string(rail.cost) + ". ");
+  }
+  return decidedYes;
 }
 
 void Monopoly::buy_property(Player* player, Property* prop)
 {
-  try {
-    if (prop->is_owned)
-    {
-      CLogger::GetLogger()->Log(prop->name + " already owned. Cannot purchase.");
-    }
-    else
-    {
-      player->pay(prop->prices[0]);//printed price is prices[0]
-      prop->is_owned = true;
-      player->properties_owned.push_back(prop);
-      //if player now has the correct number of same colored properties
-      if (property_monopoly(*prop))
-      {
-        CLogger::GetLogger()->Log("Property monopoly achieved in " + prop->get_color() + "!");
-        //assign property monopoly
-        assign_property_monopoly(prop);
-      }
-      //upgrade property level from alone to monopoly
-      CLogger::GetLogger()->Log(player->name + " now owns " + prop->name);
-    }
+  if (prop->is_owned)
+  {
+    CLogger::GetLogger()->Log(prop->name + " already owned. Cannot purchase.");
   }
-  catch (const std::invalid_argument& ia) {
-    std::cerr << "Invalid argument error: " << ia.what() << '\n';
+  else
+  {
+    player->pay(prop->prices[0]);//printed price is prices[0]
+    prop->is_owned = true;
+    player->properties_owned.push_back(prop);
+    //if player now has the correct number of same colored properties
+    if (property_monopoly(*prop))
+    {
+      CLogger::GetLogger()->Log("Property monopoly achieved in " + prop->get_color() + "!");
+      //assign property monopoly
+      assign_property_monopoly(prop);
+    }
+    //upgrade property level from alone to monopoly
+    CLogger::GetLogger()->Log(player->name + " now owns " + prop->name);
   }
 }
 
@@ -841,19 +992,31 @@ unsigned int Monopoly::decide_jail_turn_choice(Player player)
       {
         CLogger::GetLogger()->Log("choice [2]: Pay $50 before 1st or 2nd jail turn.");
       }
-      std::cin >> answer;
-      //if player chose option 0 and its an invalid choice answer is invalid
-      if (validChoices.rollDoubles && answer == 0)
+      if (manualInputPlayer1)
       {
-        answerValid = true;
+        if (player.name == "Player 1")
+        {
+          std::cin >> answer;
+          //if player chose option 0 and its an invalid choice answer is invalid
+          if (validChoices.rollDoubles && answer == 0)
+          {
+            answerValid = true;
+          }
+          if (validChoices.useCard && answer == 1)
+          {
+            answerValid = true;
+          }
+          if (validChoices.pay && answer == 2)
+          {
+            answerValid = true;
+          }
+        }
       }
-      if (validChoices.useCard && answer == 1)
+      else//automated 
       {
-        answerValid = true;
-      }
-      if (validChoices.pay && answer == 2)
-      {
-        answerValid = true;
+        //Always automate 0 roll for doubles
+        answer = 0;
+        answerValid = true;//to get out of while loop
       }
     }
   }
@@ -881,7 +1044,7 @@ void Monopoly::handle_jail_turn(Player* active_player)
     else if (active_player->jailTurnCounter == 2) jailTurnCounterString = "2nd";
     else if (active_player->jailTurnCounter == 3) jailTurnCounterString = "3rd";
     CLogger::GetLogger()->Log(active_player->name + "'s [" + jailTurnCounterString + "] turn in jail.");
-    unsigned int answer = decide_jail_turn_choice(*active_player);
+    unsigned int answer = decide_jail_turn_choice(*active_player);//TODO:bug hereinfinite loop
     switch (answer)
     {
     case 0:
@@ -1042,11 +1205,14 @@ void Monopoly::play_game(bool simulate_dice_rolls)
       }
       print_results();
     }
+    ////If player 2 sleep for reading
+    //if (activePlayer->name == "Player 2") {
+    //  std::this_thread::sleep_for(std::chrono::milliseconds(4000));
+    //}
     //increment turn counter to set next player active
     cycle_player_turn_tracker(playerTurnTracker);
   }
   //Throw logged dice rolls into a txt file to save after program execution completes
-
 }
 
 void Monopoly::pay_rent(Player& player, Property property)
@@ -1353,7 +1519,7 @@ void Monopoly::do_card_action(Card c, Player* player, bool testing)
     break;
   case 14:
     //you have been elected chariman of the board. pay each player $50		
-    for (unsigned int i = 0; i < players.size() - 1; i++)
+    for (unsigned int i = 0; i < players.size(); i++)
     {
       if (player != players[i])//if not this player
       {
@@ -1760,11 +1926,11 @@ Monopoly::Monopoly(int number_players)
   int counter = 0;
   if (myfile.is_open())
   {
-    cout << "Reading from DiceLog.txt";
+    cout << "Reading dice casts from DiceLog.txt\n";
     vector<int> tempDice;
     while (getline(myfile, line))
     {
-      cout << line << '\n';
+      //cout << line << '\n';
       int i{ std::stoi(line) };
       tempDice.push_back(i);
       if (counter == 2)
@@ -1775,8 +1941,8 @@ Monopoly::Monopoly(int number_players)
       }
       else counter++;
     }
-    cout << "Finished reading from DiceLog.txt";
+    cout << "Finished reading from DiceLog.txt\n";
     myfile.close();
   }
-  else cout << "Unable to open file.";
+  else cout << "Unable to open file.\n";
 }

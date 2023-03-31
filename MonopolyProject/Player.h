@@ -17,7 +17,11 @@ public:
   int money;
   std::vector<bool>get_out_of_jail_cards;
   bool in_jail = false;
-  bool in_test = true;//TEST
+  //---TESTing
+  //keep only one true OR ELSE
+  bool all_automated = false;
+  bool player1manualInput = true;
+  //---
   int total_passed_go;
   int jailTurnCounter;
   int tryRollDoublesCounter;
